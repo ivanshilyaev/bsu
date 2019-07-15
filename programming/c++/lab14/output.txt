@@ -1,0 +1,73 @@
+No elements in List
+2016: inserted
+List of elements
+2016
+1800: inserted
+List of elements
+1800
+2016
+1800: not inserted
+List of elements
+1800
+2016
+999: not deleted
+171: inserted
+164: inserted
+List of elements
+164
+171
+1800
+2016
+10: not found after 4 comparison(s)
+1800: found after 2 comparison(s)
+405: inserted
+164: not inserted
+List of elements
+164
+171
+405
+1800
+2016
+206: not deleted
+List of elements
+164
+171
+405
+1800
+2016
+64: not found after 4 comparison(s)
+List of elements
+164
+171
+405
+1800
+2016
+800: not deleted
+List of elements
+164
+171
+405
+1800
+2016
+405: deleted
+List of elements
+164
+171
+1800
+2016
+171: deleted
+164: deleted
+List of elements
+1800
+2016
+2016: deleted
+List of elements
+1800
+555: inserted
+444: inserted
+111: inserted
+List of elements
+111
+444
+555
+1800
