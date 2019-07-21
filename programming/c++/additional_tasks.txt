@@ -1,0 +1,2154 @@
+{\rtf1\ansi\ansicpg1251\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Italic;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 Menlo-BoldItalic;
+\f3\fswiss\fcharset0 Helvetica-Bold;\f4\fnil\fcharset0 Menlo-Bold;\f5\fnil\fcharset0 Menlo-Regular;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red251\green2\blue7;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;\cssrgb\c100000\c14913\c0;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh14920\viewkind0
+\deftab741
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f0\i\fs30 \cf2 \cb3 //1. \uc0\u1051 \u1080 \u1085 \u1077 \u1081 \u1085 \u1086 \u1077  \u1080  \u1082 \u1074 \u1072 \u1076 \u1088 \u1072 \u1090 \u1085 \u1086 \u1077  \u1091 \u1088 \u1072 \u1074 \u1085 \u1077 \u1085 \u1080 \u1077 
+\f1\i0\fs24 \
+\
+\
+
+\f0\i\fs30 void line(double a, double b) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (a == 0 && b != 0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1053 \u1077 \u1090  \u1088 \u1077 \u1096 \u1077 \u1085 \u1080 \u1081 ." << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     else if (a == 0 && b == 0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1041 \u1077 \u1089 \u1082 \u1086 \u1085 \u1077 \u1095 \u1085 \u1086  \u1084 \u1085 \u1086 \u1075 \u1086  \u1088 \u1077 \u1096 \u1077 \u1085 \u1080 \u1081 ." << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     else \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         double x = -b/a;
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1050 \u1086 \u1088 \u1077 \u1085 \u1100  x \u1088 \u1072 \u1074 \u1077 \u1085  " << x << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+
+\f0\i\fs30  
+\f1\i0\fs24 \
+
+\f0\i\fs30 int main() \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     double a, b, c;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1042 \u1074 \u1077 \u1076 \u1080 \u1090 \u1077  \u1090 \u1088 \u1080  \u1095 \u1080 \u1089 \u1083 \u1072 :  \u1087 \u1072 \u1088 \u1072 \u1084 \u1077 \u1090 \u1088 \u1099  \u1082 \u1074 \u1072 \u1076 \u1088 \u1072 \u1090 \u1085 \u1086 \u1075 \u1086  \u1091 \u1088 \u1072 \u1074 \u1085 \u1077 \u1085 \u1080 \u1103 :" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> a >> b >> c;
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (a == 0)
+\f1\i0\fs24 \
+
+\f0\i\fs30         line(b, c);
+\f1\i0\fs24 \
+
+\f0\i\fs30     else \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         double d = b*b - 4*a*c;
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (d < 0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             cout << "\uc0\u1053 \u1077 \u1090  \u1088 \u1077 \u1096 \u1077 \u1085 \u1080 \u1081 ." << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30         else if (d == 0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             double x = -b/(2*a);
+\f1\i0\fs24 \
+
+\f0\i\fs30             cout << "\uc0\u1044 \u1074 \u1072  \u1086 \u1076 \u1080 \u1085 \u1072 \u1082 \u1086 \u1074 \u1099 \u1093  \u1082 \u1086 \u1088 \u1085 \u1103 : " << x << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30         else \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             double x1 = (-b-sqrt(d))/(2*a);
+\f1\i0\fs24 \
+
+\f0\i\fs30             double x2 = (-b+sqrt(d))/(2*a);
+\f1\i0\fs24 \
+
+\f0\i\fs30             cout << "\uc0\u1050 \u1086 \u1088 \u1077 \u1085 \u1100  x1 \u1088 \u1072 \u1074 \u1077 \u1085  " << x1 << ", x2 \u1088 \u1072 \u1074 \u1077 \u1085  " << x2 << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 //2. \uc0\u1055 \u1072 \u1083 \u1080 \u1085 \u1076 \u1088 \u1086 \u1084 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int a, n;
+\f1\i0\fs24 \
+
+\f0\i\fs30 cin >> a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 int b = a, k = 0;
+\f1\i0\fs24 \
+
+\f0\i\fs30 while (a > 0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     n = a % 10;
+\f1\i0\fs24 \
+
+\f0\i\fs30     k = k * 10 + n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     a = a / 10;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 if (b == k) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1055 \u1072 \u1083 \u1080 \u1085 \u1076 \u1088 \u1086 \u1084 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     else \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1053 \u1077  \u1087 \u1072 \u1083 \u1080 \u1085 \u1076 \u1088 \u1086 \u1084 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 //3. \uc0\u1057 \u1091 \u1084 \u1084 \u1072  \u1074 \u1089 \u1077 \u1093  \u1094 \u1080 \u1092 \u1088  \u1095 \u1080 \u1089 \u1083 \u1072 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 cin >> a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 int s=0;
+\f1\i0\fs24 \
+
+\f0\i\fs30 while (a>0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     s+=a%10;
+\f1\i0\fs24 \
+
+\f0\i\fs30     a=a/10;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 cout << "\uc0\u1057 \u1091 \u1084 \u1084 \u1072  \u1094 \u1080 \u1092 \u1088  \u1088 \u1072 \u1074 \u1085 \u1072  " << s << endl;
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 //4. \uc0\u1052 \u1072 \u1082 \u1089 \u1080 \u1084 \u1072 \u1083 \u1100 \u1085 \u1072 \u1103  \u1094 \u1080 \u1092 \u1088 \u1072  \u1095 \u1080 \u1089 \u1083 \u1072 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 cin >> a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 int max=0;
+\f1\i0\fs24 \
+
+\f0\i\fs30 while (a>0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (a%10 > max) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         max=a%10;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     a=a/10;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 cout << "\uc0\u1052 \u1072 \u1082 \u1089 \u1080 \u1084 \u1072 \u1083 \u1100 \u1085 \u1072 \u1103  \u1094 \u1080 \u1092 \u1088 \u1072  \u1095 \u1080 \u1089 \u1083 \u1072  \u1088 \u1072 \u1074 \u1085 \u1072  " << max << endl;
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 //5. \uc0\u1053 \u1072 \u1081 \u1090 \u1080  \u1074 \u1089 \u1077  \u1076 \u1077 \u1083 \u1080 \u1090 \u1077 \u1083 \u1080  \u1085 \u1072 \u1090 \u1091 \u1088 \u1072 \u1083 \u1100 \u1085 \u1086 \u1075 \u1086  \u1095 \u1080 \u1089 \u1083 \u1072 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 cin >> a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 int k=1;
+\f1\i0\fs24 \
+
+\f0\i\fs30 cout << "\uc0\u1042 \u1089 \u1077  \u1076 \u1077 \u1083 \u1080 \u1090 \u1077 \u1083 \u1080  \u1095 \u1080 \u1089 \u1083 \u1072  " << a << ":" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 while (k<=a/2) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (a%k==0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << k << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     k++;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 cout << a << endl;
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 //6. \uc0\u1071 \u1074 \u1083 \u1103 \u1077 \u1090 \u1089 \u1103  \u1083 \u1080  \u1085 \u1072 \u1090 \u1091 \u1088 \u1072 \u1083 \u1100 \u1085 \u1086 \u1077  \u1095 \u1080 \u1089 \u1083 \u1086  \u1087 \u1088 \u1086 \u1089 \u1090 \u1099 \u1084 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 cin >> a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 int k=1, kol=0;
+\f1\i0\fs24 \
+
+\f0\i\fs30 while (k<=sqrt(a)) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (a%k==0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         kol++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     k++;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 if (a!=1 && kol+1==2) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1063 \u1080 \u1089 \u1083 \u1086  \u1103 \u1074 \u1083 \u1103 \u1077 \u1090 \u1089 \u1103  \u1087 \u1088 \u1086 \u1089 \u1090 \u1099 \u1084 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     else \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1063 \u1080 \u1089 \u1083 \u1086  \u1085 \u1077  \u1103 \u1074 \u1083 \u1103 \u1077 \u1090 \u1089 \u1103  \u1087 \u1088 \u1086 \u1089 \u1090 \u1099 \u1084 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 //7. \uc0\u1053 \u1072 \u1081 \u1090 \u1080  \u1074 \u1089 \u1077  \u1087 \u1088 \u1086 \u1089 \u1090 \u1099 \u1077  \u1076 \u1077 \u1083 \u1080 \u1090 \u1077 \u1083 \u1080  \u1085 \u1072 \u1090 \u1091 \u1088 \u1072 \u1083 \u1100 \u1085 \u1086 \u1075 \u1086  \u1095 \u1080 \u1089 \u1083 \u1072 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 //\uc0\u1080 \u1089 \u1087 \u1086 \u1083 \u1100 \u1079 \u1091 \u1077 \u1090 \u1089 \u1103  \u1072 \u1083 \u1075 \u1086 \u1088 \u1080 \u1090 \u1084  \u1088 \u1072 \u1079 \u1083 \u1086 \u1078 \u1077 \u1085 \u1080 \u1103  \u1085 \u1072  \u1087 \u1088 \u1086 \u1089 \u1090 \u1099 \u1077  \u1084 \u1085 \u1086 \u1078 \u1080 \u1090 \u1077 \u1083 \u1080 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 cin >> a;
+\f1\i0\fs24 \
+
+\f0\i\fs30 int k=2;
+\f1\i0\fs24 \
+
+\f0\i\fs30 cout << "\uc0\u1042 \u1089 \u1077  \u1087 \u1088 \u1086 \u1089 \u1090 \u1099 \u1077  \u1076 \u1077 \u1083 \u1080 \u1090 \u1077 \u1083 \u1080  \u1095 \u1080 \u1089 \u1083 \u1072  " << a << ":" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 while (k<=sqrt(a)) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (a%k==0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << k << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         a=a/k;
+\f1\i0\fs24 \
+
+\f0\i\fs30         while (a%k==0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             a=a/k;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     k++;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 if (a!=1) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << a << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+\
+
+\f0\i\fs30 // 8. \uc0\u1063 \u1080 \u1089 \u1083 \u1072 -\u1073 \u1083 \u1080 \u1079 \u1085 \u1080 \u1094 \u1099 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 bool isPrime(int a) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int k=1, kol=0;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (k<=sqrt(a)) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (a%k==0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             kol++;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30         k++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (a!=1 && kol+1==2)
+\f1\i0\fs24 \
+
+\f0\i\fs30         return true;
+\f1\i0\fs24 \
+
+\f0\i\fs30     else
+\f1\i0\fs24 \
+
+\f0\i\fs30         return false;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main() \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int a, b;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> a >> b;
+\f1\i0\fs24 \
+
+\f0\i\fs30     int kol = 0;
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (int i=a; i<=b-2; i++)
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (isPrime(i) && isPrime(i+2)) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             cout << i << " " << i+2 << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30             kol++;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (kol == 0)
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1053 \u1077 \u1090  \u1090 \u1072 \u1082 \u1080 \u1093  \u1095 \u1080 \u1089 \u1077 \u1083 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 // 9. \uc0\u1053 \u1072 \u1081 \u1090 \u1080  \u1087 \u1077 \u1088 \u1074 \u1099 \u1077  n \u1087 \u1072 \u1088  \u1076 \u1088 \u1091 \u1078 \u1077 \u1089 \u1090 \u1074 \u1077 \u1085 \u1085 \u1099 \u1093  \u1095 \u1080 \u1089 \u1077 \u1083 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int sumOfDiv(int a) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int k=1, sum=0;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (k<=a/2) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (a%k==0)
+\f1\i0\fs24 \
+
+\f0\i\fs30             sum+=k;
+\f1\i0\fs24 \
+
+\f0\i\fs30         k++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     return sum;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main() \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int n, i=0, k=1;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (i<n) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         int sum = sumOfDiv(k);
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (k == sumOfDiv(sum) && k<sum) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             cout << k << " " << sum << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30             i++;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30         k++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 // 10. \uc0\u1044 \u1074 \u1086 \u1081 \u1085 \u1086 \u1081  \u1087 \u1072 \u1083 \u1080 \u1085 \u1076 \u1088 \u1086 \u1084 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 bool isPal(int a) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int n, b = a, k = 0;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (a > 0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         n = a % 10;
+\f1\i0\fs24 \
+
+\f0\i\fs30         k = k * 10 + n;
+\f1\i0\fs24 \
+
+\f0\i\fs30         a = a / 10;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     return (b == k);
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main()\{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int n, i=1;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (i<=n) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (isPal(i) && isPal(i*i))
+\f1\i0\fs24 \
+
+\f0\i\fs30             cout << i << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         i++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     return 0;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 // 11. y=pow(x, 1/n)
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 double step(double a, int n) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     double res = 1;
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (int i=0; i<n; i++)
+\f1\i0\fs24 \
+
+\f0\i\fs30         res *= a;
+\f1\i0\fs24 \
+
+\f0\i\fs30     return res;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 double sqrtn(double a, int n, double eps) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     double x, xi;
+\f1\i0\fs24 \
+
+\f0\i\fs30     xi = (a+n-1)/n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     do \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         x=xi;
+\f1\i0\fs24 \
+
+\f0\i\fs30         xi = ((n-1)*x + a/step(x, n-1))/n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \} while (abs(xi-x) > eps);
+\f1\i0\fs24 \
+
+\f0\i\fs30     return xi;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main() \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     setlocale(LC_ALL, ".1251");
+\f1\i0\fs24 \
+
+\f0\i\fs30     double c, d, h, eps;
+\f1\i0\fs24 \
+
+\f0\i\fs30     int n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1050 \u1086 \u1085 \u1094 \u1099  \u1086 \u1090 \u1088 \u1077 \u1079 \u1082 \u1072  \u1080  \u1096 \u1072 \u1075 :" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> c >> d >> h;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1058 \u1086 \u1095 \u1085 \u1086 \u1089 \u1090 \u1100 :" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> eps;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1057 \u1090 \u1077 \u1087 \u1077 \u1085 \u1100  \u1082 \u1086 \u1088 \u1085 \u1103 :" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (double i=c; i<=d; i+=h)
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << sqrtn(i, n, eps) << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+\
+
+\f2\i\b\fs30 \cf4 //\uc0\u1076 \u1079  \u1085 \u1072  03.10.2018
+\f1\i0\b0\fs24 \cf2 \
+\
+
+\f0\i\fs30 //3. \uc0\u1044 \u1083 \u1103  \u1074 \u1089 \u1077 \u1093  \u1085 \u1072 \u1090 \u1091 \u1088 \u1072 \u1083 \u1100 \u1085 \u1099 \u1093  \u1095 \u1080 \u1089 \u1077 \u1083 , \u1085 \u1077  \u1087 \u1088 \u1077 \u1074 \u1086 \u1089 \u1093 \u1086 \u1076 \u1103 \u1097 \u1080 \u1093  \u1079 \u1072 \u1076 \u1072 \u1085 \u1085 \u1086 \u1075 \u1086  n, \u1074 \u1099 \u1074 \u1077 \u1089 \u1090 \u1080  \u1080 \u1093  \u1087 \u1088 \u1086 \u1089 \u1090 \u1099 \u1077  \u1076 \u1077 \u1083 \u1080 \u1090 \u1077 \u1083 \u1080  \u1074  \u1087 \u1086 \u1088 \u1103 \u1076 \u1082 \u1077  \u1091 \u1073 \u1099 \u1074 \u1072 \u1085 \u1080 \u1103 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 bool isPrime(int n) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int k=1, kol=0;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (k<=sqrt(n)) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (n%k==0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             kol++;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30         k++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     return n!=1 && kol+1==2;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 void printDivs(int i) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int k=sqrt(i);
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << i << ": ";
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (k>1) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (i%k==0 && isPrime(k)) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             cout << k << " ";
+\f1\i0\fs24 \
+
+\f0\i\fs30             i/=k;
+\f1\i0\fs24 \
+
+\f0\i\fs30             while (i%k==0)
+\f1\i0\fs24 \
+
+\f0\i\fs30                 i/=k;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30         else k--;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main() \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "enter n" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (int i=1; i<=n; i++) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         printDivs(i);
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 //2. \uc0\u1056 \u1072 \u1079 \u1083 \u1086 \u1078 \u1077 \u1085 \u1080 \u1077  \u1085 \u1072  \u1087 \u1088 \u1086 \u1089 \u1090 \u1099 \u1077  \u1084 \u1085 \u1086 \u1078 \u1080 \u1090 \u1077 \u1083 \u1080  \u1074 \u1089 \u1077 \u1093  \u1095 \u1080 \u1089 \u1077 \u1083  \u1085 \u1072  \u1086 \u1090 \u1088 \u1077 \u1079 \u1082 \u1077  [a;b]
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 void razl(int i) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     int k=2;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << i << ": ";
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (i>1) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (i%k==0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             cout << k << " ";
+\f1\i0\fs24 \
+
+\f0\i\fs30             i/=k;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30         else k++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main()\{
+\f1\i0\fs24 \
+
+\f0\i\fs30     setlocale(LC_ALL,".1251");
+\f1\i0\fs24 \
+
+\f0\i\fs30     int a, b;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1042 \u1074 \u1077 \u1076 \u1080 \u1090 \u1077  \u1085 \u1072 \u1090 \u1091 \u1088 \u1072 \u1083 \u1100 \u1085 \u1086 \u1077  \u1095 \u1080 \u1089 \u1083 \u1086  a" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> a;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (a<=1) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1053 \u1077 \u1074 \u1077 \u1088 \u1085 \u1086 \u1077  \u1079 \u1085 \u1072 \u1095 \u1077 \u1085 \u1080 \u1077  a, \u1087 \u1086 \u1074 \u1090 \u1086 \u1088 \u1080 \u1090 \u1077  \u1087 \u1086 \u1087 \u1099 \u1090 \u1082 \u1091 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         cin >> a;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1042 \u1074 \u1077 \u1076 \u1080 \u1090 \u1077  \u1085 \u1072 \u1090 \u1091 \u1088 \u1072 \u1083 \u1100 \u1085 \u1086 \u1077  \u1095 \u1080 \u1089 \u1083 \u1086  b, \u1085 \u1077  \u1084 \u1077 \u1085 \u1100 \u1096 \u1077 \u1077  a" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> b;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (b<=a) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1053 \u1077 \u1074 \u1077 \u1088 \u1085 \u1086 \u1077  \u1079 \u1085 \u1072 \u1095 \u1077 \u1085 \u1080 \u1077  b, \u1087 \u1086 \u1074 \u1090 \u1086 \u1088 \u1080 \u1090 \u1077  \u1087 \u1086 \u1087 \u1099 \u1090 \u1082 \u1091 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         cin >> b;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     int x, y=2;
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (int i=a; i<=b; i++) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         razl(i);
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     return 0;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 //1. \uc0\u1083 \u1072 \u1073 \u1072  1 \u1074  \u1074 \u1080 \u1076 \u1077  \u1092 \u1091 \u1085 \u1082 \u1094 \u1080 \u1080 . \u1057 \u1095 \u1080 \u1090 \u1072 \u1077 \u1084  arctg \u1085 \u1072  \u1086 \u1090 \u1088 \u1077 \u1079 \u1082 \u1077  [a;b]  \u1089  \u1096 \u1072 \u1075 \u1086 \u1084  h
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 double arctg(double x, double e) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     double res = M_PI/2;
+\f1\i0\fs24 \
+
+\f0\i\fs30     double a = -1/x;
+\f1\i0\fs24 \
+
+\f0\i\fs30     int i = 1;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (abs(a) >= e) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         res+=a;
+\f1\i0\fs24 \
+
+\f0\i\fs30         a*=(-1.0*(2*i-1)/(x*x*(2*i+1)));
+\f1\i0\fs24 \
+
+\f0\i\fs30         i++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 //    cout << "\uc0\u1055 \u1086 \u1083 \u1091 \u1095 \u1077 \u1085 \u1085 \u1099 \u1081  \u1088 \u1077 \u1079 \u1091 \u1083 \u1100 \u1090 \u1072 \u1090 :" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 //    cout << res << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 //    cout << "\uc0\u1040  \u1090 \u1077 \u1087 \u1077 \u1088 \u1100  \u1095 \u1077 \u1088 \u1077 \u1079  \u1092 \u1091 \u1085 \u1082 \u1094 \u1080 \u1102  atan:" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 //    cout << atan(x) << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     return res;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main() \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     setlocale(LC_ALL,".1251");
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1044 \u1072 \u1085 \u1085 \u1072 \u1103  \u1087 \u1088 \u1086 \u1075 \u1088 \u1072 \u1084 \u1084 \u1072  \u1074 \u1099 \u1095 \u1080 \u1089 \u1083 \u1103 \u1077 \u1090  \u1087 \u1088 \u1080 \u1073 \u1083 \u1080 \u1078 \u1105 \u1085 \u1085 \u1086 \u1077  \u1079 \u1085 \u1072 \u1095 \u1077 \u1085 \u1080 \u1077  \u1092 \u1091 \u1085 \u1082 \u1094 \u1080 \u1080 , \u1080 \u1089 \u1087 \u1086 \u1083 \u1100 \u1079 \u1091 \u1103  \u1087 \u1088 \u1077 \u1076 \u1089 \u1090 \u1072 \u1074 \u1083 \u1077 \u1085 \u1080 \u1077  \u1077 \u1105  \u1074  \u1074 \u1080 \u1076 \u1077  \u1088 \u1103 \u1076 \u1072  \u1058 \u1077 \u1081 \u1083 \u1086 \u1088 \u1072 ." << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1060 \u1091 \u1085 \u1082 \u1094 \u1080 \u1103 : y = arctg x" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     double e, x, y, h, res, a;
+\f1\i0\fs24 \
+
+\f0\i\fs30     // \uc0\u1103 \u1074 \u1085 \u1086  \u1079 \u1072 \u1076 \u1072 \u1105 \u1084  \u1079 \u1085 \u1072 \u1095 \u1077 \u1085 \u1080 \u1077  k
+\f1\i0\fs24 \
+
+\f0\i\fs30     int k = 5;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1042 \u1074 \u1077 \u1076 \u1080 \u1090 \u1077  \u1076 \u1077 \u1081 \u1089 \u1090 \u1074 \u1080 \u1090 \u1077 \u1083 \u1100 \u1085 \u1086 \u1077  \u1095 \u1080 \u1089 \u1083 \u1086  e \u1090 \u1072 \u1082 \u1086 \u1077 , \u1095 \u1090 \u1086  0 < e < " << pow(10, -k) << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> e;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (e<=0 || e>=pow(10, -k)) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1053 \u1077 \u1074 \u1077 \u1088 \u1085 \u1086 \u1077  \u1079 \u1085 \u1072 \u1095 \u1077 \u1085 \u1080 \u1077  \u1077 , \u1087 \u1086 \u1074 \u1090 \u1086 \u1088 \u1080 \u1090 \u1077  \u1087 \u1086 \u1087 \u1099 \u1090 \u1082 \u1091 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         cin >> e;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1042 \u1074 \u1077 \u1076 \u1080 \u1090 \u1077  \u1076 \u1077 \u1081 \u1089 \u1090 \u1074 \u1080 \u1090 \u1077 \u1083 \u1100 \u1085 \u1086 \u1077  \u1095 \u1080 \u1089 \u1083 \u1086  x, \u1073 \u1086 \u1083 \u1100 \u1096 \u1077 \u1077  1" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> x;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (x<=1) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1053 \u1077 \u1074 \u1077 \u1088 \u1085 \u1086 \u1077  \u1079 \u1085 \u1072 \u1095 \u1077 \u1085 \u1080 \u1077  x, \u1087 \u1086 \u1074 \u1090 \u1086 \u1088 \u1080 \u1090 \u1077  \u1087 \u1086 \u1087 \u1099 \u1090 \u1082 \u1091 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         cin >> x;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1042 \u1074 \u1077 \u1076 \u1080 \u1090 \u1077  \u1076 \u1077 \u1081 \u1089 \u1090 \u1074 \u1080 \u1090 \u1077 \u1083 \u1100 \u1085 \u1086 \u1077  \u1095 \u1080 \u1089 \u1083 \u1086  y, \u1085 \u1077  \u1084 \u1077 \u1085 \u1100 \u1096 \u1077 \u1077  x" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> y;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (y<=x) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "\uc0\u1053 \u1077 \u1074 \u1077 \u1088 \u1085 \u1086 \u1077  \u1079 \u1085 \u1072 \u1095 \u1077 \u1085 \u1080 \u1077  y, \u1087 \u1086 \u1074 \u1090 \u1086 \u1088 \u1080 \u1090 \u1077  \u1087 \u1086 \u1087 \u1099 \u1090 \u1082 \u1091 " << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         cin >> y;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1042 \u1074 \u1077 \u1076 \u1080 \u1090 \u1077  \u1096 \u1072 \u1075  h" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> h;
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (double i=x; i<=y; i+=h) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "Arctg(" << i << ") = ";
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << setprecision(8) <<  arctg(i, e);
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << ". \uc0\u1063 \u1077 \u1088 \u1077 \u1079  \u1092 \u1091 \u1085 \u1082 \u1094 \u1080 \u1102  atan: " << setprecision(8) << atan(i) << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f3\b \cf4 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\f1\b0 \cf2 \
+\
+
+\f0\i\fs30 // 12. \uc0\u1041 \u1099 \u1089 \u1090 \u1088 \u1086 \u1077  \u1074 \u1086 \u1079 \u1074 \u1077 \u1076 \u1077 \u1085 \u1080 \u1077  \u1074  \u1089 \u1090 \u1077 \u1087 \u1077 \u1085 \u1100  \u1095 \u1077 \u1088 \u1077 \u1079  \u1082 \u1074 \u1072 \u1076 \u1088 \u1072 \u1090 \u1099 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main() \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     setlocale(LC_ALL, ".1251");
+\f1\i0\fs24 \
+
+\f0\i\fs30     int b, n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1042 \u1074 \u1077 \u1076 \u1080 \u1090 \u1077  \u1085 \u1072 \u1090 \u1091 \u1088 \u1072 \u1083 \u1100 \u1085 \u1086 \u1077  b" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> b;
+\f1\i0\fs24 \
+
+\f0\i\fs30     int res = 1;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << "\uc0\u1042 \u1074 \u1077 \u1076 \u1080 \u1090 \u1077  \u1085 \u1072 \u1090 \u1091 \u1088 \u1072 \u1083 \u1100 \u1085 \u1091 \u1102  \u1089 \u1090 \u1077 \u1087 \u1077 \u1085 \u1100  n" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     cin >> n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (n>0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         if (n%2==1)
+\f1\i0\fs24 \
+
+\f0\i\fs30             res*=b;
+\f1\i0\fs24 \
+
+\f0\i\fs30         b*=b;
+\f1\i0\fs24 \
+
+\f0\i\fs30         n/=2;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << res << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 // 13. Max \uc0\u1101 \u1083 \u1077 \u1084 \u1077 \u1085 \u1090  \u1080  \u1077 \u1075 \u1086  \u1082 \u1086 \u1086 \u1088 \u1076 \u1080 \u1085 \u1072 \u1090 \u1099  \u1074  \u1083 \u1077 \u1074 \u1086 \u1084  \u1085 \u1080 \u1078 \u1085 \u1077 \u1084  \u1090 \u1088 \u1077 \u1091 \u1075 \u1086 \u1083 \u1100 \u1085 \u1080 \u1082 \u1077  \u1082 \u1074 \u1072 \u1076 \u1088 \u1072 \u1090 \u1085 \u1086 \u1081  \u1084 \u1072 \u1090 \u1088 \u1080 \u1094 \u1099 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main() \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     const int max=100;
+\f1\i0\fs24 \
+
+\f0\i\fs30     int arr[max][max];
+\f1\i0\fs24 \
+
+\f0\i\fs30     int n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     do \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "enter n" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         cin >> n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \} while (n>max);
+\f1\i0\fs24 \
+
+\f0\i\fs30     srand(time(0));
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (int i=0; i<n; i++) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         for (int j=0; j<n; j++) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             arr[i][j] = (rand()%101)-50;
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     int m=arr[0][0], id1=0, id2=0;
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (int i=1; i<n; i++) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         for (int j=0; j<=i; j++) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             if (arr[i][j]>m) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30                 m=arr[i][j];
+\f1\i0\fs24 \
+
+\f0\i\fs30                 id1=i;
+\f1\i0\fs24 \
+
+\f0\i\fs30                 id2=j;
+\f1\i0\fs24 \
+
+\f0\i\fs30             \}
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << m << " (" << id1 << "," << id2 << ")" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 // 14. \uc0\u1057 \u1091 \u1084 \u1084 \u1072  \u1084 \u1077 \u1078 \u1076 \u1091  \u1087 \u1077 \u1088 \u1074 \u1099 \u1084  \u1080  \u1087 \u1086 \u1089 \u1083 \u1077 \u1076 \u1085 \u1080 \u1084  \u1086 \u1090 \u1088 \u1080 \u1094 \u1072 \u1090 \u1077 \u1083 \u1100 \u1085 \u1099 \u1084  \u1101 \u1083 \u1077 \u1084 \u1077 \u1085 \u1090 \u1086 \u1084 
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 void printArray(int array[], int n) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (int i=0; i<n; i++) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << array[i] << " ";
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     cout << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f0\i\fs30 int main() \{
+\f1\i0\fs24 \
+
+\f0\i\fs30     const int max=100;
+\f1\i0\fs24 \
+
+\f0\i\fs30     int array[max];
+\f1\i0\fs24 \
+
+\f0\i\fs30     int n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     do \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "enter n" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         cin >> n;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \} while (n>max);
+\f1\i0\fs24 \
+
+\f0\i\fs30     srand(time(0));
+\f1\i0\fs24 \
+
+\f0\i\fs30     for (int i=0; i<n; i++)
+\f1\i0\fs24 \
+
+\f0\i\fs30         array[i]=(rand()%101)-50;
+\f1\i0\fs24 \
+
+\f0\i\fs30     printArray(array, n);
+\f1\i0\fs24 \
+
+\f0\i\fs30     int index1=0;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (index1<n && array[index1]>=0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         index1++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (index1>=n-2) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "no solution" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30         system("pause");
+\f1\i0\fs24 \
+
+\f0\i\fs30         return 0;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     int index2=n-1;
+\f1\i0\fs24 \
+
+\f0\i\fs30     while (index2>=0 && array[index2]>=0) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         index2++;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     if (index2==index1) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << "no solution" << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30     else \{
+\f1\i0\fs24 \
+
+\f0\i\fs30         int sum=0;
+\f1\i0\fs24 \
+
+\f0\i\fs30         for (int i=index1+1; i<index2; i++) \{
+\f1\i0\fs24 \
+
+\f0\i\fs30             sum+=array[i];
+\f1\i0\fs24 \
+
+\f0\i\fs30         \}
+\f1\i0\fs24 \
+
+\f0\i\fs30         cout << sum << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30     \}
+\f1\i0\fs24 \
+
+\f0\i\fs30 \}
+\f1\i0\fs24 \
+\
+
+\f2\i\b\fs30 \cf4 //\uc0\u1076 \u1079  \u1085 \u1072  10.10.2018\cf2 \
+\
+
+\f0\b0 // 1. \uc0\u1057 \u1091 \u1084 \u1084 \u1072  \u1101 \u1083 \u1077 \u1084 \u1077 \u1085 \u1090 \u1086 \u1074  \u1084 \u1072 \u1089 \u1089 \u1080 \u1074 \u1072  \u1084 \u1077 \u1078 \u1076 \u1091  max \u1080  min\
+\
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f4\i0\b \cf2 int
+\f5\b0  main() \{
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  n;
+\f1\fs24 \
+
+\f5\fs30     cout << "enter n" << endl;
+\f1\fs24 \
+
+\f5\fs30     cin >> n;
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  array[n];
+\f1\fs24 \
+
+\f5\fs30     srand(time(0));
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=0; i<n; i++)
+\f1\fs24 \
+
+\f5\fs30         array[i]=rand()%101;
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     printArray(array, n);
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  min=array[0]; 
+\f4\b int
+\f5\b0  i_min=0;
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  max=array[0]; 
+\f4\b int
+\f5\b0  i_max=0;
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=1; i<n; i++) \{
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b if
+\f5\b0  (array[i]<min) \{
+\f1\fs24 \
+
+\f5\fs30             min=array[i];
+\f1\fs24 \
+
+\f5\fs30             i_min=i;
+\f1\fs24 \
+
+\f5\fs30         \}
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b if
+\f5\b0  (array[i]>max) \{
+\f1\fs24 \
+
+\f5\fs30             max=array[i];
+\f1\fs24 \
+
+\f5\fs30             i_max=i;
+\f1\fs24 \
+
+\f5\fs30         \}
+\f1\fs24 \
+
+\f5\fs30     \}
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b if
+\f5\b0  (i_max>=i_min-1)
+\f1\fs24 \
+
+\f5\fs30         cout << "no solution" << endl;
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b else
+\f5\b0  \{
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b int
+\f5\b0  sum=0;
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=i_max+1; i<i_min; i++)
+\f1\fs24 \
+
+\f5\fs30             sum+=array[i];
+\f1\fs24 \
+
+\f5\fs30         cout << sum << endl;
+\f1\fs24 \
+
+\f5\fs30     \}
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b return
+\f5\b0  0;
+\f1\fs24 \
+
+\f5\fs30 \}\
+\
+// 2. \uc0\u1042  \u1091 \u1087 \u1086 \u1088 \u1103 \u1076 \u1086 \u1095 \u1077 \u1085 \u1085 \u1099 \u1081  \u1084 \u1072 \u1089 \u1089 \u1080 \u1074  \u1074 \u1089 \u1090 \u1072 \u1074 \u1080 \u1090 \u1100  \u1085 \u1086 \u1074 \u1099 \u1081  \u1101 \u1083 \u1077 \u1084 \u1077 \u1085 \u1090  \u1090 \u1072 \u1082 , \u1095 \u1090 \u1086 \u1073 \u1099  \u1087 \u1086 \u1088 \u1103 \u1076 \u1086 \u1082  \u1085 \u1077  \u1085 \u1072 \u1088 \u1091 \u1096 \u1080 \u1083 \u1089 \u1103 \
+\
+// \uc0\u1057 \u1086 \u1088 \u1090 \u1080 \u1088 \u1091 \u1077 \u1084  \u1084 \u1072 \u1089 \u1089 \u1080 \u1074  \u1087 \u1086  \u1074 \u1086 \u1079 \u1088 \u1072 \u1089 \u1090 \u1072 \u1085 \u1080 \u1102 \
+\
+
+\f4\b int
+\f5\b0  main() \{
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b const
+\f5\b0  
+\f4\b int
+\f5\b0  maxn=100;
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  array[maxn];
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  n;
+\f1\fs24 \
+
+\f5\fs30     cout << "enter n less than " << maxn << endl;
+\f1\fs24 \
+
+\f5\fs30     cin >> n;
+\f1\fs24 \
+
+\f5\fs30     srand(time(0));
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=0; i<n; i++)
+\f1\fs24 \
+
+\f5\fs30         array[i]=rand()%101;
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     cout << "array:" << endl;
+\f1\fs24 \
+
+\f5\fs30     printArray(array, n);
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f0\i //\uc0\u1089 \u1086 \u1088 \u1090 \u1080 \u1088 \u1086 \u1074 \u1082 \u1072  \u1087 \u1091 \u1079 \u1099 \u1088 \u1100 \u1082 \u1086 \u1084 
+\f1\i0\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=n-1; i>=0; i--)
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=0; j<i; j++)
+\f1\fs24 \
+
+\f5\fs30             
+\f4\b if
+\f5\b0  (array[j]>array[j+1]) \{
+\f1\fs24 \
+
+\f5\fs30                 
+\f4\b int
+\f5\b0  tmp=array[j];
+\f1\fs24 \
+
+\f5\fs30                 array[j]=array[j+1];
+\f1\fs24 \
+
+\f5\fs30                 array[j+1]=tmp;
+\f1\fs24 \
+
+\f5\fs30             \}
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     cout << "sorted array:" << endl;
+\f1\fs24 \
+
+\f5\fs30     printArray(array, n);
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  a;
+\f1\fs24 \
+
+\f5\fs30     cout << "enter element a" << endl;
+\f1\fs24 \
+
+\f5\fs30     cin >> a;
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=0; i<n; i++) \{
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b if
+\f5\b0  (a<=array[i]) \{
+\f1\fs24 \
+
+\f5\fs30             
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=n; j>=i; j--)
+\f1\fs24 \
+
+\f5\fs30                 array[j]=array[j-1];
+\f1\fs24 \
+
+\f5\fs30             array[i]=a;
+\f1\fs24 \
+
+\f5\fs30             cout << "new array:" << endl;
+\f1\fs24 \
+
+\f5\fs30             printArray(array, n+1);
+\f1\fs24 \
+
+\f5\fs30             
+\f4\b return
+\f5\b0  0;
+\f1\fs24 \
+
+\f5\fs30         \}
+\f1\fs24 \
+
+\f5\fs30     \}
+\f1\fs24 \
+
+\f5\fs30     cout << "new array:" << endl;
+\f1\fs24 \
+
+\f5\fs30     printArray(array, n+1);
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b return
+\f5\b0  0;
+\f1\fs24 \
+
+\f5\fs30 \}\
+\
+// 3. \uc0\u1055 \u1086 \u1084 \u1077 \u1085 \u1103 \u1090 \u1100  \u1084 \u1077 \u1089 \u1090 \u1072 \u1084 \u1080  max \u1101 \u1083 \u1077 \u1084 \u1077 \u1085 \u1090  \u1080 \u1079  \u1083 \u1077 \u1074 \u1086 \u1075 \u1086  \u1074 \u1077 \u1088 \u1093 \u1085 \u1077 \u1075 \u1086  \u1090 \u1088 \u1077 \u1091 \u1075 \u1086 \u1083 \u1100 \u1085 \u1080 \u1082 \u1072  \u1082 \u1074 \u1072 \u1076 \u1088 \u1072 \u1090 \u1085 \u1086 \u1081  \u1084 \u1072 \u1090 \u1088 \u1080 \u1094 \u1099  (\u1074 \u1082 \u1083 \u1102 \u1095 \u1072 \u1103  \u1076 \u1080 \u1072 \u1075 \u1086 \u1085 \u1072 \u1083 \u1100 ) \u1080  min \u1101 \u1083 \u1077 \u1084 \u1077 \u1085 \u1090  \u1080 \u1079  \u1087 \u1088 \u1072 \u1074 \u1086 \u1075 \u1086  \u1085 \u1080 \u1078 \u1085 \u1077 \u1075 \u1086  \u1090 \u1088 \u1077 \u1091 \u1075 \u1086 \u1083 \u1100 \u1085 \u1080 \u1082 \u1072 
+\f1\fs24 \
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f0\i\fs30 \cf2 \
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f4\i0\b \cf2 int
+\f5\b0  main() \{
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  n;
+\f1\fs24 \
+
+\f5\fs30     cout << "enter n" << endl;
+\f1\fs24 \
+
+\f5\fs30     cin >> n;
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  **array = 
+\f4\b new
+\f5\b0  
+\f4\b int
+\f5\b0 *[n];
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=0; i<n; i++)
+\f1\fs24 \
+
+\f5\fs30         array[i]=
+\f4\b new
+\f5\b0  
+\f4\b int
+\f5\b0 [n];
+\f1\fs24 \
+
+\f5\fs30     srand(time(0));
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=0; i<n; i++)
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=0; j<n; j++)
+\f1\fs24 \
+
+\f5\fs30             array[i][j]=(rand()%100)+1;
+\f1\fs24 \
+
+\f5\fs30     cout << "array:" << endl;
+\f1\fs24 \
+
+\f5\fs30     printArray(array, n);
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f0\i //search max
+\f1\i0\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  max=array[0][0], imax=0, jmax=0;
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=0; i<n; i++)
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=0; j<n-i; j++)
+\f1\fs24 \
+
+\f5\fs30             
+\f4\b if
+\f5\b0  (array[i][j]>max) \{
+\f1\fs24 \
+
+\f5\fs30                 max=array[i][j];
+\f1\fs24 \
+
+\f5\fs30                 imax=i; jmax=j;
+\f1\fs24 \
+
+\f5\fs30             \}
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f0\i //search min
+\f1\i0\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  min=array[1][n-1], imin=1, jmin=n-1;
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=2; i<n; i++)
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=n-i; j<n; j++)
+\f1\fs24 \
+
+\f5\fs30             
+\f4\b if
+\f5\b0  (array[i][j]<min) \{
+\f1\fs24 \
+
+\f5\fs30                 min=array[i][j];
+\f1\fs24 \
+
+\f5\fs30                 imin=i; jmin=j;
+\f1\fs24 \
+
+\f5\fs30             \}
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f0\i\fs30 \cf2 //    cout << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 //    cout << max << " " << imax << " " << jmax << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 //    cout << min << " " << imin << " " << jmin << endl;
+\f1\i0\fs24 \
+
+\f0\i\fs30 //    cout << endl;
+\f1\i0\fs24 \
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f5\fs30 \cf2     
+\f1\fs24 \
+
+\f5\fs30     
+\f0\i //swap
+\f1\i0\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  tmp=array[imin][jmin];
+\f1\fs24 \
+
+\f5\fs30     array[imin][jmin]=array[imax][jmax];
+\f1\fs24 \
+
+\f5\fs30     array[imax][jmax]=tmp;
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     cout << "swaped array:" << endl;
+\f1\fs24 \
+
+\f5\fs30     printArray(array, n);
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b return
+\f5\b0  0;
+\f1\fs24 \
+
+\f5\fs30 \}
+\f1\fs24 \
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f2\i\b\fs30 \cf2 \
+
+\f0\b0 // 4. \uc0\u1055 \u1077 \u1088 \u1077 \u1089 \u1090 \u1072 \u1074 \u1080 \u1090 \u1100  \u1089 \u1090 \u1088 \u1086 \u1082 \u1080  \u1084 \u1072 \u1090 \u1088 \u1080 \u1094 \u1099  \u1090 \u1072 \u1082 \u1080 \u1084  \u1086 \u1073 \u1088 \u1072 \u1079 \u1086 \u1084 , \u1095 \u1090 \u1086 \u1073 \u1099  \u1074  \u1087 \u1077 \u1088 \u1074 \u1086 \u1084  \u1089 \u1090 \u1086 \u1083 \u1073 \u1094 \u1077  \u1101 \u1083 \u1077 \u1084 \u1077 \u1085 \u1090 \u1099  \u1073 \u1099 \u1083 \u1080  \u1091 \u1087 \u1086 \u1088 \u1103 \u1076 \u1086 \u1095 \u1077 \u1085 \u1099  \u1087 \u1086  \u1074 \u1086 \u1079 \u1088 \u1072 \u1089 \u1090 \u1072 \u1085 \u1080 \u1102 \
+\
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f4\i0\b \cf2 int
+\f5\b0  main() \{
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  n, m;
+\f1\fs24 \
+
+\f5\fs30     cout << "enter n and m" << endl;
+\f1\fs24 \
+
+\f5\fs30     cin >> n;
+\f1\fs24 \
+
+\f5\fs30     cin >> m;
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b int
+\f5\b0  **array = 
+\f4\b new
+\f5\b0  
+\f4\b int
+\f5\b0 *[n];
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=0; i<n; i++)
+\f1\fs24 \
+
+\f5\fs30         array[i]=
+\f4\b new
+\f5\b0  
+\f4\b int
+\f5\b0 [m];
+\f1\fs24 \
+
+\f5\fs30     srand(time(0));
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=0; i<n; i++)
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=0; j<m; j++)
+\f1\fs24 \
+
+\f5\fs30             array[i][j]=(rand()%100)+1;
+\f1\fs24 \
+
+\f5\fs30     cout << "array:" << endl;
+\f1\fs24 \
+
+\f5\fs30     printArray(array, n, m);
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f0\i //swap
+\f1\i0\fs24 \
+
+\f5\fs30     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  i=0; i<n-1; i++)
+\f1\fs24 \
+
+\f5\fs30         
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=i+1; j<n; j++)
+\f1\fs24 \
+
+\f5\fs30             
+\f4\b if
+\f5\b0  (array[i][0]>array[j][0]) \{
+\f1\fs24 \
+
+\f5\fs30                 
+\f4\b int
+\f5\b0  *ptr=array[i];
+\f1\fs24 \
+
+\f5\fs30                 array[i]=array[j];
+\f1\fs24 \
+
+\f5\fs30                 array[j]=ptr;
+\f1\fs24 \
+
+\f5\fs30             \}
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     cout << "swaped array:" << endl;
+\f1\fs24 \
+
+\f5\fs30     printArray(array, n, m);
+\f1\fs24 \
+
+\f5\fs30     
+\f1\fs24 \
+
+\f5\fs30     
+\f4\b return
+\f5\b0  0;
+\f1\fs24 \
+
+\f5\fs30 \}
+\f1\fs24 \
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f2\i\b\fs30 \cf2 \
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f1\i0\b0\fs24 \cf4 \
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f3\b \cf4 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f1\b0 \cf4 \
+\pard\tx741\pardeftab741\pardirnatural\partightenfactor0
+
+\f5\fs30 \cf2 // 15. \uc0\u1057 \u1083 \u1086 \u1074 \u1072  \u1074  \u1089 \u1090 \u1088 \u1086 \u1082 \u1077  \u1088 \u1072 \u1079 \u1076 \u1077 \u1083 \u1077 \u1085 \u1099  \u1086 \u1076 \u1085 \u1080 \u1084  \u1080 \u1083 \u1080  \u1073 \u1086 \u1083 \u1077 \u1077  \u1087 \u1088 \u1086 \u1073 \u1077 \u1083 \u1072 \u1084 \u1080 . 1) \u1056 \u1072 \u1089 \u1087 \u1077 \u1095 \u1072 \u1090 \u1072 \u1090 \u1100  \u1089 \u1083 \u1086 \u1074 \u1072  \u1089 \u1090 \u1086 \u1083 \u1073 \u1080 \u1082 \u1086 \u1084 . 2) \u1053 \u1072 \u1081 \u1090 \u1080  \u1089 \u1083 \u1086 \u1074 \u1086  max \u1076 \u1083 \u1080 \u1085 \u1099 . 3) sort \u1087 \u1086  \u1074 \u1086 \u1079 \u1088 \u1072 \u1089 \u1090 \u1072 \u1085 \u1080 \u1102  \u1080 \u1093  \u1076 \u1083 \u1080 \u1085 .\
+\
+\pard\tx791\pardeftab791\pardirnatural\partightenfactor0
+
+\f4\b\fs32 \cf2 \cb3 int
+\f5\b0  main() \{
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b const
+\f5\b0  
+\f4\b int
+\f5\b0  max=20;
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b char
+\f5\b0  a[]= "  microsoft visual studio 2017  ";
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b char
+\f5\b0  *b = 
+\f4\b new
+\f5\b0  
+\f4\b char
+\f5\b0 [strlen(a)+1];
+\f1\fs24 \
+
+\f5\fs32     strcpy(b, a);
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b char
+\f5\b0  *h[max];
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b char
+\f5\b0  sep[] = " ";
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b char
+\f5\b0  *tok;
+\f1\fs24 \
+
+\f5\fs32     tok=strtok(a, sep);
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b int
+\f5\b0  i=0;
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b while
+\f5\b0  (tok) \{
+\f1\fs24 \
+
+\f5\fs32         cout << tok << endl;
+\f1\fs24 \
+
+\f5\fs32         h[i]=tok;
+\f1\fs24 \
+
+\f5\fs32         i++;
+\f1\fs24 \
+
+\f5\fs32         tok=strtok(
+\f4\b NULL
+\f5\b0 , sep);
+\f1\fs24 \
+
+\f5\fs32     \}
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b if
+\f5\b0  (i==0) \{
+\f1\fs24 \
+
+\f5\fs32         cout << "no words" << endl;
+\f1\fs24 \
+
+\f5\fs32         
+\f4\b return
+\f5\b0  0;
+\f1\fs24 \
+
+\f5\fs32     \}
+\f1\fs24 \
+
+\f5\fs32     tok=h[0];
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=1; j<i; j++)
+\f1\fs24 \
+
+\f5\fs32         
+\f4\b if
+\f5\b0  (strlen(h[j])>strlen(tok))
+\f1\fs24 \
+
+\f5\fs32             tok=h[j];
+\f1\fs24 \
+
+\f5\fs32     cout << "word with max length: " << tok << endl;
+\f1\fs24 \
+
+\f5\fs32     cout << endl;
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=0; j<i; j++)
+\f1\fs24 \
+
+\f5\fs32         
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  k=0; k<i-j-1; k++)
+\f1\fs24 \
+
+\f5\fs32             
+\f4\b if
+\f5\b0  (strlen(h[k])>strlen(h[k+1]))
+\f1\fs24 \
+
+\f5\fs32                 swap(h[k], h[k+1]);
+\f1\fs24 \
+
+\f5\fs32     
+\f4\b for
+\f5\b0  (
+\f4\b int
+\f5\b0  j=0; j<i; j++)
+\f1\fs24 \
+
+\f5\fs32         cout << h[j] << endl;
+\f1\fs24 \
+\
+
+\f5\fs32     
+\f4\b return
+\f5\b0  0;
+\f1\fs24 \
+
+\f5\fs32 \}
+\fs30 \cb3 \
+}
