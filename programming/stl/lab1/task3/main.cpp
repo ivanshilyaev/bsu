@@ -90,7 +90,7 @@ Train findFast(vector<Train> &v, string dest) {
 int main() {
     vector<Train> v;
     try {
-        ifstream fin("/Users/ivansilaev/Downloads/УНИВЕР/Прога/2 семестр Лабы/laba_5/laba_5.3/input.txt", ios_base::in);
+        ifstream fin("input.txt", ios_base::in);
         if (!fin.is_open())
             throw "Error: file doesn't open";
         string line;
