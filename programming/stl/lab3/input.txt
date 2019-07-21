@@ -1,0 +1,5 @@
+Shilyaev I.V.; 2345671; MA 9, Proga 10, GA 10, History 9
+Berkovich P.A.; 3456712; MA 7, Proga 9, GA 9, History 8
+Bochkov I.V.; 1234567; MA 7, Proga 9, GA 7, History 7
+Berkovich P.A.; 3456712; MA 6, Proga 8, GA 8, History 7, DM 10
+Petrov P.P.; 1234567; DM 3
