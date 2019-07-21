@@ -27,7 +27,7 @@ bool CompareCourse(const Student &a, const Student &b) {
 int main() {
     vector <Student> v;
     try {
-        ifstream fin("/Users/ivansilaev/Downloads/УНИВЕР/Прога/2 семестр Лабы/laba_5/laba_5.2/Students.txt", ios_base::in);
+        ifstream fin("Students.txt", ios_base::in);
         if (!fin.is_open())
             throw "Error: file doesn't open";
         string line;
@@ -63,14 +63,14 @@ int main() {
         sort(v1.begin(), v1.end(), CompareFio);
         sort(v2.begin(), v2.end(), CompareCourse);
         
-        ofstream fout1("/Users/ivansilaev/Downloads/УНИВЕР/Прога/2 семестр Лабы/laba_5/laba_5.2/Fio.txt", ios_base::out);
+        ofstream fout1("Fio.txt", ios_base::out);
         if (!fout1.is_open())
             throw "Error: file doesn't open";
         vector<Student>::iterator i;
         for (i=v1.begin(); i!=v1.end(); ++i) {
             fout1<<(*i).fio<<"; "<<(*i).course<<"; "<<(*i).group<<endl;
         }
-        ofstream fout2("/Users/ivansilaev/Downloads/УНИВЕР/Прога/2 семестр Лабы/laba_5/laba_5.2/Groups.txt", ios_base::out);
+        ofstream fout2("Groups.txt", ios_base::out);
         if (!fout2.is_open())
             throw "Error: file doesn't open";
         for (i=v2.begin(); i!=v2.end(); ++i) {
