@@ -1,0 +1,680 @@
+//1. Линейное и квадратное уравнение
+
+
+void line(double a, double b) {
+    if (a == 0 && b != 0) {
+        cout << "Нет решений." << endl;
+    }
+    else if (a == 0 && b == 0) {
+        cout << "Бесконечно много решений." << endl;
+    }
+    else {
+        double x = -b/a;
+        cout << "Корень x равен " << x << endl;
+    }
+}
+ 
+int main() {
+    double a, b, c;
+    cout << "Введите три числа:  параметры квадратного уравнения:" << endl;
+    cin >> a >> b >> c;
+    if (a == 0)
+        line(b, c);
+    else {
+        double d = b*b - 4*a*c;
+        if (d < 0) {
+            cout << "Нет решений." << endl;
+        }
+        else if (d == 0) {
+            double x = -b/(2*a);
+            cout << "Два одинаковых корня: " << x << endl;
+        }
+        else {
+            double x1 = (-b-sqrt(d))/(2*a);
+            double x2 = (-b+sqrt(d))/(2*a);
+            cout << "Корень x1 равен " << x1 << ", x2 равен " << x2 << endl;
+        }
+    }
+}
+
+//2. Палиндром
+
+int a, n;
+cin >> a;
+int b = a, k = 0;
+while (a > 0) {
+    n = a % 10;
+    k = k * 10 + n;
+    a = a / 10;
+}
+if (b == k) {
+    cout << "Палиндром" << endl;
+    }
+    else {
+        cout << "Не палиндром" << endl;
+    }
+
+//3. Сумма всех цифр числа
+
+int a;
+cin >> a;
+int s=0;
+while (a>0) {
+    s+=a%10;
+    a=a/10;
+}
+cout << "Сумма цифр равна " << s << endl;
+
+//4. Максимальная цифра числа
+
+int a;
+cin >> a;
+int max=0;
+while (a>0) {
+    if (a%10 > max) {
+        max=a%10;
+    }
+    a=a/10;
+}
+cout << "Максимальная цифра числа равна " << max << endl;
+
+//5. Найти все делители натурального числа
+
+int a;
+cin >> a;
+int k=1;
+cout << "Все делители числа " << a << ":" << endl;
+while (k<=a/2) {
+    if (a%k==0) {
+        cout << k << endl;
+    }
+    k++;
+}
+cout << a << endl;
+
+//6. Является ли натуральное число простым
+
+int a;
+cin >> a;
+int k=1, kol=0;
+while (k<=sqrt(a)) {
+    if (a%k==0) {
+        kol++;
+    }
+    k++;
+}
+if (a!=1 && kol+1==2) {
+    cout << "Число является простым" << endl;
+    }
+    else {
+        cout << "Число не является простым" << endl;
+    }
+
+//7. Найти все простые делители натурального числа
+
+//используется алгоритм разложения на простые множители
+
+int a;
+cin >> a;
+int k=2;
+cout << "Все простые делители числа " << a << ":" << endl;
+while (k<=sqrt(a)) {
+    if (a%k==0) {
+        cout << k << endl;
+        a=a/k;
+        while (a%k==0) {
+            a=a/k;
+        }
+    }
+    k++;
+}
+if (a!=1) {
+    cout << a << endl;
+}
+
+
+// 8. Числа-близницы
+
+bool isPrime(int a) {
+    int k=1, kol=0;
+    while (k<=sqrt(a)) {
+        if (a%k==0) {
+            kol++;
+        }
+        k++;
+    }
+    if (a!=1 && kol+1==2)
+        return true;
+    else
+        return false;
+}
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+    int kol = 0;
+    for (int i=a; i<=b-2; i++)
+        if (isPrime(i) && isPrime(i+2)) {
+            cout << i << " " << i+2 << endl;
+            kol++;
+        }
+    if (kol == 0)
+        cout << "Нет таких чисел" << endl;
+}
+
+// 9. Найти первые n пар дружественных чисел
+
+int sumOfDiv(int a) {
+    int k=1, sum=0;
+    while (k<=a/2) {
+        if (a%k==0)
+            sum+=k;
+        k++;
+    }
+    return sum;
+}
+
+int main() {
+    int n, i=0, k=1;
+    cin >> n;
+    while (i<n) {
+        int sum = sumOfDiv(k);
+        if (k == sumOfDiv(sum) && k<sum) {
+            cout << k << " " << sum << endl;
+            i++;
+        }
+        k++;
+    }
+}
+
+// 10. Двойной палиндром
+
+bool isPal(int a) {
+    int n, b = a, k = 0;
+    while (a > 0) {
+        n = a % 10;
+        k = k * 10 + n;
+        a = a / 10;
+    }
+    return (b == k);
+}
+
+int main(){
+    int n, i=1;
+    cin >> n;
+    while (i<=n) {
+        if (isPal(i) && isPal(i*i))
+            cout << i << endl;
+        i++;
+    }
+    return 0;
+}
+
+// 11. y=pow(x, 1/n)
+
+double step(double a, int n) {
+    double res = 1;
+    for (int i=0; i<n; i++)
+        res *= a;
+    return res;
+}
+
+double sqrtn(double a, int n, double eps) {
+    double x, xi;
+    xi = (a+n-1)/n;
+    do {
+        x=xi;
+        xi = ((n-1)*x + a/step(x, n-1))/n;
+    } while (abs(xi-x) > eps);
+    return xi;
+}
+
+int main() {
+    setlocale(LC_ALL, ".1251");
+    double c, d, h, eps;
+    int n;
+    cout << "Концы отрезка и шаг:" << endl;
+    cin >> c >> d >> h;
+    cout << "Точность:" << endl;
+    cin >> eps;
+    cout << "Степень корня:" << endl;
+    cin >> n;
+    for (double i=c; i<=d; i+=h)
+        cout << sqrtn(i, n, eps) << endl;
+}
+
+
+//дз на 03.10.2018
+
+//3. Для всех натуральных чисел, не превосходящих заданного n, вывести их простые делители в порядке убывания
+
+bool isPrime(int n) {
+    int k=1, kol=0;
+    while (k<=sqrt(n)) {
+        if (n%k==0) {
+            kol++;
+        }
+        k++;
+    }
+    return n!=1 && kol+1==2;
+}
+
+void printDivs(int i) {
+    int k=sqrt(i);
+    cout << i << ": ";
+    while (k>1) {
+        if (i%k==0 && isPrime(k)) {
+            cout << k << " ";
+            i/=k;
+            while (i%k==0)
+                i/=k;
+        }
+        else k--;
+    }
+    cout << endl;
+}
+
+int main() {
+    int n;
+    cout << "enter n" << endl;
+    cin >> n;
+    for (int i=1; i<=n; i++) {
+        printDivs(i);
+    }
+}
+
+//2. Разложение на простые множители всех чисел на отрезке [a;b]
+
+void razl(int i) {
+    int k=2;
+    cout << i << ": ";
+    while (i>1) {
+        if (i%k==0) {
+            cout << k << " ";
+            i/=k;
+        }
+        else k++;
+    }
+    cout << endl;
+}
+
+int main(){
+    setlocale(LC_ALL,".1251");
+    int a, b;
+    cout << "Введите натуральное число a" << endl;
+    cin >> a;
+    while (a<=1) {
+        cout << "Неверное значение a, повторите попытку" << endl;
+        cin >> a;
+    }
+    cout << "Введите натуральное число b, не меньшее a" << endl;
+    cin >> b;
+    while (b<=a) {
+        cout << "Неверное значение b, повторите попытку" << endl;
+        cin >> b;
+    }
+    int x, y=2;
+    for (int i=a; i<=b; i++) {
+        razl(i);
+    }
+    return 0;
+}
+
+//1. лаба 1 в виде функции. Считаем arctg на отрезке [a;b]  с шагом h
+
+double arctg(double x, double e) {
+    double res = M_PI/2;
+    double a = -1/x;
+    int i = 1;
+    while (abs(a) >= e) {
+        res+=a;
+        a*=(-1.0*(2*i-1)/(x*x*(2*i+1)));
+        i++;
+    }
+//    cout << "Полученный результат:" << endl;
+//    cout << res << endl;
+//    cout << "А теперь через функцию atan:" << endl;
+//    cout << atan(x) << endl;
+    return res;
+}
+
+int main() {
+    setlocale(LC_ALL,".1251");
+    cout << "Данная программа вычисляет приближённое значение функции, используя представление её в виде ряда Тейлора." << endl;
+    cout << "Функция: y = arctg x" << endl;
+    double e, x, y, h, res, a;
+    // явно задаём значение k
+    int k = 5;
+    cout << "Введите действительное число e такое, что 0 < e < " << pow(10, -k) << endl;
+    cin >> e;
+    while (e<=0 || e>=pow(10, -k)) {
+        cout << "Неверное значение е, повторите попытку" << endl;
+        cin >> e;
+    }
+    cout << "Введите действительное число x, большее 1" << endl;
+    cin >> x;
+    while (x<=1) {
+        cout << "Неверное значение x, повторите попытку" << endl;
+        cin >> x;
+    }
+    cout << "Введите действительное число y, не меньшее x" << endl;
+    cin >> y;
+    while (y<=x) {
+        cout << "Неверное значение y, повторите попытку" << endl;
+        cin >> y;
+    }
+    cout << "Введите шаг h" << endl;
+    cin >> h;
+    for (double i=x; i<=y; i+=h) {
+        cout << "Arctg(" << i << ") = ";
+        cout << setprecision(8) <<  arctg(i, e);
+        cout << ". Через функцию atan: " << setprecision(8) << atan(i) << endl;
+    }
+}
+
+———————————————————————————
+
+// 12. Быстрое возведение в степень через квадраты
+
+int main() {
+    setlocale(LC_ALL, ".1251");
+    int b, n;
+    cout << "Введите натуральное b" << endl;
+    cin >> b;
+    int res = 1;
+    cout << "Введите натуральную степень n" << endl;
+    cin >> n;
+    while (n>0) {
+        if (n%2==1)
+            res*=b;
+        b*=b;
+        n/=2;
+    }
+    cout << res << endl;
+}
+
+// 13. Max элемент и его координаты в левом нижнем треугольнике квадратной матрицы
+
+int main() {
+    const int max=100;
+    int arr[max][max];
+    int n;
+    do {
+        cout << "enter n" << endl;
+        cin >> n;
+    } while (n>max);
+    srand(time(0));
+    for (int i=0; i<n; i++) {
+        for (int j=0; j<n; j++) {
+            arr[i][j] = (rand()%101)-50;
+        }
+    }
+    int m=arr[0][0], id1=0, id2=0;
+    for (int i=1; i<n; i++) {
+        for (int j=0; j<=i; j++) {
+            if (arr[i][j]>m) {
+                m=arr[i][j];
+                id1=i;
+                id2=j;
+            }
+        }
+    }
+    cout << m << " (" << id1 << "," << id2 << ")" << endl;
+}
+
+// 14. Сумма между первым и последним отрицательным элементом
+
+void printArray(int array[], int n) {
+    for (int i=0; i<n; i++) {
+        cout << array[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    const int max=100;
+    int array[max];
+    int n;
+    do {
+        cout << "enter n" << endl;
+        cin >> n;
+    } while (n>max);
+    srand(time(0));
+    for (int i=0; i<n; i++)
+        array[i]=(rand()%101)-50;
+    printArray(array, n);
+    int index1=0;
+    while (index1<n && array[index1]>=0) {
+        index1++;
+    }
+    if (index1>=n-2) {
+        cout << "no solution" << endl;
+        system("pause");
+        return 0;
+    }
+    int index2=n-1;
+    while (index2>=0 && array[index2]>=0) {
+        index2++;
+    }
+    if (index2==index1) {
+        cout << "no solution" << endl;
+    }
+    else {
+        int sum=0;
+        for (int i=index1+1; i<index2; i++) {
+            sum+=array[i];
+        }
+        cout << sum << endl;
+    }
+}
+
+//дз на 10.10.2018
+
+// 1. Сумма элементов массива между max и min
+
+int main() {
+    int n;
+    cout << "enter n" << endl;
+    cin >> n;
+    int array[n];
+    srand(time(0));
+    for (int i=0; i<n; i++)
+        array[i]=rand()%101;
+    
+    printArray(array, n);
+    
+    int min=array[0]; int i_min=0;
+    int max=array[0]; int i_max=0;
+    for (int i=1; i<n; i++) {
+        if (array[i]<min) {
+            min=array[i];
+            i_min=i;
+        }
+        if (array[i]>max) {
+            max=array[i];
+            i_max=i;
+        }
+    }
+    if (i_max>=i_min-1)
+        cout << "no solution" << endl;
+    else {
+        int sum=0;
+        for (int i=i_max+1; i<i_min; i++)
+            sum+=array[i];
+        cout << sum << endl;
+    }
+    return 0;
+}
+
+// 2. В упорядоченный массив вставить новый элемент так, чтобы порядок не нарушился
+
+// Сортируем массив по возрастанию
+
+int main() {
+    const int maxn=100;
+    int array[maxn];
+    int n;
+    cout << "enter n less than " << maxn << endl;
+    cin >> n;
+    srand(time(0));
+    for (int i=0; i<n; i++)
+        array[i]=rand()%101;
+    
+    cout << "array:" << endl;
+    printArray(array, n);
+    
+    //сортировка пузырьком
+    for (int i=n-1; i>=0; i--)
+        for (int j=0; j<i; j++)
+            if (array[j]>array[j+1]) {
+                int tmp=array[j];
+                array[j]=array[j+1];
+                array[j+1]=tmp;
+            }
+    
+    cout << "sorted array:" << endl;
+    printArray(array, n);
+    
+    int a;
+    cout << "enter element a" << endl;
+    cin >> a;
+    
+    for (int i=0; i<n; i++) {
+        if (a<=array[i]) {
+            for (int j=n; j>=i; j--)
+                array[j]=array[j-1];
+            array[i]=a;
+            cout << "new array:" << endl;
+            printArray(array, n+1);
+            return 0;
+        }
+    }
+    cout << "new array:" << endl;
+    printArray(array, n+1);
+    
+    return 0;
+}
+
+// 3. Поменять местами max элемент из левого верхнего треугольника квадратной матрицы (включая диагональ) и min элемент из правого нижнего треугольника
+
+int main() {
+    int n;
+    cout << "enter n" << endl;
+    cin >> n;
+    int **array = new int*[n];
+    for (int i=0; i<n; i++)
+        array[i]=new int[n];
+    srand(time(0));
+    for (int i=0; i<n; i++)
+        for (int j=0; j<n; j++)
+            array[i][j]=(rand()%100)+1;
+    cout << "array:" << endl;
+    printArray(array, n);
+    
+    //search max
+    int max=array[0][0], imax=0, jmax=0;
+    for (int i=0; i<n; i++)
+        for (int j=0; j<n-i; j++)
+            if (array[i][j]>max) {
+                max=array[i][j];
+                imax=i; jmax=j;
+            }
+    
+    //search min
+    int min=array[1][n-1], imin=1, jmin=n-1;
+    for (int i=2; i<n; i++)
+        for (int j=n-i; j<n; j++)
+            if (array[i][j]<min) {
+                min=array[i][j];
+                imin=i; jmin=j;
+            }
+    
+//    cout << endl;
+//    cout << max << " " << imax << " " << jmax << endl;
+//    cout << min << " " << imin << " " << jmin << endl;
+//    cout << endl;
+    
+    //swap
+    int tmp=array[imin][jmin];
+    array[imin][jmin]=array[imax][jmax];
+    array[imax][jmax]=tmp;
+    
+    cout << "swaped array:" << endl;
+    printArray(array, n);
+    
+    return 0;
+}
+
+// 4. Переставить строки матрицы таким образом, чтобы в первом столбце элементы были упорядочены по возрастанию
+
+int main() {
+    int n, m;
+    cout << "enter n and m" << endl;
+    cin >> n;
+    cin >> m;
+    int **array = new int*[n];
+    for (int i=0; i<n; i++)
+        array[i]=new int[m];
+    srand(time(0));
+    for (int i=0; i<n; i++)
+        for (int j=0; j<m; j++)
+            array[i][j]=(rand()%100)+1;
+    cout << "array:" << endl;
+    printArray(array, n, m);
+    
+    //swap
+    for (int i=0; i<n-1; i++)
+        for (int j=i+1; j<n; j++)
+            if (array[i][0]>array[j][0]) {
+                int *ptr=array[i];
+                array[i]=array[j];
+                array[j]=ptr;
+            }
+    
+    cout << "swaped array:" << endl;
+    printArray(array, n, m);
+    
+    return 0;
+}
+
+
+———————————————————————————
+
+
+// 15. Слова в строке разделены одним или более пробелами. 1) Распечатать слова столбиком. 2) Найти слово max длины. 3) sort по возрастанию их длин.
+
+int main() {
+    const int max=20;
+    char a[]= "  microsoft visual studio 2017  ";
+    char *b = new char[strlen(a)+1];
+    strcpy(b, a);
+    char *h[max];
+    char sep[] = " ";
+    char *tok;
+    tok=strtok(a, sep);
+    int i=0;
+    while (tok) {
+        cout << tok << endl;
+        h[i]=tok;
+        i++;
+        tok=strtok(NULL, sep);
+    }
+    if (i==0) {
+        cout << "no words" << endl;
+        return 0;
+    }
+    tok=h[0];
+    for (int j=1; j<i; j++)
+        if (strlen(h[j])>strlen(tok))
+            tok=h[j];
+    cout << "word with max length: " << tok << endl;
+    cout << endl;
+    for (int j=0; j<i; j++)
+        for (int k=0; k<i-j-1; k++)
+            if (strlen(h[k])>strlen(h[k+1]))
+                swap(h[k], h[k+1]);
+    for (int j=0; j<i; j++)
+        cout << h[j] << endl;
+
+    return 0;
+}
