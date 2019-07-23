@@ -1,4 +1,4 @@
-﻿# C++ labs
+﻿# 🖥 C++ labs
 Лабораторные работы по C++
 
  - [lab1](https://github.com/ivanshilyaev/bsu/tree/master/programming/c%2B%2B/lab1) - Вычисления с точностью (Calculations with accuracy)
