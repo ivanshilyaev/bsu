@@ -5,7 +5,7 @@ using namespace std;
 int main() {
 	setlocale(LC_ALL, ".1251");
 	const int n = 20;
-	char s1[n] = "ааууббеееоппёяяяиыэ";
+	char s1[n] = "Р°Р°СѓСѓР±Р±Р±РµРµРµРѕРїРїС‘СЏСЏСЏРёС‹СЌ";
 	char s2[n] = "";
 
 	_asm {
@@ -39,7 +39,7 @@ int main() {
 		cmp esi, edx
 		jl cycle
 
-		mov al, s1[esi] // обработка послденего одиночного символа
+		mov al, s1[esi] // РѕР±СЂР°Р±РѕС‚РєР° РїРѕСЃР»РµРґРЅРµРіРѕ РѕРґРёРЅРѕС‡РЅРѕРіРѕ СЃРёРјРІРѕР»Р°
 		cmp al, s1[esi - 1]
 		je exit_2
 		inc edi
@@ -53,37 +53,37 @@ int main() {
 	system("pause");
 	return 0;
 
-	// проверка на принадлежность гласным буквам
+	// РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚СЊ РіР»Р°СЃРЅС‹Рј Р±СѓРєРІР°Рј
 	_asm {
 	check_vw :
-		cmp al, 0e0h // а
+		cmp al, 0e0h // Р°
 		je checked
 
-		cmp al, 0e5h // е
+		cmp al, 0e5h // Рµ
 		je checked
 
-		cmp al, 0b8h // ё
+		cmp al, 0b8h // С‘
 		je checked
 
-		cmp al, 0e8h // и
+		cmp al, 0e8h // Рё
 		je checked
 
-		cmp al, 0eeh // о
+		cmp al, 0eeh // Рѕ
 		je checked
 
-		cmp al, 0f3h // у
+		cmp al, 0f3h // Сѓ
 		je checked
 
-		cmp al, 0fbh // ы
+		cmp al, 0fbh // С‹
 		je checked
 
-		cmp al, 0fdh // э
+		cmp al, 0fdh // СЌ
 		je checked
 
-		cmp al, 0feh // ю 
+		cmp al, 0feh // СЋ 
 		je checked
 
-		cmp al, 0ffh // я
+		cmp al, 0ffh // СЏ
 		je checked
 
 		jmp exit_1
@@ -91,12 +91,10 @@ int main() {
 }
 
 
-// алгоритм на с++
-// без проверки на принадлежность к гласным буквам
 
 //int main() {
 //	setlocale(LC_ALL, ".1251");
-//	char st[10] = "ааууеееео";
+//	char st[10] = "Р°Р°СѓСѓРµРµРµРµРѕ";
 //	int n = 9;
 //	int i(0);
 //	while (i < n - 1) {
