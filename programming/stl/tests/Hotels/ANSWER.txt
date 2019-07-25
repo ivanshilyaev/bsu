@@ -1,0 +1,15 @@
+minsk; ****
+europe; ****
+gomel; *
+zvezda; **
+All different pairs:
+gomel **
+minsk *
+minsk **
+minsk ****
+vitebsk **
+Invalid command
+2 hotels with such name
+0 hotels with such name
+gomel; **
+No such city

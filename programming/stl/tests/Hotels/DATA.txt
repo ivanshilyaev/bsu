@@ -1,0 +1,7 @@
+minsk;minsk;****
+vitebsk;dvina;**
+minsk;europe;****
+gomel;gomel;**
+vitebsk;vitebsk;**
+minsk;gomel;*
+minsk;zvezda;**

@@ -1,0 +1,7 @@
+1:minsk
+3:
+5:
+2:gomel
+2:hilton
+1:gomel
+1:paris
