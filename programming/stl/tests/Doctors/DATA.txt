@@ -1,0 +1,4 @@
+Pavel;doctor_2;28
+Ivan;doctor_8;31
+Ilya;doctor_3;13
+Danil;doctor_2;28

@@ -1,0 +1,8 @@
+doctor_8; 31
+Invalid command
+Otn: 2/4
+All different pairs:
+13 doctor_3
+28 doctor_2
+31 doctor_8
+doctor_2; 28
