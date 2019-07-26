@@ -1,0 +1,95 @@
+/*общее*/
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 300%;
+}
+h3 {
+    text-align: center;
+    color: white;
+    font-size: 150%;
+}
+body {
+    background-attachment: fixed;
+    background: url("images/background.jpg");
+    margin: 0px;
+}
+p {
+    text-align: justify;
+    font-size: 150%;
+    text-indent: 40px;
+}
+
+/*ссылки обычные*/
+a {
+    color: white;
+    font-size: 120%;
+}
+a:active {
+    color: white;
+}
+a:visited {
+    color: white;
+}
+
+/*ссылки меню*/
+a.menu {
+    font-size: 150%;
+    font-weight: bold;
+    text-decoration: none; /*убираем подчеркивание текста ссылок*/
+    color: white;
+    display: block;
+    padding: 5px;
+}
+a.menu:hover {
+    background: #01579B;/*добавляем эффект при наведении*/
+}
+
+/*таблицы*/
+table.first { /*для меню*/
+    background-color: #EF5350;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+table.second { /*для сайта*/
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+tr {
+    text-align: center;
+    color: white;
+}
+td {
+    text-align: center;
+    color: white;
+    width: 16.6%; /*для меню*/
+    padding: 10px;
+}
+
+/*изображения и видео*/
+img {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+video {
+    width: 80%;
+    box-sizing: border-box;
+}
+
+
+/*списки*/
+ol {
+    font-size: 150%;
+}
+ul {
+    padding-left: 50px;
+    font-size: 130%;
+}
+li {
+    text-align: left;
+    padding: 5px;
+}
