@@ -19,4 +19,4 @@
 <br/>
 Приложение должно содержать меню и диалоговые окна и предусматривать обработку возможных ошибок пользователя с помощью исключений.
 <br/>
-![image info](https://github.com/ivanshilyaev/bsu/blob/master/educational_practice/c%23/lab2/images/screen.png "screen")
+![image info](https://raw.githubusercontent.com/ivanshilyaev/bsu/master/educational_practice/c%23/lab2/images/screen.png)
