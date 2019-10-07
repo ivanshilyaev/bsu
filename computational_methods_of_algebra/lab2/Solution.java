@@ -1,14 +1,4 @@
-import java.util.Scanner;
-
 public class Solution {
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
-
     private TridiagonalMatrix A;
     private Column exactY;
     private double[] y;
@@ -16,6 +6,14 @@ public class Solution {
     private final int N;
     private double[] alpha;
     private double[] beta;
+    
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        long factor = (long) Math.pow(10, places);
+        double myTmp = value * factor;
+        long tmp = Math.round(myTmp);
+        return (double) tmp / factor;
+    }
 
     public Solution(int n, double min, double max) throws Exception {
         N = n;
@@ -69,7 +67,8 @@ public class Solution {
 
     public static void main (String[] args) {
         int size;
-        double min, max;
+        double min;
+        double max;
         try {
             //Scanner in = new Scanner(System.in);
             //System.out.print("Введите размер матрицы: ");
