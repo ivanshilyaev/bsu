@@ -1,3 +1,5 @@
+// variant 12
+
 public class Test {
     static final int NUM = 10;
     static final int LENGTH = 8;
