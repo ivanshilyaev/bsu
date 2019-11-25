@@ -10,7 +10,6 @@ public class Test {
     private static final String idxname = "PhoneBill.idx";
     private static final String idxnameBak = "PhoneBill.~idx";
 
-    // input file encoding:
     private static String encoding = "Cp866";
     private static PrintStream billOut = System.out;
 
@@ -27,8 +26,8 @@ public class Test {
                                         "\t-d                    - clear all data\n" +
                                         "\t-dk  {f|n|d} key      - clear data by key\n" +
                                         "\t-p                    - print data unsorted\n" +
-                                        "\t-ps  {f|n|d}          - print data sorted by isbn/author/name\n" +
-                                        "\t-psr {f|n|d}          - print data reverse sorted by isbn/author/name\n" +
+                                        "\t-ps  {f|n|d}          - print data sorted by full name/number/date\n" +
+                                        "\t-psr {f|n|d}          - print data reverse sorted by name/number/date\n" +
                                         "\t-f   {f|n|d} key      - find record by key\n" +
                                         "\t-fr  {f|n|d} key      - find records > key\n" +
                                         "\t-fl  {f|n|d} key      - find records < key\n" +
@@ -107,7 +106,7 @@ public class Test {
             System.err.println("Run/time error: " + e);
             System.exit(1);
         }
-        System.err.println("PhoneBill finished...");
+        System.out.println("PhoneBill finished...");
         System.exit(0);
     }
 
@@ -139,7 +138,7 @@ public class Test {
             System.err.println( "Invalid number of arguments" );
             return false;
         }
-        long[] poss;
+        LinkedList<Long> poss;
         try (Index idx = Index.load(idxname)) {
             IndexBase pidx = indexByArg(args[1], idx);
             if (pidx == null) {
@@ -152,7 +151,7 @@ public class Test {
             poss = pidx.get(args[2]);
         }
         backup();
-        Arrays.sort(poss);
+        Collections.sort(poss);
         try (Index idx = Index.load(idxname);
               RandomAccessFile fileBak = new RandomAccessFile(filenameBak, "rw");
               RandomAccessFile file = new RandomAccessFile(filename, "rw")) {
@@ -161,7 +160,7 @@ public class Test {
             while ((pos = fileBak.getFilePointer()) < fileBak.length()) {
                 PhoneBill bill = (PhoneBill)
                         Buffer.readObject(fileBak, pos, wasZipped);
-                if (Arrays.binarySearch(poss, pos) < 0) { // if not found in deleted
+                if (Collections.binarySearch(poss, pos) < 0) { // if not found in deleted
                     long ptr = Buffer.writeObject(file, bill, wasZipped[0] );
                     idx.put(bill, ptr);
                 }
@@ -215,7 +214,7 @@ public class Test {
 
     private static void printRecord(RandomAccessFile raf, String key,
                                      IndexBase pidx) throws ClassNotFoundException, IOException {
-        long[] poss = pidx.get(key);
+        LinkedList<Long> poss = pidx.get(key);
         for (long pos : poss) {
             System.out.print("*** Key: " +  key + " points to");
             printRecord(raf, pos);
@@ -281,7 +280,7 @@ public class Test {
             System.err.println( "Invalid number of arguments" );
             return false;
         }
-        try (Index idx = Index.load( idxname);
+        try (Index idx = Index.load(idxname);
              RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
              IndexBase pidx = indexByArg(args[1], idx);
             if (!pidx.contains(args[2])) {
