@@ -64,7 +64,7 @@ public class RectangleFigure extends Canvas implements Shape {
     public void paint(Graphics graphics) {
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setColor(backgroundColor);
-        graphics2D.fillOval((int) rectangleFigure.getX(), (int) rectangleFigure.getY(),
+        graphics2D.fillRect((int) rectangleFigure.getX(), (int) rectangleFigure.getY(),
                 (int) rectangleFigure.getWidth(), (int) rectangleFigure.getHeight());
         graphics2D.setColor(borderColor);
         graphics2D.draw(rectangleFigure);
