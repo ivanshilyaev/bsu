@@ -1,6 +1,8 @@
 package by.bsu.tasks.laba_1.controller;
 
-import by.bsu.tasks.laba_1.service.Executor;
+import by.bsu.tasks.laba_1.service.FileExecutor;
+import by.bsu.tasks.laba_1.service.Searcher;
+import by.bsu.tasks.laba_1.service.exception.ServiceException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,19 +18,12 @@ public class Runner {
         String regex = args[0];
         String stringToFind = args[1];
         String dirName = args[2];
-        List<File> list = new ArrayList<>();
 
-        List<Executor> threads = new ArrayList<>();
-        for (int i = 0; i < NUM; ++i) {
-            threads.add(new Executor(regex, stringToFind, dirName, list));
-        }
+        Searcher searcher = new Searcher();
         try {
-            for (Executor executor : threads) {
-                executor.start();
-                executor.join();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            searcher.search(regex, stringToFind, dirName);
+        } catch (ServiceException e) {
+            System.out.println(e.getMessage());
         }
 
         System.out.println("Main finished its work");
