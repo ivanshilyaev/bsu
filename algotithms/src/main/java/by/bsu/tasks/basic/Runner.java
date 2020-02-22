@@ -8,6 +8,22 @@ class Node {
     int value;
     Node right;
     Node left;
+    /*
+     * высота вершины
+     */
+    int h;
+    /*
+     * Вес (сумма ключей вершин этого пути)
+     * самого тяжёлого пути, выходящего из
+     * данной вершины, и имеющего длину h
+     */
+    int w;
+    /*
+     * длина наибольшего полупути
+     * с корнем в данной вершине
+     * (maximum semipath length)
+     */
+    int msl;
 
     public Node(int value) {
         this.value = value;
@@ -17,7 +33,7 @@ class Node {
 }
 
 class Tree {
-    private Node root;
+    Node root;
 
     public boolean isEmpty() {
         return root == null;
@@ -31,7 +47,7 @@ class Tree {
         root = addRecursively(value, root);
     }
 
-    public boolean find(int value) {
+    public Node find(int value) {
         return findRecursively(value, root);
     }
 
@@ -51,6 +67,14 @@ class Tree {
         postOrderTraverseRecursively(root, list);
     }
 
+    public int countTags() {
+        return countTagsRecursively(root, 0);
+    }
+
+    public Node findPath(int length, Node comparingNode) {
+        return findPathRecursively(root, length, comparingNode);
+    }
+
     private Node addRecursively(int value, Node node) {
         if (node == null) {
             return new Node(value);
@@ -65,12 +89,12 @@ class Tree {
         return node;
     }
 
-    private boolean findRecursively(int value, Node node) {
+    private Node findRecursively(int value, Node node) {
         if (node == null) {
-            return false;
+            return null;
         }
         if (value == node.value) {
-            return true;
+            return node;
         }
         return value < node.value ?
                 findRecursively(value, node.left) :
@@ -128,14 +152,119 @@ class Tree {
             list.add(node.value);
         }
     }
+
+    private void countHeight(Node node) {
+        if (node.left == null && node.right == null) {
+            node.h = 0;
+        } else if (node.left == null) {
+            node.h = node.right.h + 1;
+        } else if (node.right == null) {
+            node.h = node.left.h + 1;
+        } else {
+            node.h = Math.max(node.left.h, node.right.h) + 1;
+        }
+    }
+
+    private void countWeight(Node node) {
+        if (node.left == null && node.right == null) {
+            node.w = node.value;
+        } else if (node.left == null) {
+            node.w = node.right.w + node.value;
+        } else if (node.right == null) {
+            node.w = node.left.w + node.value;
+        } else {
+            node.w = node.left.h > node.right.h ? node.left.w + node.value :
+                    node.right.w + node.value;
+        }
+    }
+
+    private void countMSL(Node node) {
+        if (node.left != null && node.right != null) {
+            node.msl = node.left.h + node.right.h + 2;
+        } else {
+            node.msl = node.h;
+        }
+    }
+
+    /*
+     * Метод подсчитывает метки данной вершины
+     * (высоту, вес и длины наибольшего полупути
+     * с корнем в данной вершине)
+     * и возвращает длину наибольшего полупути
+     * во всём дереве
+     */
+    private int countTagsRecursively(Node node, int max) {
+        if (node != null) {
+            max = countTagsRecursively(node.left, max);
+            max = countTagsRecursively(node.right, max);
+            countHeight(node);
+            countWeight(node);
+            countMSL(node);
+            return Math.max(node.msl, max);
+        }
+        return max;
+    }
+
+    private int weight(Node node) {
+        int sum = node.value;
+        if (node.left != null) {
+            sum += node.left.w;
+        }
+        if (node.right != null) {
+            sum += node.right.w;
+        }
+        return sum;
+    }
+
+    /*
+     * Метод находит наибольший полупуть
+     * с максимальным весом
+     * (то есть искомый путь задачи)
+     * и возвращает корень этого пути
+     */
+    private Node findPathRecursively(Node node, int length, Node comparingNode) {
+        if (node != null) {
+            comparingNode = findPathRecursively(node.left, length, comparingNode);
+            comparingNode = findPathRecursively(node.right, length, comparingNode);
+            if (node.msl == length && weight(node) > weight(comparingNode)) {
+                return node;
+            }
+        }
+        return comparingNode;
+    }
+
+    public Node findCentralNode(Node node, int length) {
+        if ((length == 0) || (node.right == null && node.left == null)) {
+            return node;
+        } else {
+            if (node.left != null && node.right != null) {
+                if (node.left.h == node.right.h) {
+                    return node;
+                } else if (node.left.h > node.right.h) {
+                    length = (node.left.h - node.right.h) / 2;
+                    return findCentralNode(node.left, --length);
+                } else {
+                    length = (node.right.h - node.left.h) / 2;
+                    return findCentralNode(node.right, --length);
+                }
+            } else {
+                --length;
+                if (node.left != null) {
+                    return findCentralNode(node.left, length);
+                } else {
+                    return findCentralNode(node.right, length);
+                }
+            }
+        }
+    }
 }
 
 public class Runner implements Runnable {
-    private static final String IN = "/Users/ivansilaev/Desktop/input.txt";
-    private static final String OUT = "/Users/ivansilaev/Desktop/output.txt";
+    private static final String IN = "/Users/ivansilaev/Desktop/in.txt";
+    private static final String OUT = "/Users/ivansilaev/Desktop/out.txt";
 
-    //private static final String IN = "input.txt";
-    //private static final String OUT = "output.txt";
+    //private static final String IN = "in.txt";
+    //private static final String OUT = "out.txt";
 
     public static void main(String[] args) {
         new Thread(null, new Runner(), "", 64 * 1024 * 1024).start();
@@ -153,7 +282,26 @@ public class Runner implements Runnable {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
+        // нахождение высоты каждой вершины
+        int length = tree.countTags();
+        Node desiredRoot = new Node(0);
+        desiredRoot.h = 0;
+        desiredRoot.w = 0;
+        desiredRoot.msl = 0;
+        desiredRoot = tree.findPath(length, desiredRoot);
+        System.out.println(desiredRoot.value);
+        if (length % 2 == 0) {
+            Node center = tree.findCentralNode(desiredRoot, length / 2);
+            System.out.println(center.value);
+            if (center.value != desiredRoot.value) {
+                tree.delete(center.value);
+            }
+        }
+        tree.delete(desiredRoot.value);
+
         List<Integer> list = new ArrayList<>();
+        //tree.preOrderTraverse(list);
         tree.inOrderTraverse(list);
         if (!tree.isEmpty()) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(OUT))) {
