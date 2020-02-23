@@ -1,4 +1,4 @@
-package by.bsu.tasks.laba_1.dao.exception;
+package by.bsu.tasks.laba01.dao.exception;
 
 public class DAOException extends Exception {
     public DAOException() {

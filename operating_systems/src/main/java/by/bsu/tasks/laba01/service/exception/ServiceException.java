@@ -1,4 +1,4 @@
-package by.bsu.tasks.laba_1.service.exception;
+package by.bsu.tasks.laba01.service.exception;
 
 public class ServiceException extends Exception {
     public ServiceException() {
