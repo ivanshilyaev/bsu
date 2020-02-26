@@ -3,8 +3,6 @@ package by.bsu.tasks.laba01v2.view;
 import by.bsu.tasks.laba01v2.service.FileThread;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -21,14 +19,13 @@ public class FileFrame {
     public JButton button3;
 
     public boolean isPaused;
-
-    private FileThread fileThread;
+    public boolean isStopped;
 
     public FileFrame(String title, FileThread fileThread) {
         frame = new JFrame(title);
-        this.fileThread = fileThread;
 
         isPaused = true;
+        isStopped = false;
 
         contentPane = new JPanel();
         contentPane.setLayout(null);
@@ -49,21 +46,30 @@ public class FileFrame {
         textField3 = new JTextField();
         textField3.setBounds(150, 150, 200, 25);
 
+        // start
         button1 = new JButton("Start");
         button1.setBounds(50, 200, 100, 25);
+        button1.addActionListener(e -> isPaused = false);
 
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isPaused = false;
-            }
-        });
-
+        // stop
         button2 = new JButton("Stop");
         button2.setBounds(150, 200, 100, 25);
+        button2.addActionListener(e -> {
+            isStopped = true;
+        });
 
+        // pause
         button3 = new JButton("Pause");
         button3.setBounds(250, 200, 100, 25);
+        button3.addActionListener(e -> {
+            if (button3.getText().equals("Pause")) {
+                isPaused = true;
+                button3.setText("Resume");
+            } else {
+                isPaused = false;
+                button3.setText("Pause");
+            }
+        });
 
         // result
         jTextArea = new JTextArea();
@@ -72,6 +78,7 @@ public class FileFrame {
         contentPane.add(jScrollPane);
         jScrollPane.setViewportView(jTextArea);
 
+        // exit
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

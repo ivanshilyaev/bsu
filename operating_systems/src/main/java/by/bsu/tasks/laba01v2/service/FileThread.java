@@ -24,8 +24,19 @@ public class FileThread extends Thread {
     private Pattern pattern;
     private List<File> list;
 
+    private FileFrame frame;
+    // for writing output
+    private Document document;
+
     public FileThread() {
         list = new ArrayList<>();
+        frame = new FileFrame("Thread", this);
+        document = frame.jTextArea.getDocument();
+        try {
+            document.remove(0, document.getLength());
+        } catch (BadLocationException e) {
+            LOGGER.error("BadLocationException in constructor");
+        }
     }
 
     public void search(String directoryName) {
@@ -47,25 +58,42 @@ public class FileThread extends Thread {
                         // if (line.equals(stringToFind)) {
                         if (line.contains(stringToFind)) {
                             list.add(file);
+                            if (frame.isPaused) {
+                                pause();
+                            }
+                            if (frame.isStopped) {
+                                return;
+                            }
+                            document.insertString(document.getLength(),
+                                    file.getAbsolutePath() + "\r\n", null);
+                            TimeUnit.MILLISECONDS.sleep(100);
                         }
                     }
                 }
             } catch (DAOException e) {
                 LOGGER.error("Can't read from file");
+            } catch (InterruptedException e) {
+                LOGGER.error("InterruptedException in search method");
+            } catch (BadLocationException e) {
+                LOGGER.error("BadLocationException in search method");
+            }
+        }
+    }
+
+    public void pause() {
+        while (frame.isPaused) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                LOGGER.error("InterruptedException in pause method");
             }
         }
     }
 
     @Override
     public void run() {
-        FileFrame frame = new FileFrame("Thread", this);
-        while (frame.isPaused) {
-            try {
-                TimeUnit.MILLISECONDS.sleep(100);
-            } catch (InterruptedException e) {
-                LOGGER.error("InterruptedException on start");
-            }
-        }
+        // waiting for Start button
+        pause();
 
         regex = frame.textField1.getText();
         stringToFind = frame.textField2.getText();
@@ -73,22 +101,13 @@ public class FileThread extends Thread {
         pattern = Pattern.compile(regex);
 
         search(primaryDirectoryName);
-        Document document = frame.jTextArea.getDocument();
         try {
-            document.remove(0, document.getLength());
             if (list.isEmpty()) {
                 document.insertString(document.getLength(),
                         "No such files!\r\n", null);
-            } else {
-                for (File file : list) {
-                    document.insertString(document.getLength(),
-                            file.getAbsolutePath() + "\r\n", null);
-                    TimeUnit.MILLISECONDS.sleep(100);
-                    //System.out.println(file.getPath());
-                }
             }
-        } catch (BadLocationException | InterruptedException e) {
-            LOGGER.error("InterruptedException on finish");
+        } catch (BadLocationException e) {
+            LOGGER.error("BadLocationException on finish");
         }
         System.out.println(Thread.currentThread().getName() + " has finished its work");
     }
