@@ -3,6 +3,8 @@ package by.bsu.tasks.laba01v2.service;
 import by.bsu.tasks.laba01v2.dao.FileReaderDAO;
 import by.bsu.tasks.laba01v2.dao.exception.DAOException;
 import by.bsu.tasks.laba01v2.view.FileFrame;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -13,7 +15,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileThread implements Runnable {
+public class FileThread extends Thread {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private String regex;
     private String stringToFind;
     private String primaryDirectoryName;
@@ -47,7 +51,7 @@ public class FileThread implements Runnable {
                     }
                 }
             } catch (DAOException e) {
-                System.err.println("Can't read from file");
+                LOGGER.error("Can't read from file");
             }
         }
     }
@@ -59,7 +63,7 @@ public class FileThread implements Runnable {
             try {
                 TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error("InterruptedException on start");
             }
         }
 
@@ -72,13 +76,19 @@ public class FileThread implements Runnable {
         Document document = frame.jTextArea.getDocument();
         try {
             document.remove(0, document.getLength());
-            for (File file : list) {
+            if (list.isEmpty()) {
                 document.insertString(document.getLength(),
-                        file.getAbsolutePath() + "\r\n", null);
-                //System.out.println(file.getPath());
+                        "No such files!\r\n", null);
+            } else {
+                for (File file : list) {
+                    document.insertString(document.getLength(),
+                            file.getAbsolutePath() + "\r\n", null);
+                    TimeUnit.MILLISECONDS.sleep(100);
+                    //System.out.println(file.getPath());
+                }
             }
-        } catch (BadLocationException e) {
-            e.printStackTrace();
+        } catch (BadLocationException | InterruptedException e) {
+            LOGGER.error("InterruptedException on finish");
         }
         System.out.println(Thread.currentThread().getName() + " has finished its work");
     }

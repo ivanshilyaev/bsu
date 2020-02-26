@@ -5,12 +5,10 @@ import by.bsu.tasks.laba01v2.service.FileThread;
 public class Runnerv2 {
     public static void main(String[] args) {
         FileThread fileThread = new FileThread();
-        Thread thread = new Thread(fileThread);
-        thread.start();
+        fileThread.start();
 
-//        FileThread fileThread1 = new FileThread(regex, stringToFind, dirName);
-//        Thread thread1 = new Thread(fileThread1);
-//        thread1.start();
+        FileThread fileThread1 = new FileThread();
+        fileThread1.start();
 
         // regex for filename
         // ^[\w,\s-]+\.[A-Za-z]{3}$

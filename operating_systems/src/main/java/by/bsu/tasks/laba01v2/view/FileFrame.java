@@ -5,6 +5,8 @@ import by.bsu.tasks.laba01v2.service.FileThread;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class FileFrame {
     private JFrame frame;
@@ -69,6 +71,14 @@ public class FileFrame {
         jScrollPane.setBounds(50, 250, 500, 500);
         contentPane.add(jScrollPane);
         jScrollPane.setViewportView(jTextArea);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                fileThread.interrupt();
+                e.getWindow().dispose();
+            }
+        });
 
         frame.setLayout(null);
         frame.add(label1);
