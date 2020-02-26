@@ -12,11 +12,12 @@ public class FileFrame {
     public JTextField textField1;
     public JTextField textField2;
     public JTextField textField3;
-    public JTextArea jTextArea;
-    public JScrollPane jScrollPane;
+    public JCheckBox jCheckBox;
     public JButton button1;
     public JButton button2;
     public JButton button3;
+    public JTextArea jTextArea;
+    public JScrollPane jScrollPane;
 
     public boolean isPaused;
     public boolean isStopped;
@@ -46,21 +47,25 @@ public class FileFrame {
         textField3 = new JTextField();
         textField3.setBounds(150, 150, 200, 25);
 
+        // searching in subdirectories
+        jCheckBox = new JCheckBox("Search in subdirectories");
+        jCheckBox.setBounds(50, 200, 300, 25);
+
         // start
         button1 = new JButton("Start");
-        button1.setBounds(50, 200, 100, 25);
+        button1.setBounds(50, 250, 100, 25);
         button1.addActionListener(e -> isPaused = false);
 
         // stop
         button2 = new JButton("Stop");
-        button2.setBounds(150, 200, 100, 25);
+        button2.setBounds(150, 250, 100, 25);
         button2.addActionListener(e -> {
             isStopped = true;
         });
 
         // pause
         button3 = new JButton("Pause");
-        button3.setBounds(250, 200, 100, 25);
+        button3.setBounds(250, 250, 100, 25);
         button3.addActionListener(e -> {
             if (button3.getText().equals("Pause")) {
                 isPaused = true;
@@ -74,7 +79,7 @@ public class FileFrame {
         // result
         jTextArea = new JTextArea();
         jScrollPane = new JScrollPane();
-        jScrollPane.setBounds(50, 250, 500, 500);
+        jScrollPane.setBounds(50, 300, 500, 450);
         contentPane.add(jScrollPane);
         jScrollPane.setViewportView(jTextArea);
 
@@ -94,6 +99,7 @@ public class FileFrame {
         frame.add(textField2);
         frame.add(label3);
         frame.add(textField3);
+        frame.add(jCheckBox);
         frame.add(button1);
         frame.add(button2);
         frame.add(button3);

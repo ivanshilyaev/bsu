@@ -46,7 +46,7 @@ public class FileThread extends Thread {
             return;
         }
         for (File file : files) {
-            if (file.isDirectory()) {
+            if (file.isDirectory() && frame.jCheckBox.isSelected()) {
                 search(file.getAbsolutePath());
             }
             FileReaderDAO reader = new FileReaderDAO();
