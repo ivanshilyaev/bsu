@@ -69,11 +69,12 @@ public class FileThread implements Runnable {
         pattern = Pattern.compile(regex);
 
         search(primaryDirectoryName);
-        Document document = frame.textField4.getDocument();
+        Document document = frame.jTextArea.getDocument();
         try {
             document.remove(0, document.getLength());
             for (File file : list) {
-                document.insertString(0, file.getAbsolutePath(), null);
+                document.insertString(document.getLength(),
+                        file.getAbsolutePath() + "\r\n", null);
                 //System.out.println(file.getPath());
             }
         } catch (BadLocationException e) {

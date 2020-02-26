@@ -8,10 +8,12 @@ import java.awt.event.ActionListener;
 
 public class FileFrame {
     private JFrame frame;
+    private JPanel contentPane;
     public JTextField textField1;
     public JTextField textField2;
     public JTextField textField3;
-    public JTextField textField4;
+    public JTextArea jTextArea;
+    public JScrollPane jScrollPane;
     public JButton button1;
     public JButton button2;
     public JButton button3;
@@ -25,6 +27,10 @@ public class FileFrame {
         this.fileThread = fileThread;
 
         isPaused = true;
+
+        contentPane = new JPanel();
+        contentPane.setLayout(null);
+        frame.setContentPane(contentPane);
 
         JLabel label1 = new JLabel("Regex:");
         label1.setBounds(50, 50, 100, 25);
@@ -58,8 +64,11 @@ public class FileFrame {
         button3.setBounds(250, 200, 100, 25);
 
         // result
-        textField4 = new JTextField();
-        textField4.setBounds(50, 250, 500, 300);
+        jTextArea = new JTextArea();
+        jScrollPane = new JScrollPane();
+        jScrollPane.setBounds(50, 250, 500, 500);
+        contentPane.add(jScrollPane);
+        jScrollPane.setViewportView(jTextArea);
 
         frame.setLayout(null);
         frame.add(label1);
@@ -71,7 +80,6 @@ public class FileFrame {
         frame.add(button1);
         frame.add(button2);
         frame.add(button3);
-        frame.add(textField4);
         frame.setSize(600, 800);
         frame.setVisible(true);
     }
