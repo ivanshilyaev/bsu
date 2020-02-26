@@ -4,9 +4,12 @@ import by.bsu.tasks.laba01v2.dao.FileReaderDAO;
 import by.bsu.tasks.laba01v2.dao.exception.DAOException;
 import by.bsu.tasks.laba01v2.view.FileFrame;
 
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,14 +20,8 @@ public class FileThread implements Runnable {
     private Pattern pattern;
     private List<File> list;
 
-    public FileThread(String regex, String stringToFind, String directoryName) {
-        this.regex = regex;
-        this.stringToFind = stringToFind;
-        this.primaryDirectoryName = directoryName;
-        pattern = Pattern.compile(regex);
+    public FileThread() {
         list = new ArrayList<>();
-
-        FileFrame frame = new FileFrame("Thread", this);
     }
 
     public void search(String directoryName) {
@@ -57,10 +54,30 @@ public class FileThread implements Runnable {
 
     @Override
     public void run() {
+        FileFrame frame = new FileFrame("Thread", this);
+        while (frame.isPaused) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        regex = frame.textField1.getText();
+        stringToFind = frame.textField2.getText();
+        primaryDirectoryName = frame.textField3.getText();
+        pattern = Pattern.compile(regex);
 
         search(primaryDirectoryName);
-        for (File file : list) {
-            System.out.println(file.getPath());
+        Document document = frame.textField4.getDocument();
+        try {
+            document.remove(0, document.getLength());
+            for (File file : list) {
+                document.insertString(0, file.getAbsolutePath(), null);
+                //System.out.println(file.getPath());
+            }
+        } catch (BadLocationException e) {
+            e.printStackTrace();
         }
         System.out.println(Thread.currentThread().getName() + " has finished its work");
     }

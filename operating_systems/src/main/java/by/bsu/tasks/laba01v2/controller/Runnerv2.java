@@ -4,11 +4,7 @@ import by.bsu.tasks.laba01v2.service.FileThread;
 
 public class Runnerv2 {
     public static void main(String[] args) {
-        String regex = args[0];
-        String stringToFind = args[1];
-        String dirName = args[2];
-
-        FileThread fileThread = new FileThread(regex, stringToFind, dirName);
+        FileThread fileThread = new FileThread();
         Thread thread = new Thread(fileThread);
         thread.start();
 

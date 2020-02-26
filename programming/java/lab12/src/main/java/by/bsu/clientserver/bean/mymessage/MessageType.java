@@ -1,4 +1,4 @@
-package by.bsu.clientserver.bean;
+package by.bsu.clientserver.bean.mymessage;
 
 public enum MessageType {
     NAME_REQUEST,

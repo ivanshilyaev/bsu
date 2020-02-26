@@ -1,7 +1,7 @@
 package by.bsu.clientserver.controller.server;
 
-import by.bsu.clientserver.bean.Message;
-import by.bsu.clientserver.bean.MessageType;
+import by.bsu.clientserver.bean.mymessage.Message;
+import by.bsu.clientserver.bean.mymessage.MessageType;
 import by.bsu.clientserver.service.Connection;
 import by.bsu.clientserver.view.ConsoleHelper;
 

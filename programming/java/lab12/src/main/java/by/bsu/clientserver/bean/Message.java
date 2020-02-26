@@ -1,39 +1,50 @@
 package by.bsu.clientserver.bean;
 
+import by.bsu.clientserver.service.Protocol;
+
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAttribute;
 
-public class Message implements Serializable {
-    private MessageType type;
-    private String data;
-    private byte[] file;
+public abstract class Message extends MessageXml implements Serializable {
 
-    public Message(MessageType type) {
-        this.type = type;
-        data = null;
-        file = null;
+    public static class Data implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
+        protected byte id;
+
+        @XmlAttribute
+        public byte getID() {
+            return id;
+        }
+        public void setID(byte id) {
+            assert(Protocol.validID(id));
+            this.id = id;
+        }
+        public Data() {
+        }
+
+        public String toString() {
+            return "" + id;
+        }
     }
 
-    public Message(MessageType type, String data) {
-        this.type = type;
-        this.data = data;
-        file = null;
+    private static final long serialVersionUID = 1L;
+
+    protected abstract Message.Data getData();
+
+    public byte getID() {
+        return getData().getID();
     }
 
-    public Message(MessageType type, String data, byte[] file) {
-        this.type = type;
-        this.data = data;
-        this.file = file;
+    protected Message() {
     }
 
-    public MessageType getType() {
-        return type;
+    protected void setup( byte id ) {
+        getData().setID(id);
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public byte[] getFile() {
-        return file;
+    public String toString() {
+        return getData().toString();
     }
 }

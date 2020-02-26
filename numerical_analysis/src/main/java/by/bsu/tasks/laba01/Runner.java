@@ -6,7 +6,7 @@ public class Runner {
     static final double Q = (double) 4 / 17;
     static final double EPS = Math.pow(10, -9);
     static final String DEL = "==================";
-    static final double SOLUTION = 1.264591571;
+    static final double SOLUTION = 1.26459157128780;
 
     static double phi(double x) {
         return Math.atan(4 / x);
@@ -29,6 +29,8 @@ public class Runner {
         double x2 = phi(x1);
         int k = 1;
         while (Math.abs(x2 - x1) >= EPS) {
+            System.out.printf("%d - %.9f", k, x2);
+            System.out.println();
             x1 = x2;
             x2 = phi(x1);
             ++k;
@@ -44,6 +46,8 @@ public class Runner {
         x2 = x1 - f(x1) / f1(x1);
         k = 1;
         while (Math.abs(x2 - x1) >= EPS) {
+            System.out.printf("%d - %.9f", k, x2);
+            System.out.println();
             x1 = x2;
             x2 = x1 - f(x1) / f1(x1);
             ++k;
@@ -52,6 +56,6 @@ public class Runner {
         System.out.printf("Полученное решение: %.9f", x2);
         System.out.println();
         System.out.println(DEL);
-        System.out.printf("Точное решение: %.9f", SOLUTION);
+        System.out.printf("Точное решение: %.14f", SOLUTION);
     }
 }

@@ -3,6 +3,8 @@ package by.bsu.tasks.laba01v2.view;
 import by.bsu.tasks.laba01v2.service.FileThread;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FileFrame {
     private JFrame frame;
@@ -22,7 +24,7 @@ public class FileFrame {
         frame = new JFrame(title);
         this.fileThread = fileThread;
 
-        isPaused = false;
+        isPaused = true;
 
         JLabel label1 = new JLabel("Regex:");
         label1.setBounds(50, 50, 100, 25);
@@ -42,7 +44,12 @@ public class FileFrame {
         button1 = new JButton("Start");
         button1.setBounds(50, 200, 100, 25);
 
-        //button1.addActionListener();
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isPaused = false;
+            }
+        });
 
         button2 = new JButton("Stop");
         button2.setBounds(150, 200, 100, 25);
@@ -52,7 +59,7 @@ public class FileFrame {
 
         // result
         textField4 = new JTextField();
-        textField4.setBounds(50, 250, 300, 300);
+        textField4.setBounds(50, 250, 500, 300);
 
         frame.setLayout(null);
         frame.add(label1);

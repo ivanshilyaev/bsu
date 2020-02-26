@@ -188,7 +188,7 @@ class Tree {
 
     /*
      * Метод подсчитывает метки данной вершины
-     * (высоту, вес и длины наибольшего полупути
+     * (высоту, вес и длину наибольшего полупути
      * с корнем в данной вершине)
      * и возвращает длину наибольшего полупути
      * во всём дереве
@@ -226,6 +226,7 @@ class Tree {
         if (node != null) {
             comparingNode = findPathRecursively(node.left, length, comparingNode);
             comparingNode = findPathRecursively(node.right, length, comparingNode);
+            // !!!
             if (node.msl == length && weight(node) > weight(comparingNode)) {
                 return node;
             }
@@ -285,15 +286,17 @@ public class Runner implements Runnable {
 
         // нахождение высоты каждой вершины
         int length = tree.countTags();
-        Node desiredRoot = new Node(0);
+        // !!!
+        //Node desiredRoot = tree.root;
+        Node desiredRoot = new Node(Integer.MIN_VALUE);
         desiredRoot.h = 0;
-        desiredRoot.w = 0;
+        desiredRoot.w = desiredRoot.value;
         desiredRoot.msl = 0;
         desiredRoot = tree.findPath(length, desiredRoot);
-        System.out.println(desiredRoot.value);
+        //System.out.println(desiredRoot.value);
         if (length % 2 == 0) {
             Node center = tree.findCentralNode(desiredRoot, length / 2);
-            System.out.println(center.value);
+            //System.out.println(center.value);
             if (center.value != desiredRoot.value) {
                 tree.delete(center.value);
             }
@@ -301,8 +304,7 @@ public class Runner implements Runnable {
         tree.delete(desiredRoot.value);
 
         List<Integer> list = new ArrayList<>();
-        //tree.preOrderTraverse(list);
-        tree.inOrderTraverse(list);
+        tree.preOrderTraverse(list);
         if (!tree.isEmpty()) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(OUT))) {
                 for (Integer value : list.subList(0, list.size() - 1)) {

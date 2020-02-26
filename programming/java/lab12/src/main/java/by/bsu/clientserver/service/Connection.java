@@ -1,6 +1,6 @@
 package by.bsu.clientserver.service;
 
-import by.bsu.clientserver.bean.Message;
+import by.bsu.clientserver.bean.mymessage.Message;
 
 import java.io.Closeable;
 import java.io.IOException;
