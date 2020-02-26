@@ -14,9 +14,13 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class FileThread extends Thread {
     private static final Logger LOGGER = LogManager.getLogger();
+
+    // regex for filename
+    // ^[\w,\s-]+\.[A-Za-z]{3}$
 
     private String regex;
     private String stringToFind;
@@ -46,6 +50,9 @@ public class FileThread extends Thread {
             return;
         }
         for (File file : files) {
+            if (!file.exists()) {
+                return;
+            }
             if (file.isDirectory() && frame.jCheckBox.isSelected()) {
                 search(file.getAbsolutePath());
             }
@@ -66,7 +73,7 @@ public class FileThread extends Thread {
                             }
                             document.insertString(document.getLength(),
                                     file.getAbsolutePath() + "\r\n", null);
-                            TimeUnit.MILLISECONDS.sleep(100);
+                            TimeUnit.MILLISECONDS.sleep(50);
                         }
                     }
                 }
@@ -83,7 +90,7 @@ public class FileThread extends Thread {
     public void pause() {
         while (frame.isPaused) {
             try {
-                TimeUnit.MILLISECONDS.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(50);
             } catch (InterruptedException e) {
                 LOGGER.error("InterruptedException in pause method");
             }
@@ -92,19 +99,33 @@ public class FileThread extends Thread {
 
     @Override
     public void run() {
+        frame.setTitle(Thread.currentThread().getName());
         // waiting for Start button
         pause();
 
         regex = frame.textField1.getText();
         stringToFind = frame.textField2.getText();
         primaryDirectoryName = frame.textField3.getText();
-        pattern = Pattern.compile(regex);
+        try {
+            pattern = Pattern.compile(regex);
+        } catch (PatternSyntaxException e) {
+            try {
+                document.insertString(document.getLength(),
+                        "Illegal regex!\r\n", null);
+                return;
+            } catch (BadLocationException ex) {
+                LOGGER.error("BadLocationException on finish");
+            }
+        }
 
         search(primaryDirectoryName);
         try {
             if (list.isEmpty()) {
                 document.insertString(document.getLength(),
                         "No such files!\r\n", null);
+            } else {
+                document.insertString(document.getLength(),
+                        "Number of files: " + list.size() + " \r\n", null);
             }
         } catch (BadLocationException e) {
             LOGGER.error("BadLocationException on finish");

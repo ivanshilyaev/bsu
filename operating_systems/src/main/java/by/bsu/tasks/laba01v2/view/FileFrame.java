@@ -22,6 +22,10 @@ public class FileFrame {
     public boolean isPaused;
     public boolean isStopped;
 
+    public void setTitle(String title) {
+        frame.setTitle(title);
+    }
+
     public FileFrame(String title, FileThread fileThread) {
         frame = new JFrame(title);
 

@@ -7,10 +7,7 @@ public class Runnerv2 {
         FileThread fileThread = new FileThread();
         fileThread.start();
 
-//        FileThread fileThread1 = new FileThread();
-//        fileThread1.start();
-
-        // regex for filename
-        // ^[\w,\s-]+\.[A-Za-z]{3}$
+        FileThread fileThread1 = new FileThread();
+        fileThread1.start();
     }
 }
