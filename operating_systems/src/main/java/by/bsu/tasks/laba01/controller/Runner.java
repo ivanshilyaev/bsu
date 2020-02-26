@@ -22,12 +22,13 @@ public class Runner {
         Searcher searcher = new Searcher();
         try {
             searcher.search(regex, stringToFind, dirName, service);
-            service.awaitTermination(5000, TimeUnit.MILLISECONDS);
+            service.awaitTermination(1000, TimeUnit.MILLISECONDS);
         } catch (ServiceException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        service.shutdown();
         System.out.println("Main finished its work");
     }
 }

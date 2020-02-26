@@ -1,8 +1,10 @@
 package by.bsu.tasks.laba01.service;
 
-import by.bsu.tasks.laba01.dao.FileReaderDAO;
-import by.bsu.tasks.laba01.dao.exception.DAOException;
+import by.bsu.tasks.laba01v2.dao.FileReaderDAO;
+import by.bsu.tasks.laba01v2.dao.exception.DAOException;
 import by.bsu.tasks.laba01.service.exception.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileExecutor implements Runnable {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private File[] files;
     private String regex;
     private String stringToFind;
@@ -42,8 +46,10 @@ public class FileExecutor implements Runnable {
                     if (matcher.find()) {
                         String[] lines = reader.read(file);
                         for (String line : lines) {
-                            if (line.equals(stringToFind)) {
+                            // if (line.equals(stringToFind)) {
+                            if (line.contains(stringToFind)) {
                                 list.add(file);
+                                LOGGER.info("File added");
                             }
                         }
                     }

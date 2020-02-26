@@ -1,6 +1,6 @@
-package by.bsu.tasks.laba01.dao;
+package by.bsu.tasks.laba01v2.dao;
 
-import by.bsu.tasks.laba01.dao.exception.DAOException;
+import by.bsu.tasks.laba01v2.dao.exception.DAOException;
 
 import java.io.File;
 import java.io.IOException;
