@@ -7,7 +7,7 @@ public class Runnerv2 {
         FileThread fileThread = new FileThread();
         fileThread.start();
 
-        FileThread fileThread1 = new FileThread();
-        fileThread1.start();
+//        FileThread fileThread1 = new FileThread();
+//        fileThread1.start();
     }
 }

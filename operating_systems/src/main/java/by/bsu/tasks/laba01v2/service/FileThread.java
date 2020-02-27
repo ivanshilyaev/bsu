@@ -74,6 +74,7 @@ public class FileThread extends Thread {
                             document.insertString(document.getLength(),
                                     file.getAbsolutePath() + "\r\n", null);
                             TimeUnit.MILLISECONDS.sleep(50);
+                            return;
                         }
                     }
                 }
@@ -106,6 +107,14 @@ public class FileThread extends Thread {
         regex = frame.textField1.getText();
         stringToFind = frame.textField2.getText();
         primaryDirectoryName = frame.textField3.getText();
+
+        if (frame.jRadioButton1.isSelected()) {
+            Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+        } else if (frame.jRadioButton3.isSelected()) {
+            Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+        } else {
+            Thread.currentThread().setPriority(Thread.NORM_PRIORITY);
+        }
         try {
             pattern = Pattern.compile(regex);
         } catch (PatternSyntaxException e) {

@@ -16,6 +16,9 @@ public class FileFrame {
     public JButton button1;
     public JButton button2;
     public JButton button3;
+    public JRadioButton jRadioButton1;
+    public JRadioButton jRadioButton2;
+    public JRadioButton jRadioButton3;
     public JTextArea jTextArea;
     public JScrollPane jScrollPane;
 
@@ -55,21 +58,33 @@ public class FileFrame {
         jCheckBox = new JCheckBox("Search in subdirectories");
         jCheckBox.setBounds(50, 200, 300, 25);
 
+        // priority
+        jRadioButton1 = new JRadioButton("MIN PRIORITY");
+        jRadioButton1.setBounds(50, 250, 300, 25);
+        jRadioButton2 = new JRadioButton("NORM PRIORITY");
+        jRadioButton2.setBounds(50, 300, 300, 25);
+        jRadioButton3 = new JRadioButton("MAX PRIORITY");
+        jRadioButton3.setBounds(50, 350, 300, 25);
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(jRadioButton1);
+        buttonGroup.add(jRadioButton2);
+        buttonGroup.add(jRadioButton3);
+
         // start
         button1 = new JButton("Start");
-        button1.setBounds(50, 250, 100, 25);
+        button1.setBounds(50, 400, 100, 25);
         button1.addActionListener(e -> isPaused = false);
 
         // stop
         button2 = new JButton("Stop");
-        button2.setBounds(150, 250, 100, 25);
+        button2.setBounds(150, 400, 100, 25);
         button2.addActionListener(e -> {
             isStopped = true;
         });
 
         // pause
         button3 = new JButton("Pause");
-        button3.setBounds(250, 250, 100, 25);
+        button3.setBounds(250, 400, 100, 25);
         button3.addActionListener(e -> {
             if (button3.getText().equals("Pause")) {
                 isPaused = true;
@@ -83,7 +98,7 @@ public class FileFrame {
         // result
         jTextArea = new JTextArea();
         jScrollPane = new JScrollPane();
-        jScrollPane.setBounds(50, 300, 500, 450);
+        jScrollPane.setBounds(50, 450, 500, 300);
         contentPane.add(jScrollPane);
         jScrollPane.setViewportView(jTextArea);
 
@@ -91,7 +106,6 @@ public class FileFrame {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                fileThread.interrupt();
                 e.getWindow().dispose();
             }
         });
@@ -107,6 +121,9 @@ public class FileFrame {
         frame.add(button1);
         frame.add(button2);
         frame.add(button3);
+        frame.add(jRadioButton1);
+        frame.add(jRadioButton2);
+        frame.add(jRadioButton3);
         frame.setSize(600, 800);
         frame.setVisible(true);
     }
