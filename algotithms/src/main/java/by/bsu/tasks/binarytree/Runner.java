@@ -1,4 +1,4 @@
-package by.bsu.tasks.basic;
+package by.bsu.tasks.binarytree;
 
 import java.io.*;
 import java.util.ArrayList;
