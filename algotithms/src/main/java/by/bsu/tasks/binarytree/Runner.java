@@ -234,6 +234,8 @@ class Tree {
         return comparingNode;
     }
 
+    // Ошибка была в этом методе. Неправильно перерасчитывал,
+    // сколько вершин до средней в пути оставалось пройти
     public Node findCentralNode(Node node, int length) {
         if ((length == 0) || (node.right == null && node.left == null)) {
             return node;
@@ -242,10 +244,16 @@ class Tree {
                 if (node.left.h == node.right.h) {
                     return node;
                 } else if (node.left.h > node.right.h) {
-                    length = (node.left.h - node.right.h) / 2;
+                    // !
+                    if (node.msl == 2 * length) {
+                        length = (node.left.h - node.right.h) / 2;
+                    }
                     return findCentralNode(node.left, --length);
                 } else {
-                    length = (node.right.h - node.left.h) / 2;
+                    // !
+                    if (node.msl == 2 * length) {
+                        length = (node.right.h - node.left.h) / 2;
+                    }
                     return findCentralNode(node.right, --length);
                 }
             } else {
