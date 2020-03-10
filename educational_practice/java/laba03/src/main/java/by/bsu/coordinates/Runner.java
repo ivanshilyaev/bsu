@@ -12,7 +12,7 @@ public class Runner extends JFrame {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new PascalStroke(2));
-        g2d.draw(new PascalSnail(0.010, 300, 150, 600, 150));
+        g2d.draw(new PascalSnail(0.025, 300, 150, 600, 150));
     }
 
     public static void main(String[] args) {

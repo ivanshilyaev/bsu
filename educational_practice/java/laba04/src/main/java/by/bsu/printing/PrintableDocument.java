@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.io.BufferedReader;
@@ -23,51 +22,28 @@ class PrintableDocument implements Printable {
     public int print(Graphics g, PageFormat pf, int pageIndex) {
         if (pageIndex != 0)
             return NO_SUCH_PAGE;
-        int a = 100, b = (int) pf.getImageableHeight() * 3 / 4;
+        int x = 50;
+        int y = (int) pf.getImageableHeight() / 2 + 50;
+        // pf.getImageableHeight() = 783
+        // pf.getImageableWidth() = 559
         Graphics2D g2d = (Graphics2D) g;
-        String c;
-        g2d.setFont(new Font("Serif", Font.PLAIN, 5));
-        g2d.drawString("Pascal Snail", (int) (pf.getImageableWidth() / 2), 100);
-        Rectangle2D outline = new Rectangle2D.Double(0, 0, pf.getImageableWidth() * 2, pf.getImageableHeight() * 2 - 40);
-        g2d.setFont(new Font("Serif", Font.PLAIN, 20));
+        String line;
+        g2d.setFont(new Font("Times", Font.PLAIN, 14));
+        g2d.drawString("Pascal Snail", (int) (pf.getImageableWidth() / 2 - 20), 50);
+        g2d.setFont(new Font("Times", Font.PLAIN, 5));
         try (BufferedReader f = new BufferedReader(new FileReader(fileName));) {
-            while ((c = f.readLine()) != null) {
-
-//         				if (c.length()>149)
-//         				{
-//         					String d = c.substring(149);
-//         					g2d.drawString(d, a,b);
-//          				   b+=5;
-//          				   if(b>pf.getImageableHeight()*5/4-40)
-//          				   {
-//          					   b=(int)pf.getImageableHeight()*3/4;
-//          					   a+=150;
-//          				   }
-//          				   String e = c.substring(150, c.length()-1);
-//          				   g2d.drawString(e, a,b);
-//          				   b+=5;
-//          				   if(b>pf.getImageableHeight()*5/4-40)
-//          				   {
-//          					   b=(int)pf.getImageableHeight()*3/4;
-//          					   a+=150;
-//          				   }
-//
-//         				}
-//         				else {
-                g2d.drawString(c, a, b);
-                b += 5;
-                if (b > pf.getImageableHeight() * 5 / 4 - 40) {
-                    b = (int) pf.getImageableHeight() * 3 / 4;
-                    a += 150;
+            while ((line = f.readLine()) != null) {
+                g2d.drawString(line, x, y);
+                y += 5;
+                if (y > pf.getImageableHeight() - 20) {
+                    y = (int) pf.getImageableHeight() / 2 + 50;
+                    x += 170;
                 }
             }
-
-//         			}
         } catch (IOException e) {
             e.printStackTrace();
         }
-        plot = new PascalSnail(0.025, 300, 150, 600, 150);
-        g2d.draw(outline);
+        plot = new PascalSnail(0.025, 200, 100, 600, 150);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setStroke(new PascalStroke(2));

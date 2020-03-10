@@ -13,7 +13,8 @@ public class PascalSnail implements Shape {
     int width;
     int height;
 
-    public PascalSnail(double fl, double ap, double lp, int wh, int he) {
+    public PascalSnail(double fl, double ap,
+                       double lp, int wh, int he) {
         this.flatness = fl;
         this.aParam = ap;
         this.lParam = lp;
@@ -37,7 +38,8 @@ public class PascalSnail implements Shape {
     }
 
     @Override
-    public boolean contains(double x, double y, double w, double h) {
+    public boolean contains(double x, double y,
+                            double w, double h) {
         return false;
     }
 
@@ -53,12 +55,15 @@ public class PascalSnail implements Shape {
 
     @Override
     public PathIterator getPathIterator(AffineTransform at) {
-        return new PascalIterator(this.flatness, this.aParam, this.lParam, this.width, this.height);
+        return new PascalIterator(this.flatness, this.aParam,
+                this.lParam, this.width, this.height);
     }
 
     @Override
-    public PathIterator getPathIterator(AffineTransform at, double flatness) {
-        return new PascalIterator(flatness, this.aParam, this.lParam, this.width, this.height);
+    public PathIterator getPathIterator(AffineTransform at,
+                                        double flatness) {
+        return new PascalIterator(flatness, this.aParam,
+                this.lParam, this.width, this.height);
     }
 
     @Override
@@ -67,7 +72,8 @@ public class PascalSnail implements Shape {
     }
 
     @Override
-    public boolean intersects(double x, double y, double w, double h) {
+    public boolean intersects(double x, double y,
+                              double w, double h) {
         return false;
     }
 
@@ -83,7 +89,8 @@ public class PascalSnail implements Shape {
         int height;
         boolean isDone = false;
 
-        public PascalIterator(double fl, double ap, double lp, int wh, int he) {
+        public PascalIterator(double fl, double ap,
+                              double lp, int wh, int he) {
             this.flatness = fl;
             this.aParam = ap;
             this.lParam = lp;
