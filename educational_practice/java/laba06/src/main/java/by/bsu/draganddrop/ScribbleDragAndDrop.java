@@ -10,12 +10,6 @@ import java.awt.dnd.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-/**
- * This component can operate in two modes.  In "draw mode", it allows the user
- * to scribble with the mouse.  In "drag mode", it allows the user to drag
- * scribbles with the mouse.  Regardless of the mode, it always allows
- * scribbles to be dropped on it from other applications.
- **/
 public class ScribbleDragAndDrop extends JComponent
         implements DragGestureListener,   // For recognizing the start of drags
         DragSourceListener,    // For processing drag source events
@@ -30,9 +24,8 @@ public class ScribbleDragAndDrop extends JComponent
     DragSource dragSource;                  // A central DnD object
     boolean dragMode;                       // Are we dragging or scribbling?
 
-    // These are some constants we use
-    static final int LINEWIDTH = 3;
-    static final BasicStroke linestyle = new BasicStroke(LINEWIDTH);
+    static final int LINE_WIDTH = 3;
+    static final BasicStroke lineStyle = new BasicStroke(LINE_WIDTH);
     static final Border normalBorder = new BevelBorder(BevelBorder.LOWERED);
     static final Border dropBorder = new BevelBorder(BevelBorder.RAISED);
 
@@ -66,17 +59,15 @@ public class ScribbleDragAndDrop extends JComponent
     /**
      * The component draws itself by drawing each of the Scribble objects.
      **/
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new PascalStroke(1));   // Specify wide lines
-
-        int numScribbles = scribbles.size();
-        for (int i = 0; i < numScribbles; i++) {
-            PascalScribble s = (PascalScribble) scribbles.get(i);
-            g2.draw(s);         // Draw the scribble
+        for (PascalScribble scribble : scribbles) {
+            g2.draw(scribble);         // Draw the scribble
         }
-        g2.setStroke(linestyle);
+        g2.setStroke(lineStyle);
     }
 
     public void setDragMode(boolean dragMode) {
@@ -169,11 +160,11 @@ public class ScribbleDragAndDrop extends JComponent
 
         // Figure out which scribble was clicked on, if any by creating a
         // small rectangle around the point and testing for intersection.
-        Rectangle r = new Rectangle(x - LINEWIDTH, y - LINEWIDTH,
-                LINEWIDTH * 2, LINEWIDTH * 2);
+        Rectangle r = new Rectangle(x - LINE_WIDTH, y - LINE_WIDTH,
+                LINE_WIDTH * 2, LINE_WIDTH * 2);
         int numScribbles = scribbles.size();
         for (int i = 0; i < numScribbles; i++) {  // Loop through the scribbles
-            PascalScribble s = (PascalScribble) scribbles.get(i);
+            PascalScribble s = scribbles.get(i);
             if (s.intersects(r)) {
                 // The user started the drag on top of this scribble, so
                 // start to drag it.
@@ -202,7 +193,7 @@ public class ScribbleDragAndDrop extends JComponent
 
                 // Some systems allow us to drag an image along with the
                 // cursor.  If so, create an image of the scribble to drag
-                if (dragSource.isDragImageSupported()) {
+                if (DragSource.isDragImageSupported()) {
                     Rectangle scribbleBox = dragScribble.getBounds();
                     Image dragImage = this.createImage(scribbleBox.width,
                             scribbleBox.height);
@@ -210,7 +201,7 @@ public class ScribbleDragAndDrop extends JComponent
                     g.setColor(new Color(0, 0, 0, 0));  // transparent background
                     g.fillRect(0, 0, scribbleBox.width, scribbleBox.height);
                     g.setColor(Color.black);
-                    g.setStroke(linestyle);
+                    g.setStroke(lineStyle);
                     g.translate(-scribbleBox.x, -scribbleBox.y);
                     g.draw(dragScribble);
                     Point hotspot = new Point(-scribbleBox.x, -scribbleBox.y);
@@ -230,7 +221,7 @@ public class ScribbleDragAndDrop extends JComponent
     /**
      * This method, and the four unused methods that follow it implement the
      * DragSourceListener interface.  dragDropEnd() is invoked when the user
-     * drops the scribble she was dragging.  If the drop was successful, and
+     * drops the scribble he was dragging.  If the drop was successful, and
      * if the user did a "move" rather than a "copy", then we delete the
      * dragged scribble from the list of scribbles to draw.
      **/

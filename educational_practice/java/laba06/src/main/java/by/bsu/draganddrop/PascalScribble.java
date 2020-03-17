@@ -36,10 +36,10 @@ public class PascalScribble implements Shape, Transferable, Serializable, Clonea
 
     public void append(PascalScribble s) {
         int n = numPoints + s.numPoints;
-        double[] newpoints = new double[n];
-        System.arraycopy(points, 0, newpoints, 0, numPoints);
-        System.arraycopy(s.points, 0, newpoints, numPoints, s.numPoints);
-        points = newpoints;
+        double[] newPoints = new double[n];
+        System.arraycopy(points, 0, newPoints, 0, numPoints);
+        System.arraycopy(s.points, 0, newPoints, numPoints, s.numPoints);
+        points = newPoints;
         numPoints = n;
         minX = Math.min(minX, s.minX);
         maxX = Math.max(maxX, s.maxX);
@@ -61,9 +61,9 @@ public class PascalScribble implements Shape, Transferable, Serializable, Clonea
 
 
     protected void reallocate() {
-        double[] newpoints = new double[points.length * 2];
-        System.arraycopy(points, 0, newpoints, 0, numPoints);
-        points = newpoints;
+        double[] newPoints = new double[points.length * 2];
+        System.arraycopy(points, 0, newPoints, 0, numPoints);
+        points = newPoints;
     }
 
     /* Копирование массива теочек */
@@ -165,7 +165,6 @@ public class PascalScribble implements Shape, Transferable, Serializable, Clonea
         return new ScribbleIterator(at);
     }
 
-
     public PathIterator getPathIterator(AffineTransform at, double flatness) {
         return getPathIterator(at);
     }
@@ -224,7 +223,7 @@ public class PascalScribble implements Shape, Transferable, Serializable, Clonea
     }
 
     public static DataFlavor scribbleDataFlavor =
-            new DataFlavor(PascalScribble.class, "MyScribble");
+            new DataFlavor(PascalScribble.class, "PascalScribble");
 
     public static DataFlavor[] supportedFlavors = {
             scribbleDataFlavor,
@@ -239,7 +238,6 @@ public class PascalScribble implements Shape, Transferable, Serializable, Clonea
         return (flavor.equals(scribbleDataFlavor) ||
                 flavor.equals(DataFlavor.stringFlavor));
     }
-
 
     public Object getTransferData(DataFlavor flavor)
             throws UnsupportedFlavorException {
