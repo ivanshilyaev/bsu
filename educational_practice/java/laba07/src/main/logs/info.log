@@ -1,0 +1,42 @@
+[ERROR] 2020-03-24 16:18:59.472 [main] SectionDaoImpl - DB connection error
+java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/conference_db
+	at java.sql.DriverManager.getConnection(DriverManager.java:702) ~[java.sql:?]
+	at java.sql.DriverManager.getConnection(DriverManager.java:228) ~[java.sql:?]
+	at by.bsu.db.service.ConnectorDB.getConnection(ConnectorDB.java:12) ~[classes/:?]
+	at by.bsu.db.dao.mysql.SectionDaoImpl.findAll(SectionDaoImpl.java:26) [classes/:?]
+	at by.bsu.db.controller.Runner.main(Runner.java:15) [classes/:?]
+[ERROR] 2020-03-24 16:20:28.625 [main] SectionDaoImpl - DB connection error
+java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/conference_db
+	at java.sql.DriverManager.getConnection(DriverManager.java:702) ~[java.sql:?]
+	at java.sql.DriverManager.getConnection(DriverManager.java:228) ~[java.sql:?]
+	at by.bsu.db.service.ConnectorDB.getConnection(ConnectorDB.java:12) ~[classes/:?]
+	at by.bsu.db.dao.mysql.SectionDaoImpl.findAll(SectionDaoImpl.java:26) [classes/:?]
+	at by.bsu.db.controller.Runner.main(Runner.java:15) [classes/:?]
+[ERROR] 2020-03-24 16:22:27.883 [main] SectionDaoImpl - DB connection error
+java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/conference_db
+	at java.sql.DriverManager.getConnection(DriverManager.java:702) ~[java.sql:?]
+	at java.sql.DriverManager.getConnection(DriverManager.java:228) ~[java.sql:?]
+	at by.bsu.db.service.ConnectorDB.getConnection(ConnectorDB.java:12) ~[classes/:?]
+	at by.bsu.db.dao.mysql.SectionDaoImpl.findAll(SectionDaoImpl.java:26) [classes/:?]
+	at by.bsu.db.controller.Runner.main(Runner.java:15) [classes/:?]
+[ERROR] 2020-03-24 16:27:55.420 [main] SectionDaoImpl - DB connection error
+java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/conference_db
+	at java.sql.DriverManager.getConnection(DriverManager.java:702) ~[java.sql:?]
+	at java.sql.DriverManager.getConnection(DriverManager.java:228) ~[java.sql:?]
+	at by.bsu.db.service.ConnectorDB.getConnection(ConnectorDB.java:14) ~[classes/:?]
+	at by.bsu.db.dao.mysql.SectionDaoImpl.findAll(SectionDaoImpl.java:26) [classes/:?]
+	at by.bsu.db.controller.Runner.main(Runner.java:15) [classes/:?]
+[ERROR] 2020-03-24 16:32:12.955 [main] SectionDaoImpl - DB connection error
+java.sql.SQLSyntaxErrorException: Access denied for user 'application'@'localhost' to database 'conference_db'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.19.jar:8.0.19]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.19.jar:8.0.19]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.19.jar:8.0.19]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:836) ~[mysql-connector-java-8.0.19.jar:8.0.19]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456) ~[mysql-connector-java-8.0.19.jar:8.0.19]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246) ~[mysql-connector-java-8.0.19.jar:8.0.19]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197) ~[mysql-connector-java-8.0.19.jar:8.0.19]
+	at java.sql.DriverManager.getConnection(DriverManager.java:677) ~[java.sql:?]
+	at java.sql.DriverManager.getConnection(DriverManager.java:228) ~[java.sql:?]
+	at by.bsu.db.service.ConnectorDB.getConnection(ConnectorDB.java:12) ~[classes/:?]
+	at by.bsu.db.dao.mysql.SectionDaoImpl.findAll(SectionDaoImpl.java:26) [classes/:?]
+	at by.bsu.db.controller.Runner.main(Runner.java:15) [classes/:?]

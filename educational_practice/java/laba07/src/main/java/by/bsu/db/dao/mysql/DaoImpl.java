@@ -1,5 +1,6 @@
 package by.bsu.db.dao.mysql;
 
+import by.bsu.db.bean.Entity;
 import by.bsu.db.dao.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,7 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class DaoImpl {
+public abstract class DaoImpl<K, T extends Entity> {
     private static final Logger LOGGER = LogManager.getLogger();
 
     protected Connection connection;

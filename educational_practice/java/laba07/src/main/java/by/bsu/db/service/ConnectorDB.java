@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectorDB {
-    public Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/conference_db";
         String login = "application";
         String password = "application_password";
