@@ -1,7 +1,8 @@
 package by.bsu.db.dao.mysql;
 
+import by.bsu.db.bean.Report;
 import by.bsu.db.bean.Section;
-import by.bsu.db.dao.SectionDao;
+import by.bsu.db.dao.ReportDao;
 import by.bsu.db.dao.exception.DAOException;
 import by.bsu.db.service.ConnectorDB;
 import org.apache.logging.log4j.LogManager;
@@ -13,15 +14,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionDaoImpl extends DaoImpl<Integer, Section> implements SectionDao {
+public class ReportDaoImpl extends DaoImpl<Integer, Report> implements ReportDao {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public static final String SQL_SELECT_ALL_SECTIONS =
-            "SELECT id, name, judges FROM section;";
+    public static final String SQL_SELECT_ALL_REPORTS =
+            "SELECT id, name, section_id FROM report;";
 
     @Override
-    public List<Section> findAll() throws DAOException {
-        List<Section> sections = new ArrayList<>();
+    public List<Report> findAll() throws DAOException {
+        List<Report> reports = new ArrayList<>();
         try {
             connection = ConnectorDB.getConnection();
             Statement statement = null;
@@ -29,13 +30,17 @@ public class SectionDaoImpl extends DaoImpl<Integer, Section> implements Section
                 statement = connection.createStatement();
                 ResultSet resultSet = null;
                 try {
-                    resultSet = statement.executeQuery(SQL_SELECT_ALL_SECTIONS);
+                    resultSet = statement.executeQuery(SQL_SELECT_ALL_REPORTS);
                     while (resultSet.next()) {
-                        Section section = new Section();
-                        section.setId(resultSet.getInt(1));
-                        section.setName(resultSet.getString(2));
-                        section.setJudges(resultSet.getInt(3));
-                        sections.add(section);
+                        Report report = new Report();
+                        report.setId(resultSet.getInt(1));
+                        report.setName(resultSet.getString(2));
+                        int sectionID = resultSet.getInt(3);
+                        Section section = new SectionDaoImpl().findEntityById(sectionID);
+                        if (section != null) {
+                            report.setSection(section);
+                        }
+                        reports.add(report);
                     }
                 } finally {
                     if (resultSet != null) {
@@ -52,24 +57,28 @@ public class SectionDaoImpl extends DaoImpl<Integer, Section> implements Section
         } finally {
             closeConnection();
         }
-        return sections;
+        return reports;
     }
 
     @Override
-    public Section findEntityById(Integer id) throws DAOException {
-        Section section = null;
+    public Report findEntityById(Integer id) throws DAOException {
+        Report report = null;
         Statement statement = null;
         ResultSet resultSet;
         try {
             connection = ConnectorDB.getConnection();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(SQL_SELECT_ALL_SECTIONS);
+            resultSet = statement.executeQuery(SQL_SELECT_ALL_REPORTS);
             while (resultSet.next()) {
                 if (resultSet.getInt(1) == id) {
-                    section = new Section();
-                    section.setId(resultSet.getInt(1));
-                    section.setName(resultSet.getString(2));
-                    section.setJudges(resultSet.getInt(3));
+                    report = new Report();
+                    report.setId(resultSet.getInt(1));
+                    report.setName(resultSet.getString(2));
+                    int sectionID = resultSet.getInt(3);
+                    Section section = new SectionDaoImpl().findEntityById(sectionID);
+                    if (section != null) {
+                        report.setSection(section);
+                    }
                 }
             }
             resultSet.close();
@@ -80,7 +89,7 @@ public class SectionDaoImpl extends DaoImpl<Integer, Section> implements Section
                 close(statement);
             }
         }
-        return section;
+        return report;
     }
 
     @Override
@@ -89,17 +98,17 @@ public class SectionDaoImpl extends DaoImpl<Integer, Section> implements Section
     }
 
     @Override
-    public boolean delete(Section entity) {
+    public boolean delete(Report entity) {
         return false;
     }
 
     @Override
-    public boolean create(Section entity) {
+    public boolean create(Report entity) {
         return false;
     }
 
     @Override
-    public Section update(Section entity) {
+    public Report update(Report entity) {
         return null;
     }
 }
