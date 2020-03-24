@@ -21,7 +21,6 @@ public class Runner {
 
     public static void main(String[] args) {
         try {
-            // very bad example
             TransactionFactory transactionFactory = new TransactionFactoryImpl();
             SectionServiceImpl sectionService = new SectionServiceImpl();
             sectionService.setTransaction(transactionFactory.createTransaction());

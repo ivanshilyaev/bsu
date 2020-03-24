@@ -8,5 +8,5 @@ import java.util.List;
 public interface SectionService extends Service {
     List<Section> findAll() throws ServiceException;
 
-    Section findSectionById(int id);
+    Section findSectionById(int id) throws ServiceException;
 }

@@ -20,7 +20,12 @@ public class SectionServiceImpl extends ServiceImpl implements SectionService {
     }
 
     @Override
-    public Section findSectionById(int id) {
-        return null;
+    public Section findSectionById(int id) throws ServiceException {
+        try {
+            SectionDao sectionDao = transaction.createDao(SectionDao.class);
+            return sectionDao.findEntityById(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getCause());
+        }
     }
 }
