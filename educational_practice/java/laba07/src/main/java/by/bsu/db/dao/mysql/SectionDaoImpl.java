@@ -23,7 +23,6 @@ public class SectionDaoImpl extends DaoImpl<Integer, Section> implements Section
     public List<Section> findAll() throws DAOException {
         List<Section> sections = new ArrayList<>();
         try {
-            connection = ConnectorDB.getConnection();
             Statement statement = null;
             try {
                 statement = connection.createStatement();
@@ -61,7 +60,6 @@ public class SectionDaoImpl extends DaoImpl<Integer, Section> implements Section
         Statement statement = null;
         ResultSet resultSet;
         try {
-            connection = ConnectorDB.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SQL_SELECT_ALL_SECTIONS);
             while (resultSet.next()) {

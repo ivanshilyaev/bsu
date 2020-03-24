@@ -24,6 +24,7 @@ public class PresenterDaoImpl extends DaoImpl<String, Presenter> implements Pres
     public List<Presenter> findAll() throws DAOException {
         List<Presenter> presenters = new ArrayList<>();
         try {
+            // fix!
             connection = ConnectorDB.getConnection();
             Statement statement = null;
             try {
