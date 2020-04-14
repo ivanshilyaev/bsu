@@ -1,4 +1,4 @@
-package by.bsu.tables.v2.examples;
+package by.bsu.tables.examples;
 
 import java.awt.*;
 import java.awt.event.*;

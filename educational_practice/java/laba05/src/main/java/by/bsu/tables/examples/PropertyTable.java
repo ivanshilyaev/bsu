@@ -1,6 +1,6 @@
-package by.bsu.tables.v2.examples;
+package by.bsu.tables.examples;
 
-import by.bsu.tables.v2.bean.Presenter;
+import by.bsu.tables.v2.Presenter;
 
 import java.awt.event.*;
 import javax.swing.*;

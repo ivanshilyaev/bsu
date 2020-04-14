@@ -1,4 +1,4 @@
-package by.bsu.tables.v2.bean;
+package by.bsu.tables.v1;
 
 import java.util.Objects;
 

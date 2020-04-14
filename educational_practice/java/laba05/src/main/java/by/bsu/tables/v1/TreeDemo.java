@@ -1,20 +1,17 @@
-package by.bsu.tables;
+package by.bsu.tables.v1;
 
-import by.bsu.tables.v2.bean.Presenter;
+import by.bsu.tables.v2.Presenter;
+import by.bsu.tables.v2.TableDemo;
 
 import javax.swing.*;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeSelectionModel;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-
+import javax.swing.tree.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeDemo extends JPanel
-        implements TreeSelectionListener {
+public class TreeDemo extends JPanel implements TreeSelectionListener {
     private JSplitPane splitPane;
     private JTree tree; // upper component of splitPane
     private JPanel presenterPanel; // lower component of splitPane
@@ -23,14 +20,16 @@ public class TreeDemo extends JPanel
         super(new GridLayout(1, 0));
 
         //Create the nodes.
-        DefaultMutableTreeNode top =
+        DefaultMutableTreeNode root =
                 new DefaultMutableTreeNode("Научная конференция");
-        createNodes(top);
+        createNodes(root);
 
         //Create a tree that allows one selection at a time.
-        tree = new JTree(top);
+        tree = new JTree(root);
+        tree.setEditable(true);
         tree.getSelectionModel().setSelectionMode
                 (TreeSelectionModel.SINGLE_TREE_SELECTION);
+        tree.setShowsRootHandles(true);
 
         //Listen for when the selection changes.
         tree.addTreeSelectionListener(this);
@@ -39,10 +38,7 @@ public class TreeDemo extends JPanel
         JScrollPane treeView = new JScrollPane(tree);
 
         //Create the HTML viewing pane.
-        List<Presenter> list = new ArrayList<>();
-        list.add(new Presenter("Shilyaev", "Ivan", "Vladimirovich", "BSU"));
-        list.add(new Presenter("Berkovich", "Pavel", "Alexandrovich", "BSU"));
-        presenterPanel = new TableDemo(list);
+        presenterPanel = new TableDemo(new ArrayList<>());
 
         //Add the scroll panes to a split pane.
         splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
@@ -70,25 +66,29 @@ public class TreeDemo extends JPanel
 
         Object nodeInfo = node.getUserObject();
         if (node.isLeaf()) {
-            Presenter presenter = (Presenter) nodeInfo;
-            List<Presenter> list = new ArrayList<>();
-            list.add(presenter);
-            presenterPanel = new TableDemo(list);
-            Dimension minimumSize = new Dimension(100, 50);
-            presenterPanel.setMinimumSize(minimumSize);
-            splitPane.setBottomComponent(presenterPanel);
-            splitPane.setDividerLocation(300);
-            splitPane.setPreferredSize(new Dimension(800, 500));
+            try {
+                Presenter presenter = (Presenter) nodeInfo;
+                List<Presenter> list = new ArrayList<>();
+                list.add(presenter);
+                presenterPanel = new TableDemo(list);
+                Dimension minimumSize = new Dimension(100, 50);
+                presenterPanel.setMinimumSize(minimumSize);
+                splitPane.setBottomComponent(presenterPanel);
+                splitPane.setDividerLocation(300);
+                splitPane.setPreferredSize(new Dimension(800, 500));
+            } catch (ClassCastException exc) {
+
+            }
         }
     }
 
-    private void createNodes(DefaultMutableTreeNode top) {
+    private void createNodes(DefaultMutableTreeNode root) {
         DefaultMutableTreeNode section;
         DefaultMutableTreeNode report;
         DefaultMutableTreeNode presenter;
 
         section = new DefaultMutableTreeNode("Математика");
-        top.add(section);
+        root.add(section);
         report = new DefaultMutableTreeNode("Доклад 1");
         section.add(report);
         presenter = new DefaultMutableTreeNode(new Presenter("Заломов", "Данил",
@@ -96,23 +96,27 @@ public class TreeDemo extends JPanel
         report.add(presenter);
         report = new DefaultMutableTreeNode("Доклад 2");
         section.add(report);
-        presenter = new DefaultMutableTreeNode(new Presenter("Петров"));
+        presenter = new DefaultMutableTreeNode(new Presenter("Шиляев", "Иван",
+                "Владимирович", "БГУ"));
         report.add(presenter);
-        presenter = new DefaultMutableTreeNode(new Presenter("Сидоров"));
+        presenter = new DefaultMutableTreeNode(new Presenter("Беркович", "Павел",
+                "Александрович", "БГУ"));
         report.add(presenter);
 
         section = new DefaultMutableTreeNode("Информатика");
-        top.add(section);
+        root.add(section);
         report = new DefaultMutableTreeNode("Доклад 3");
         section.add(report);
-        presenter = new DefaultMutableTreeNode(new Presenter("Шиляев"));
+        presenter = new DefaultMutableTreeNode(new Presenter("Настаченко", "Артемий",
+                "Юрьевич", "БГУ"));
         report.add(presenter);
 
         section = new DefaultMutableTreeNode("Физика");
-        top.add(section);
+        root.add(section);
         report = new DefaultMutableTreeNode("Доклад 4");
         section.add(report);
-        presenter = new DefaultMutableTreeNode(new Presenter("Беркович"));
+        presenter = new DefaultMutableTreeNode(new Presenter("Бочков", "Илья",
+                "Витальевич", "БГУ"));
         report.add(presenter);
     }
 
@@ -137,6 +141,6 @@ public class TreeDemo extends JPanel
     public static void main(String[] args) {
         //Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(TreeDemo::createAndShowGUI);
+        SwingUtilities.invokeLater(TreeDemo::createAndShowGUI);
     }
 }
