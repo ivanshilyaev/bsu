@@ -69,12 +69,16 @@ public class TableDemo extends JPanel {
 
         /*
          * JTable uses this method to determine the default renderer/
-         * editor for each cell.  If we didn't implement this method,
+         * editor for each cell. If we didn't implement this method,
          * then the last column would contain text ("true"/"false"),
          * rather than a check box.
          */
         public Class getColumnClass(int c) {
-            return getValueAt(0, c).getClass();
+            try {
+                return getValueAt(0, c).getClass();
+            } catch (NullPointerException e) {
+                return Object.class;
+            }
         }
 
         /*

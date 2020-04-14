@@ -20,6 +20,10 @@ public class DynamicTree extends JPanel implements TreeSelectionListener {
     private DefaultTreeModel treeModel;
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
+    public JTree getTree() {
+        return tree;
+    }
+
     public DefaultMutableTreeNode getRoot() {
         return root;
     }

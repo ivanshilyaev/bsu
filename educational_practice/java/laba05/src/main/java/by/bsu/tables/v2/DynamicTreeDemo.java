@@ -10,7 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class DynamicTreeDemo extends JPanel implements ActionListener {
+public class DynamicTreeDemo extends JPanel
+        implements ActionListener {
     private int newNodeSuffix = 1;
     private static final String ADD_COMMAND = "add";
     private static final String REMOVE_COMMAND = "remove";
@@ -49,22 +50,6 @@ public class DynamicTreeDemo extends JPanel implements ActionListener {
     }
 
     public void populateTree(DynamicTree treePanel) {
-//        String p1Name = new String("Parent 1");
-//        String p2Name = new String("Parent 2");
-//        String c1Name = new String("Child 1");
-//        String c2Name = new String("Child 2");
-//
-//        DefaultMutableTreeNode p1, p2;
-//
-//        p1 = treePanel.addObject(null, p1Name);
-//        p2 = treePanel.addObject(null, p2Name);
-//
-//        treePanel.addObject(p1, c1Name);
-//        treePanel.addObject(p1, c2Name);
-//
-//        treePanel.addObject(p2, c1Name);
-//        treePanel.addObject(p2, c2Name);
-
         DefaultMutableTreeNode section;
         DefaultMutableTreeNode report;
         DefaultMutableTreeNode presenter;
@@ -107,7 +92,13 @@ public class DynamicTreeDemo extends JPanel implements ActionListener {
 
         if (ADD_COMMAND.equals(command)) {
             //Add button clicked
-            treePanel.addObject("New Node " + newNodeSuffix++);
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+                    treePanel.getTree().getLastSelectedPathComponent();
+            if (node == null) return;
+            //Object nodeInfo = node.getUserObject();
+            if (!node.isLeaf()) return;
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
+            treePanel.addObject(parent, new Presenter("New presenter " + newNodeSuffix++));
         } else if (REMOVE_COMMAND.equals(command)) {
             //Remove button clicked
             treePanel.removeCurrentNode();
