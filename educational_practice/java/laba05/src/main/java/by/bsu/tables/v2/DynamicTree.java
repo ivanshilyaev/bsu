@@ -33,14 +33,14 @@ public class DynamicTree extends JPanel implements TreeSelectionListener {
         treeModel.addTreeModelListener(new MyTreeModelListener());
 
         //Create a tree that allows one selection at a time.
-        tree = new JTree(root);
+        tree = new JTree(treeModel);
         tree.setEditable(true);
         tree.getSelectionModel().setSelectionMode
                 (TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.setShowsRootHandles(true);
 
         //Listen for when the selection changes.
-        //tree.addTreeSelectionListener(this);
+        tree.addTreeSelectionListener(this);
 
         //Create the scroll pane and add the tree to it.
         JScrollPane treeView = new JScrollPane(tree);
@@ -121,7 +121,7 @@ public class DynamicTree extends JPanel implements TreeSelectionListener {
      * Add child to the currently selected node.
      */
     public DefaultMutableTreeNode addObject(Object child) {
-        DefaultMutableTreeNode parentNode = null;
+        DefaultMutableTreeNode parentNode;
         TreePath parentPath = tree.getSelectionPath();
 
         if (parentPath == null) {
@@ -142,8 +142,12 @@ public class DynamicTree extends JPanel implements TreeSelectionListener {
     public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
                                             Object child,
                                             boolean shouldBeVisible) {
-        DefaultMutableTreeNode childNode =
-                new DefaultMutableTreeNode(child);
+        DefaultMutableTreeNode childNode;
+        if (child.getClass() != DefaultMutableTreeNode.class) {
+            childNode = new DefaultMutableTreeNode(child);
+        } else {
+            childNode = (DefaultMutableTreeNode) child;
+        }
 
         if (parent == null) {
             parent = root;

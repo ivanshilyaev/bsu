@@ -75,7 +75,7 @@ public class DynamicTreeDemo extends JPanel implements ActionListener {
         treePanel.addObject(section, report);
         presenter = new DefaultMutableTreeNode(new Presenter("Заломов", "Данил",
                 "Павлович", "БГУ"));
-        treePanel.addObject(section, presenter);
+        treePanel.addObject(report, presenter);
         report = new DefaultMutableTreeNode("Доклад 2");
         treePanel.addObject(section, report);
         presenter = new DefaultMutableTreeNode(new Presenter("Шиляев", "Иван",
