@@ -9,53 +9,69 @@ public class Runner {
     private static final String IN = "/Users/ivansilaev/Desktop/in.txt";
     private static final String OUT = "/Users/ivansilaev/Desktop/out.txt";
 
+    private static int m = 0;
+    private static int n = 0;
+    private static int k = 0;
+    private static List<Double> prices = new ArrayList<>();
+
+    private static void readFromFile(String in) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(in));
+        String[] array = bufferedReader.readLine().split(" ");
+        m = Integer.parseInt(array[0]);
+        n = Integer.parseInt(array[1]);
+        k = Integer.parseInt(array[2]);
+        String line = bufferedReader.readLine();
+        while (line != null) {
+            prices.add(Double.parseDouble(line));
+            line = bufferedReader.readLine();
+        }
+        bufferedReader.close();
+    }
+
+    private static List<String> solveTask(ExecutorService executorService) throws ExecutionException, InterruptedException {
+        Callable<List<String>> solver = new Solver(m, n, k, prices);
+        Future<List<String>> future = executorService.submit(solver);
+        return future.get();
+    }
+
+    private static void writeToFile(String out, List<String> result) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(out));
+        for (String line : result) {
+            bufferedWriter.write(line + "\n");
+        }
+        bufferedWriter.close();
+    }
+
     public static void main(String[] args) {
-        int m = 0;
-        int n = 0;
-        int k = 0;
-        List<Double> prices = new ArrayList<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(IN))) {
-            String[] array = bufferedReader.readLine().split(" ");
-            m = Integer.parseInt(array[0]);
-            n = Integer.parseInt(array[1]);
-            k = Integer.parseInt(array[2]);
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                prices.add(Double.parseDouble(line));
-                line = bufferedReader.readLine();
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-        List<String> result = new ArrayList<>();
-        ExecutorService executorService = null;
         try {
-            executorService = Executors.newFixedThreadPool(3);
-            Callable<List<String>> solver = new Solver(m, n, k, prices);
-            Future<List<String>> future = executorService.submit(solver);
-            result = future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            System.out.println("An error occured");
-            System.exit(1);
-        }
+            ExecutorService inputCheckerExecutor = Executors.newFixedThreadPool(3);
+            ExecutorService solverService = Executors.newFixedThreadPool(3);
+            readFromFile(IN);
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(OUT))) {
-            for (String line : result) {
-                bufferedWriter.write(line + "\n");
+            Callable<Boolean> correctInputData = new InputChecker(m, n, k, prices);
+            Future<Boolean> future = inputCheckerExecutor.submit(correctInputData);
+            boolean isInputDataCorrect = future.get();
+
+            List<String> result = new ArrayList<>();
+            if (isInputDataCorrect) {
+                result = solveTask(solverService);
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        if (executorService != null) {
-            executorService.shutdown();
+            inputCheckerExecutor.shutdown();
+            solverService.shutdown();
             try {
-                if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
-                    executorService.shutdownNow();
+                if (!solverService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+                    inputCheckerExecutor.shutdownNow();
+                    solverService.shutdownNow();
                 }
             } catch (InterruptedException e) {
-                executorService.shutdownNow();
+                inputCheckerExecutor.shutdownNow();
+                solverService.shutdownNow();
             }
+
+            writeToFile(OUT, result);
+        } catch (IOException | InterruptedException | ExecutionException e) {
+            System.out.println("An error occurred");
+            System.exit(1);
         }
     }
 }
