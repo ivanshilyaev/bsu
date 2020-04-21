@@ -2,12 +2,14 @@ package by.bsu.trading;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.*;
 
 public class Runner {
-    private static final String IN = "/Users/ivansilaev/Desktop/in.txt";
-    private static final String OUT = "/Users/ivansilaev/Desktop/out.txt";
+    private static String in = "/Users/ivansilaev/Desktop/tests/1.in";
+    private static String out = "/Users/ivansilaev/Desktop/tests/1.out";
 
     private static int m = 0;
     private static int n = 0;
@@ -42,36 +44,96 @@ public class Runner {
         bufferedWriter.close();
     }
 
+    private static boolean isInFile(File file) {
+        return file.getAbsolutePath().endsWith(".in");
+    }
+
+    private static String getFileName(File file) {
+        return file.getName().substring(0, file.getName().indexOf('.'));
+    }
+
     public static void main(String[] args) {
-        try {
-            ExecutorService inputCheckerExecutor = Executors.newFixedThreadPool(3);
-            ExecutorService solverService = Executors.newFixedThreadPool(3);
-            readFromFile(IN);
-
-            Callable<Boolean> correctInputData = new InputChecker(m, n, k, prices);
-            Future<Boolean> future = inputCheckerExecutor.submit(correctInputData);
-            boolean isInputDataCorrect = future.get();
-
-            List<String> result = new ArrayList<>();
-            if (isInputDataCorrect) {
-                result = solveTask(solverService);
+        // reading test directory and run program for every test
+        System.out.println("Enter directory with tests:");
+        Scanner scanner = new Scanner(System.in);
+        String dirName = scanner.nextLine();
+        File directory = new File(dirName);
+        if (!directory.isDirectory()) {
+            System.out.println("Given path is not a directory");
+            System.exit(1);
+        }
+        System.out.println(directory.getName());
+        ArrayList<File> files = new ArrayList<>(Arrays.asList(directory.listFiles()));
+        int index = 1; // test number
+        while (!files.isEmpty()) {
+            int i = 0;
+            File file = files.get(i);
+            while (!isInFile(file)) {
+                file = files.get(++i);
             }
-            inputCheckerExecutor.shutdown();
-            solverService.shutdown();
+            in = file.getAbsolutePath();
+            String inputFileName = getFileName(file);
+            files.remove(i);
+
+            i = 0;
+            file = files.get(i);
+            while (!getFileName(file).equals(inputFileName)) {
+                file = files.get(++i);
+            }
+            out = file.getAbsolutePath();
+            files.remove(i);
+
+            // running program here
+
             try {
-                if (!solverService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+                ExecutorService inputCheckerExecutor = Executors.newFixedThreadPool(3);
+                ExecutorService solverService = Executors.newFixedThreadPool(3);
+                ExecutorService outputCheckerExecutor = Executors.newFixedThreadPool(3);
+
+                // reading data
+                readFromFile(in);
+
+                // checking if input data is correct
+                Callable<Boolean> correctInputData = new InputChecker(m, n, k, prices);
+                Future<Boolean> inputFuture = inputCheckerExecutor.submit(correctInputData);
+                boolean isInputDataCorrect = inputFuture.get();
+
+                // solving problem
+                List<String> result = new ArrayList<>();
+                if (isInputDataCorrect) {
+                    result = solveTask(solverService);
+                }
+
+                // checking if output data is correct
+                Callable<Boolean> correctOutputData = new OutputChecker(result, out);
+                Future<Boolean> outputFuture = outputCheckerExecutor.submit(correctOutputData);
+                boolean testPassed = outputFuture.get();
+                if (testPassed) {
+                    System.out.println("The test " + index++ + " is passed");
+                }
+
+                // finishing program
+                inputCheckerExecutor.shutdown();
+                solverService.shutdown();
+                outputCheckerExecutor.shutdown();
+                try {
+                    if (!solverService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+                        inputCheckerExecutor.shutdownNow();
+                        solverService.shutdownNow();
+                        outputCheckerExecutor.shutdownNow();
+                    }
+                } catch (InterruptedException e) {
                     inputCheckerExecutor.shutdownNow();
                     solverService.shutdownNow();
+                    outputCheckerExecutor.shutdownNow();
                 }
-            } catch (InterruptedException e) {
-                inputCheckerExecutor.shutdownNow();
-                solverService.shutdownNow();
+
+                //writeToFile(OUT, result);
+            } catch (IOException | InterruptedException | ExecutionException e) {
+                System.out.println("An error occurred");
+                System.exit(1);
             }
 
-            writeToFile(OUT, result);
-        } catch (IOException | InterruptedException | ExecutionException e) {
-            System.out.println("An error occurred");
-            System.exit(1);
         }
     }
 }
