@@ -1,4 +1,4 @@
-package by.bsu.trading;
+package by.bsu.trading.version01;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

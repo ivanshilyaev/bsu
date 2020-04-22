@@ -1,13 +1,10 @@
-package by.bsu.trading;
+package by.bsu.trading.version01;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.*;
 
-public class Runner {
+public class Runner01 {
     private static String in = "/Users/ivansilaev/Desktop/tests/1.in";
     private static String out = "/Users/ivansilaev/Desktop/tests/1.out";
 
@@ -53,6 +50,9 @@ public class Runner {
     }
 
     public static void main(String[] args) {
+
+        LinkedList<String> linkedList = new LinkedList<>();
+
         // reading test directory and run program for every test
         System.out.println("Enter directory with tests:");
         Scanner scanner = new Scanner(System.in);
@@ -62,7 +62,6 @@ public class Runner {
             System.out.println("Given path is not a directory");
             System.exit(1);
         }
-        System.out.println(directory.getName());
         ArrayList<File> files = new ArrayList<>(Arrays.asList(directory.listFiles()));
         int index = 1; // test number
         while (!files.isEmpty()) {
@@ -75,20 +74,12 @@ public class Runner {
             String inputFileName = getFileName(file);
             files.remove(i);
 
-            i = 0;
-            file = files.get(i);
-            while (!getFileName(file).equals(inputFileName)) {
-                file = files.get(++i);
-            }
-            out = file.getAbsolutePath();
-            files.remove(i);
-
             // running program here
 
             try {
-                ExecutorService inputCheckerExecutor = Executors.newFixedThreadPool(3);
-                ExecutorService solverService = Executors.newFixedThreadPool(3);
-                ExecutorService outputCheckerExecutor = Executors.newFixedThreadPool(3);
+                ExecutorService inputCheckerExecutor = Executors.newSingleThreadExecutor();
+                ExecutorService solverService = Executors.newSingleThreadExecutor();
+                ExecutorService outputCheckerExecutor = Executors.newSingleThreadExecutor();
 
                 // reading data
                 readFromFile(in);
@@ -134,6 +125,15 @@ public class Runner {
                 System.exit(1);
             }
 
+            i = 0;
+            file = files.get(i);
+            while (!getFileName(file).equals(inputFileName)) {
+                file = files.get(++i);
+            }
+            out = file.getAbsolutePath();
+            files.remove(i);
+
+            ++index;
         }
     }
 }

@@ -1,4 +1,4 @@
-package by.bsu.trading;
+package by.bsu.trading.version01;
 
 import java.util.List;
 import java.util.concurrent.Callable;

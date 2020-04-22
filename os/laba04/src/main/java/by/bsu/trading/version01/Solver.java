@@ -1,4 +1,4 @@
-package by.bsu.trading;
+package by.bsu.trading.version01;
 
 import java.util.ArrayList;
 import java.util.List;
