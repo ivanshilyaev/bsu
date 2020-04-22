@@ -8,14 +8,23 @@ import by.bsu.trading.version02.threads.Solver;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.concurrent.Semaphore;
 
 public class Runner02 {
+    public static Semaphore semaphore1 = new Semaphore(1);
+    public static Semaphore semaphore2 = new Semaphore(1);
+    public static Semaphore semaphore3 = new Semaphore(1);
+
     public static void main(String[] args) {
+        View view = new View("Trading");
+
+        while (!view.isShouldStart()) {
+        }
+
         // reading test directory and run program for every test
-        System.out.println("Enter directory with tests:");
-        Scanner scanner = new Scanner(System.in);
-        String dirName = scanner.nextLine();
+//        System.out.println("Enter directory with tests:");
+//        Scanner scanner = new Scanner(System.in);
+        String dirName = view.getDirectory();
         File directory = new File(dirName);
         if (!directory.isDirectory()) {
             System.out.println("Given path is not a directory");
@@ -27,16 +36,21 @@ public class Runner02 {
         String in;
         String out;
 
-        View view = new View();
         OutputChecker outputCheckerThread = new OutputChecker(view);
         Solver solverThread = new Solver(outputCheckerThread);
-        InputChecker inputCheckerThread = new InputChecker(solverThread);
+        InputChecker inputCheckerThread = new InputChecker(solverThread, view);
 
         inputCheckerThread.start();
         solverThread.start();
         outputCheckerThread.start();
 
         while (!files.isEmpty()) {
+//            if (view.isPauseSolveThread()) {
+//                solverThread.setPaused(true);
+//            }
+//            else {
+//                solverThread.setPaused(false);
+//            }
             int i = 0;
             File file = files.get(i);
             while (!Helper.isInFile(file)) {
@@ -55,10 +69,18 @@ public class Runner02 {
             files.remove(i);
 
             TradingData tradingData = Helper.readFromFile(in);
-            tradingData.setId(index);
+            tradingData.setTestName(Helper.getFileName(file));
             tradingData.setOutputFileName(out);
-
             inputCheckerThread.getList().push(tradingData);
+
+//            try {
+//                semaphore1.acquire();
+//                inputCheckerThread.getList().push(tradingData);
+//            } catch (InterruptedException e) {
+//                //
+//            }
+//            semaphore1.release();
+
             ++index;
         }
         try {

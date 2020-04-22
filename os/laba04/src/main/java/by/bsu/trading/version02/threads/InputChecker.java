@@ -1,5 +1,6 @@
 package by.bsu.trading.version02.threads;
 
+import by.bsu.trading.version02.View;
 import by.bsu.trading.version02.bean.TradingData;
 
 import java.util.LinkedList;
@@ -10,10 +11,12 @@ public class InputChecker extends Thread {
 
     private LinkedList<TradingData> list = new LinkedList<>();
     private Solver solver;
+    private View view;
     private boolean shouldBeStopped;
 
-    public InputChecker(Solver solver) {
+    public InputChecker(Solver solver, View view) {
         this.solver = solver;
+        this.view = view;
         this.shouldBeStopped = false;
     }
 
@@ -43,6 +46,8 @@ public class InputChecker extends Thread {
             if (tradingData != null) {
                 if (check(tradingData)) {
                     solver.getList().push(tradingData);
+                } else {
+                    view.printInputCheckerError(tradingData.getTestName());
                 }
             }
         }

@@ -13,10 +13,12 @@ public class Solver extends Thread {
     private LinkedList<TradingData> list = new LinkedList<>();
     private OutputChecker outputChecker;
     private boolean shouldBeStopped;
+    private boolean isPaused;
 
     public Solver(OutputChecker outputChecker) {
         this.outputChecker = outputChecker;
         shouldBeStopped = false;
+        isPaused = false;
     }
 
     public LinkedList<TradingData> getList() {
@@ -29,6 +31,10 @@ public class Solver extends Thread {
 
     public void setShouldBeStopped(boolean shouldBeStopped) {
         this.shouldBeStopped = shouldBeStopped;
+    }
+
+    public void setPaused(boolean paused) {
+        isPaused = paused;
     }
 
     private double countAverageValue(List<Double> list, int t, int day) {
@@ -75,14 +81,16 @@ public class Solver extends Thread {
     @Override
     public void run() {
         while (!shouldBeStopped || !list.isEmpty()) {
+            //while (!isPaused) {
             TradingData tradingData = list.poll();
             if (tradingData != null) {
                 List<String> signals = solve(tradingData);
                 String resultFileName = makeResultFileName(tradingData.getInputFileName());
                 Helper.writeToFile(resultFileName, signals);
-                Result result = new Result(tradingData.getId(), resultFileName, tradingData.getOutputFileName());
+                Result result = new Result(tradingData.getTestName(), resultFileName, tradingData.getOutputFileName());
                 outputChecker.getList().push(result);
             }
+            //}
         }
     }
 }

@@ -3,7 +3,7 @@ package by.bsu.trading.version02.bean;
 import java.util.List;
 
 public class TradingData {
-    private int id;
+    private String testName;
     private int m;
     private int n;
     private int k;
@@ -11,9 +11,9 @@ public class TradingData {
     private String inputFileName;
     private String outputFileName;
 
-    public TradingData(int id, int m, int n, int k, List<Double> prices,
+    public TradingData(String testName, int m, int n, int k, List<Double> prices,
                        String inputFileName, String outputFileName) {
-        this.id = id;
+        this.testName = testName;
         this.m = m;
         this.n = n;
         this.k = k;
@@ -30,12 +30,12 @@ public class TradingData {
         this.inputFileName = inputFileName;
     }
 
-    public int getId() {
-        return id;
+    public String getTestName() {
+        return testName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTestName(String testName) {
+        this.testName = testName;
     }
 
     public int getM() {

@@ -36,15 +36,15 @@ public class Helper {
         }
     }
 
-    public static boolean isInFile(File file) {
+    public static synchronized boolean isInFile(File file) {
         return file.getAbsolutePath().endsWith(".in");
     }
 
-    public static String getFileName(File file) {
+    public static synchronized String getFileName(File file) {
         return file.getName().substring(0, file.getName().indexOf('.'));
     }
 
-    public static String getSimpleFileName(String filename) {
+    public static synchronized String getSimpleFileName(String filename) {
         File file = new File(filename);
         return file.getName().substring(0, file.getName().indexOf('.'));
     }

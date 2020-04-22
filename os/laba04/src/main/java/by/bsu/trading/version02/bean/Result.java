@@ -1,18 +1,18 @@
 package by.bsu.trading.version02.bean;
 
 public class Result {
-    private int id;
+    private String testName;
     private String resultFileName;
     private String outputFileName;
 
-    public Result(int id, String resultFileName, String outputFileName) {
-        this.id = id;
+    public Result(String testName, String resultFileName, String outputFileName) {
+        this.testName = testName;
         this.resultFileName = resultFileName;
         this.outputFileName = outputFileName;
     }
 
-    public int getId() {
-        return id;
+    public String getTestName() {
+        return testName;
     }
 
     public String getResultFileName() {

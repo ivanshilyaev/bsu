@@ -45,10 +45,11 @@ public class OutputChecker extends Thread {
                         line1 = reader1.readLine();
                         line2 = reader2.readLine();
                     }
+                    if (line1 != null || line2 != null) testPassed = false;
                 } catch (IOException e) {
                     // handling error
                 }
-                view.displayResult(result.getId(), testPassed);
+                view.displayResult(result.getTestName(), testPassed);
             }
         }
     }
