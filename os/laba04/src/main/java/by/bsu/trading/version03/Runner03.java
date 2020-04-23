@@ -28,7 +28,8 @@ public class Runner03 {
         String dirName = view.getDirectory();
         File directory = new File(dirName);
         while (!directory.isDirectory()) {
-            view.printErrorMessage("Given path is not a directory! Try again.");
+            view.clearTextArea();
+            view.printMessage("Given path is not a directory! Try again.");
             view.setStarted(false);
             while (!view.isStarted()) {
                 try {

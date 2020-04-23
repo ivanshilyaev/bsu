@@ -52,10 +52,11 @@ public class Helper {
     public static synchronized String makeResultFileName(String inputFileName) {
         File file = new File(inputFileName);
         StringBuilder builder = new StringBuilder();
-        builder.append("src/main/resources/");
+        builder.append(inputFileName.substring(0,
+                inputFileName.indexOf(file.getName())));
         builder.append("my");
         builder.append(by.bsu.trading.version02.Helper.getFileName(file));
-        builder.append(".out");
+        builder.append(".txt");
         return builder.toString();
     }
 }

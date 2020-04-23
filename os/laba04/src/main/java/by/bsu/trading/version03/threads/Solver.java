@@ -83,7 +83,7 @@ public class Solver extends Thread {
                      * Для нормальной быстрой работыы программы следующую строчку
                      * следует убрать.
                      */
-                    TimeUnit.SECONDS.sleep(1);
+                    TimeUnit.MILLISECONDS.sleep(500);
                     /*
                      */
                     outputChecker.getQueue().add(tradingData);

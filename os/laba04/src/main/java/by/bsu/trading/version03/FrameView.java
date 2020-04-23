@@ -80,8 +80,7 @@ public class FrameView {
         frame.setVisible(true);
     }
 
-    public synchronized void printErrorMessage(String message) {
-        jTextArea.setText("");
+    public synchronized void printMessage(String message) {
         jTextArea.append(message + "\r\n");
     }
 
