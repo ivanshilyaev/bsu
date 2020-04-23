@@ -1,4 +1,4 @@
-package by.bsu.trading.version03;
+package by.bsu.trading.version02;
 
 public class ConsoleView {
     public synchronized void printInputCheckerError(String testName) {

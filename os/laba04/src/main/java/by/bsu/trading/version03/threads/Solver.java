@@ -73,7 +73,19 @@ public class Solver extends Thread {
                     String resultFileName = Helper.makeResultFileName(tradingData.getInputFileName());
                     Helper.writeToFile(resultFileName, signals);
                     tradingData.setResultFileName(resultFileName);
+                    /*
+                     * Это задержка в 1 секунду добавлена для демонстрации возможности
+                     * прекращения работы потока, решающего задачи, по нажатию
+                     * на кнопку Pause, и возобновления его работы по нажатию
+                     * на кнопку Resume, поскольку задача тестировалась в условиях
+                     * ограниченного набора тестов.
+                     *
+                     * Для нормальной быстрой работыы программы следующую строчку
+                     * следует убрать.
+                     */
                     TimeUnit.SECONDS.sleep(1);
+                    /*
+                     */
                     outputChecker.getQueue().add(tradingData);
                     Runner03.semaphore3.release();
                 } catch (InterruptedException e) {

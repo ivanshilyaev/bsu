@@ -2,7 +2,6 @@ package by.bsu.trading.version03.threads;
 
 import by.bsu.trading.version03.FrameView;
 import by.bsu.trading.version03.Runner03;
-import by.bsu.trading.version03.ConsoleView;
 import by.bsu.trading.version03.bean.TradingData;
 
 import java.io.BufferedReader;

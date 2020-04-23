@@ -27,6 +27,10 @@ public class FrameView {
         return started;
     }
 
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
     public String getDirectory() {
         return textField1.getText();
     }
@@ -49,7 +53,7 @@ public class FrameView {
         button1.addActionListener(e -> started = true);
 
         // stop solve thread
-        button2 = new JButton("Stop");
+        button2 = new JButton("Pause");
         button2.setBounds(200, 100, 100, 25);
         button2.addActionListener(e -> solver.setPaused(true));
 
@@ -72,7 +76,17 @@ public class FrameView {
         frame.add(button2);
         frame.add(button3);
         frame.setSize(600, 600);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    public synchronized void printErrorMessage(String message) {
+        jTextArea.setText("");
+        jTextArea.append(message + "\r\n");
+    }
+
+    public synchronized void clearTextArea() {
+        jTextArea.setText("");
     }
 
     public synchronized void printInputCheckerError(String testName) {

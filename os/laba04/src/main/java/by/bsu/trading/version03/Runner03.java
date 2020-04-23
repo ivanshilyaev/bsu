@@ -1,6 +1,5 @@
 package by.bsu.trading.version03;
 
-
 import by.bsu.trading.version03.bean.TradingData;
 import by.bsu.trading.version03.threads.InputChecker;
 import by.bsu.trading.version03.threads.OutputChecker;
@@ -18,22 +17,6 @@ public class Runner03 {
     public static Semaphore semaphore3 = new Semaphore(0);
 
     public static void main(String[] args) {
-        // console variant
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Enter directory with tests:");
-//        String dirName = scanner.nextLine();
-//        File directory = new File(dirName);
-//        if (!directory.isDirectory()) {
-//            System.out.println("Given path is not a directory");
-//            System.exit(1);
-//        }
-//        ArrayList<File> files = new ArrayList<>(Arrays.asList(directory.listFiles()));
-//        int index = 1; // test number
-//        String in;
-//        String out;
-//        ConsoleView view = new ConsoleView();
-
-        // frame variant
         FrameView view = new FrameView("Trading");
         while (!view.isStarted()) {
             try {
@@ -44,10 +27,20 @@ public class Runner03 {
         }
         String dirName = view.getDirectory();
         File directory = new File(dirName);
-        if (!directory.isDirectory()) {
-            System.out.println("Given path is not a directory");
-            System.exit(1);
+        while (!directory.isDirectory()) {
+            view.printErrorMessage("Given path is not a directory! Try again.");
+            view.setStarted(false);
+            while (!view.isStarted()) {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            dirName = view.getDirectory();
+            directory = new File(dirName);
         }
+        view.clearTextArea();
         ArrayList<File> files = new ArrayList<>(Arrays.asList(directory.listFiles()));
         int index = 1; // test number
         String in;
