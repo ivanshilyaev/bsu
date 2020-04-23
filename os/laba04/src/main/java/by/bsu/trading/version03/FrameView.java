@@ -1,10 +1,8 @@
-package by.bsu.trading.version02;
+package by.bsu.trading.version03;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 
-public class View {
+public class FrameView {
     private JFrame frame;
     private JPanel contentPane;
     private JLabel jLabel1;
@@ -17,10 +15,10 @@ public class View {
 
     private boolean pauseSolveThread;
 
-    private boolean shouldStart;
+    private boolean started;
 
-    public boolean isShouldStart() {
-        return shouldStart;
+    public boolean isStarted() {
+        return started;
     }
 
     public String getDirectory() {
@@ -31,7 +29,7 @@ public class View {
         return pauseSolveThread;
     }
 
-    public View(String title) {
+    public FrameView(String title) {
         frame = new JFrame(title);
 
         contentPane = new JPanel();
@@ -46,17 +44,17 @@ public class View {
         // start
         button1 = new JButton("Start");
         button1.setBounds(50, 100, 100, 25);
-        button1.addActionListener(e -> shouldStart = true);
+        button1.addActionListener(e -> started = true);
 
-//        // stop solve thread
-//        button2 = new JButton("Stop");
-//        button2.setBounds(200, 100, 100, 25);
-//        button2.addActionListener(e -> pauseSolveThread = true);
-//
-//        // resume
-//        button3 = new JButton("Resume");
-//        button3.setBounds(350, 100, 100, 25);
-//        button3.addActionListener(e -> pauseSolveThread = false);
+        // stop solve thread
+        button2 = new JButton("Stop");
+        button2.setBounds(200, 100, 100, 25);
+        button2.addActionListener(e -> pauseSolveThread = true);
+
+        // resume
+        button3 = new JButton("Resume");
+        button3.setBounds(350, 100, 100, 25);
+        button3.addActionListener(e -> pauseSolveThread = false);
 
         // result
         jTextArea = new JTextArea();
@@ -69,21 +67,15 @@ public class View {
         frame.add(jLabel1);
         frame.add(textField1);
         frame.add(button1);
-        //frame.add(button2);
-        //frame.add(button3);
+        frame.add(button2);
+        frame.add(button3);
         frame.setSize(600, 600);
         frame.setVisible(true);
     }
 
     public synchronized void printInputCheckerError(String testName) {
-//        Document document = jTextArea.getDocument();
         String message = "Input data in the test " + testName + " isn't correct";
         jTextArea.append(message + "\r\n");
-//        try {
-//            document.insertString(document.getLength(), message + " \r\n", null);
-//        } catch (BadLocationException e) {
-//            //
-//        }
     }
 
     public synchronized void displayResult(String testName, boolean testPassed) {
@@ -94,31 +86,5 @@ public class View {
             message = "The test " + testName + " isn't passed";
         }
         jTextArea.append(message + "\r\n");
-//        Document document = jTextArea.getDocument();
-//        try {
-//            document.insertString(document.getLength(), message + " \r\n", null);
-//        } catch (BadLocationException e) {
-//            //
-//        }
     }
 }
-
-
-//package by.bsu.trading.version02;
-//
-//public class View {
-//    public synchronized void printInputCheckerError(String testName) {
-//        String message = "Input data in the test " + testName + " isn't correct";
-//        System.out.println(message);
-//    }
-//
-//    public synchronized void displayResult(String testName, boolean testPassed) {
-//        String message;
-//        if (testPassed) {
-//            message = "The test " + testName + " is passed";
-//        } else {
-//            message = "The test " + testName + " isn't passed";
-//        }
-//        System.out.println(message);
-//    }
-//}

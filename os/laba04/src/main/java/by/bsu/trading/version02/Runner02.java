@@ -8,12 +8,8 @@ import by.bsu.trading.version02.threads.Solver;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.Semaphore;
 
 public class Runner02 {
-    public static Semaphore semaphore1 = new Semaphore(1);
-    public static Semaphore semaphore2 = new Semaphore(1);
-    public static Semaphore semaphore3 = new Semaphore(1);
 
     public static void main(String[] args) {
         View view = new View("Trading");

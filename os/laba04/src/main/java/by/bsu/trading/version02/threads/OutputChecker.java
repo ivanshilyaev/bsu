@@ -35,6 +35,7 @@ public class OutputChecker extends Thread {
         while (!shouldBeStopped || !list.isEmpty()) {
             Result result = list.poll();
             if (result != null) {
+                System.out.println(result.getTestName() + " outputChecker begin");
                 boolean testPassed = true;
                 try (BufferedReader reader1 = new BufferedReader(new FileReader(result.getResultFileName()));
                      BufferedReader reader2 = new BufferedReader(new FileReader(result.getOutputFileName()))) {
@@ -50,6 +51,7 @@ public class OutputChecker extends Thread {
                     // handling error
                 }
                 view.displayResult(result.getTestName(), testPassed);
+                System.out.println(result.getTestName() + " outputChecker end");
             }
         }
     }

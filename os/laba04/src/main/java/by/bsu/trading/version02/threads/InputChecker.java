@@ -44,11 +44,15 @@ public class InputChecker extends Thread {
         while (!shouldBeStopped || !list.isEmpty()) {
             TradingData tradingData = list.poll();
             if (tradingData != null) {
+                System.out.println(tradingData.getTestName() + " inputChecker begin");
                 if (check(tradingData)) {
-                    solver.getList().push(tradingData);
+                    synchronized (solver.getList()) {
+                        solver.getList().push(tradingData);
+                    }
                 } else {
                     view.printInputCheckerError(tradingData.getTestName());
                 }
+                System.out.println(tradingData.getTestName() + " inputChecker end");
             }
         }
     }

@@ -84,11 +84,15 @@ public class Solver extends Thread {
             //while (!isPaused) {
             TradingData tradingData = list.poll();
             if (tradingData != null) {
+                System.out.println(tradingData.getTestName() + " solver begin");
                 List<String> signals = solve(tradingData);
                 String resultFileName = makeResultFileName(tradingData.getInputFileName());
                 Helper.writeToFile(resultFileName, signals);
                 Result result = new Result(tradingData.getTestName(), resultFileName, tradingData.getOutputFileName());
-                outputChecker.getList().push(result);
+                synchronized (outputChecker.getList()) {
+                    outputChecker.getList().push(result);
+                }
+                System.out.println(tradingData.getTestName() + " solver begin");
             }
             //}
         }
