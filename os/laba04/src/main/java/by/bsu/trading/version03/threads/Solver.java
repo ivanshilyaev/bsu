@@ -7,19 +7,28 @@ import by.bsu.trading.version03.Runner03;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 public class Solver extends Thread {
     private ConcurrentLinkedQueue<TradingData> queue = new ConcurrentLinkedQueue<>();
     private OutputChecker outputChecker;
-    private boolean pause;
+    private boolean paused;
 
     public Solver(OutputChecker outputChecker) {
         this.outputChecker = outputChecker;
-        pause = false;
+        paused = false;
     }
 
     public ConcurrentLinkedQueue<TradingData> getQueue() {
         return queue;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 
     private double countAverageValue(List<Double> list, int t, int day) {
@@ -56,17 +65,26 @@ public class Solver extends Thread {
     @Override
     public void run() {
         while (true) {
-            try {
-                Runner03.semaphore2.acquire();
-                TradingData tradingData = queue.poll();
-                List<String> signals = solve(tradingData);
-                String resultFileName = Helper.makeResultFileName(tradingData.getInputFileName());
-                Helper.writeToFile(resultFileName, signals);
-                tradingData.setResultFileName(resultFileName);
-                outputChecker.getQueue().add(tradingData);
-                Runner03.semaphore3.release();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (!paused) {
+                try {
+                    Runner03.semaphore2.acquire();
+                    TradingData tradingData = queue.poll();
+                    List<String> signals = solve(tradingData);
+                    String resultFileName = Helper.makeResultFileName(tradingData.getInputFileName());
+                    Helper.writeToFile(resultFileName, signals);
+                    tradingData.setResultFileName(resultFileName);
+                    TimeUnit.SECONDS.sleep(1);
+                    outputChecker.getQueue().add(tradingData);
+                    Runner03.semaphore3.release();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

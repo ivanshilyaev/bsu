@@ -56,6 +56,7 @@ public class Runner03 {
         OutputChecker outputChecker = new OutputChecker(view);
         Solver solver = new Solver(outputChecker);
         InputChecker inputChecker = new InputChecker(solver, view);
+        view.setSolver(solver);
         inputChecker.start();
         solver.start();
         outputChecker.start();
@@ -84,14 +85,6 @@ public class Runner03 {
             inputChecker.getQueue().add(tradingData);
             semaphore1.release();
             ++index;
-        }
-
-        try {
-            inputChecker.join();
-            solver.join();
-            outputChecker.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

@@ -1,5 +1,7 @@
 package by.bsu.trading.version03;
 
+import by.bsu.trading.version03.threads.Solver;
+
 import javax.swing.*;
 
 public class FrameView {
@@ -13,7 +15,11 @@ public class FrameView {
     private JTextArea jTextArea;
     private JScrollPane jScrollPane;
 
-    private boolean pauseSolveThread;
+    private Solver solver;
+
+    public void setSolver(Solver solver) {
+        this.solver = solver;
+    }
 
     private boolean started;
 
@@ -23,10 +29,6 @@ public class FrameView {
 
     public String getDirectory() {
         return textField1.getText();
-    }
-
-    public boolean isPauseSolveThread() {
-        return pauseSolveThread;
     }
 
     public FrameView(String title) {
@@ -49,12 +51,12 @@ public class FrameView {
         // stop solve thread
         button2 = new JButton("Stop");
         button2.setBounds(200, 100, 100, 25);
-        button2.addActionListener(e -> pauseSolveThread = true);
+        button2.addActionListener(e -> solver.setPaused(true));
 
         // resume
         button3 = new JButton("Resume");
         button3.setBounds(350, 100, 100, 25);
-        button3.addActionListener(e -> pauseSolveThread = false);
+        button3.addActionListener(e -> solver.setPaused(false));
 
         // result
         jTextArea = new JTextArea();
