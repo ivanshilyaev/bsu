@@ -5,16 +5,17 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class Swimmer extends Thread {
-    private static int nextId = 0;
     private static final int POOL_LENGTH = 25;
-    private int id;
-    private int speed; // 1, 2, 3
-    private CountDownLatch latch;
+    private final int relayRaceNumber; // {1, 2, 3, 4}
+    private int speed; // {1, 2, 3}
+    private final int lane; // номер дорожки
+    private final CountDownLatch latch;
 
-    public Swimmer(CountDownLatch latch) {
-        id = ++nextId;
+    public Swimmer(CountDownLatch latch, int relayRaceNumber, int lane) {
         speed = ThreadLocalRandom.current().nextInt(1, 4);
+        this.relayRaceNumber = relayRaceNumber;
         this.latch = latch;
+        this.lane = lane;
     }
 
     private void changeSpeed() {
@@ -26,7 +27,7 @@ public class Swimmer extends Thread {
         int distance;
         int count = 0;
         int step;
-        switch (id % 2) {
+        switch (relayRaceNumber % 2) {
             case 0: {
                 // заплыв справа налево
                 distance = POOL_LENGTH;
@@ -41,12 +42,12 @@ public class Swimmer extends Thread {
                     ++count;
                     // отображение процесса заплыва
                     for (int i = 0; i < step; ++i) {
-                        System.out.print("-");
+                        //System.out.print("-");
                     }
                     /*
-                     * Условно скорость пловца равна speed м/с. speed in {1,2,3}.
+                     * Условно скорость пловца равна speed м/с, speed in {1, 2, 3}.
                      * После 5 итераций скорость плоцва изменяется, чтобы лидер в
-                     * соревнованиях мог меняться.
+                     * соревнованиях мог измениться.
                      */
                     if (count == 5) {
                         changeSpeed();
@@ -73,7 +74,7 @@ public class Swimmer extends Thread {
                     }
                     ++count;
                     for (int i = 0; i < step; ++i) {
-                        System.out.print("-");
+                        //System.out.print("-");
                     }
                     if (count == 5) {
                         changeSpeed();
@@ -90,7 +91,7 @@ public class Swimmer extends Thread {
             default:
                 break;
         }
-        System.out.println();
+        System.out.println(lane + "-" + relayRaceNumber + " finished!");
         latch.countDown();
     }
 }

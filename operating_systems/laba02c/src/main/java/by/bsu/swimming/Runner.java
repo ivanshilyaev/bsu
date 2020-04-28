@@ -1,36 +1,50 @@
 package by.bsu.swimming;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class Runner {
-    public static void main(String[] args) {
-        ExecutorService red = Executors.newSingleThreadExecutor();
-        CountDownLatch latch = new CountDownLatch(4);
-        long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 4; ++i) {
-            red.execute(new Swimmer(latch));
-        }
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        red.shutdown();
-        long endTime = System.currentTimeMillis();
-        long time = endTime - startTime;
+    private static long redTime;
+    private static long greenTime;
+    private static long blueTime;
+
+    private static String buildTime(long time) {
         int minutes = (int) (time / (1000 * 60));
         time -= minutes * 1000 * 60;
         int seconds = (int) (time / 1000);
         time -= seconds * 1000;
-        StringBuilder result = new StringBuilder();
-        result.append("Время: ");
-        result.append(minutes);
-        result.append(":");
-        result.append(seconds);
-        result.append(".");
-        result.append(time);
-        System.out.println(result.toString());
+        StringBuilder builder = new StringBuilder();
+        builder.append("Время: ");
+        builder.append(minutes);
+        builder.append(":");
+        builder.append(seconds);
+        builder.append(".");
+        builder.append(time);
+        return builder.toString();
+    }
+
+    private static void processTask(ExecutorService team)
+            throws ExecutionException, InterruptedException {
+        Callable<Long> redCallable = new Team(1);
+        Callable<Long> greenCallable = new Team(2);
+        Callable<Long> blueCallable = new Team(3);
+        Future<Long> redFuture = team.submit(redCallable);
+        Future<Long> greenFuture = team.submit(greenCallable);
+        Future<Long> blueFuture = team.submit(blueCallable);
+        redTime = redFuture.get();
+        greenTime = greenFuture.get();
+        blueTime = blueFuture.get();
+    }
+
+    public static void main(String[] args) {
+        try {
+            ExecutorService teams = Executors.newFixedThreadPool(3);
+            processTask(teams);
+            teams.shutdown();
+            System.out.println("1 - " + buildTime(redTime));
+            System.out.println("2 - " + buildTime(greenTime));
+            System.out.println("3 - " + buildTime(blueTime));
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
