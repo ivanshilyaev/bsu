@@ -1,5 +1,6 @@
 package by.bsu.swimming.mainVersion;
 
+import java.awt.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -19,8 +20,23 @@ public class Team implements Callable<Long> {
         ExecutorService team = Executors.newSingleThreadExecutor();
         CountDownLatch latch = new CountDownLatch(4);
         long startTime = System.currentTimeMillis();
+        Color color;
+        switch (lane) {
+            case 1:
+                color = Color.RED;
+                break;
+            case 2:
+                color = Color.GREEN;
+                break;
+            case 3:
+                color = Color.BLUE;
+                break;
+            default:
+                color = Color.BLACK;
+                break;
+        }
         for (int i = 0; i < 4; ++i) {
-            team.execute(new Swimmer(latch, i + 1, lane, panel));
+            team.execute(new Swimmer(latch, i + 1, lane, color, panel));
         }
         try {
             latch.await();

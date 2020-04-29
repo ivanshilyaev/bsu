@@ -1,24 +1,33 @@
 package by.bsu.swimming.mainVersion;
 
+import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class Swimmer implements Runnable {
-    private static final int POOL_LENGTH = 25;
-    private final int relayRaceNumber; // {1, 2, 3, 4}
-    private int speed; // {1, 2, 3}
-    private final int lane; // номер дорожки
-    private final CountDownLatch latch;
+    private static final int RIGHT_BORDER = 10;
+    private static final int POOL_LENGTH = 300 - RIGHT_BORDER;
+    private int relayRaceNumber; // {1, 2, 3, 4}
+    private int speed; // {1, 2, 3, 4, 5}
+    private int lane; // номер дорожки
+    private CountDownLatch latch;
+    private Color color;
+    private SwimmerPanel panel;
     private int distance;
     private boolean stopped;
-    private final SwimmerPanel panel;
 
-    public Swimmer(CountDownLatch latch, int relayRaceNumber, int lane, SwimmerPanel panel) {
-        speed = ThreadLocalRandom.current().nextInt(1, 4);
+    public Color getColor() {
+        return color;
+    }
+
+    public Swimmer(CountDownLatch latch, int relayRaceNumber, int lane,
+                   Color color, SwimmerPanel panel) {
+        speed = ThreadLocalRandom.current().nextInt(1, 6);
         this.relayRaceNumber = relayRaceNumber;
         this.latch = latch;
         this.lane = lane;
+        this.color = color;
         this.panel = panel;
         stopped = false;
         switch (relayRaceNumber % 2) {
@@ -42,7 +51,7 @@ public class Swimmer implements Runnable {
     }
 
     private void changeSpeed() {
-        speed = ThreadLocalRandom.current().nextInt(1, 4);
+        speed = ThreadLocalRandom.current().nextInt(1, 6);
     }
 
     public void move() {
@@ -52,7 +61,7 @@ public class Swimmer implements Runnable {
                 if (distance - speed < 0) distance = 0;
                 else distance -= speed;
                 /*
-                 * Скорость пловца равна speed м/с, speed in {1, 2, 3}.
+                 * Скорость пловца равна speed м/с, speed in {1, 2, 3, 4, 5}.
                  * Скорость изменяется, чтобы лидер в соревнованиях мог измениться.
                  */
                 changeSpeed();
@@ -83,6 +92,7 @@ public class Swimmer implements Runnable {
             }
         }
         panel.getSwimmers().remove(this);
+        // for testing. Remove this later!
         System.out.println(lane + "-" + relayRaceNumber + " finished!");
         latch.countDown();
     }
