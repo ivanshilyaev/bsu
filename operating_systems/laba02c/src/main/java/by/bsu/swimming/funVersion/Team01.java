@@ -1,15 +1,18 @@
-package by.bsu.swimming;
+package by.bsu.swimming.funVersion;
 
+import javax.swing.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Team implements Callable<Long> {
+public class Team01 implements Callable<Long> {
     private int lane; // номер дорожки
+    private SwimmerPanel panel;
 
-    public Team(int lane) {
+    public Team01(int lane, SwimmerPanel panel) {
         this.lane = lane;
+        this.panel = panel;
     }
 
     @Override
@@ -18,7 +21,7 @@ public class Team implements Callable<Long> {
         CountDownLatch latch = new CountDownLatch(4);
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 4; ++i) {
-            red.execute(new Swimmer(latch, i + 1, lane));
+            red.execute(new Swimmer01(latch, i + 1, lane, panel));
         }
         try {
             latch.await();

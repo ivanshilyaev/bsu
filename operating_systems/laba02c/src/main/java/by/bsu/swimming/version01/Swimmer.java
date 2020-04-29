@@ -1,10 +1,10 @@
-package by.bsu.swimming;
+package by.bsu.swimming.version01;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-public class Swimmer extends Thread {
+public class Swimmer implements Runnable {
     private static final int POOL_LENGTH = 25;
     private final int relayRaceNumber; // {1, 2, 3, 4}
     private int speed; // {1, 2, 3}

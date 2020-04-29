@@ -1,4 +1,4 @@
-package by.bsu.swimming;
+package by.bsu.swimming.version01;
 
 import java.util.concurrent.*;
 
