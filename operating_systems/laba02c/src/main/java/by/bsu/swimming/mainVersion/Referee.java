@@ -1,11 +1,12 @@
 package by.bsu.swimming.mainVersion;
 
+import javax.swing.*;
 import java.util.concurrent.*;
 
 public class Referee extends Thread {
-    private static long redTime;
-    private static long greenTime;
-    private static long blueTime;
+    private static long redTime; // 1
+    private static long greenTime; // 2
+    private static long blueTime; // 3
     private SwimmerPanel panel;
 
     public Referee(SwimmerPanel panel) {
@@ -18,12 +19,75 @@ public class Referee extends Thread {
         int seconds = (int) (time / 1000);
         time -= seconds * 1000;
         StringBuilder builder = new StringBuilder();
-        builder.append("Время: ");
+        builder.append(" - время ");
         builder.append(minutes);
         builder.append(":");
         builder.append(seconds);
         builder.append(".");
         builder.append(time);
+        return builder.toString();
+    }
+
+    private String buildTeamResult(int place, int teamNumber) {
+        String teamName;
+        String time;
+        switch (teamNumber) {
+            case 1:
+                teamName = "«красные»";
+                time = buildTime(redTime);
+                break;
+            case 2:
+                teamName = "«зелёные»";
+                time = buildTime(greenTime);
+                break;
+            case 3:
+                teamName = "«синие»";
+                time = buildTime(blueTime);
+                break;
+            default:
+                teamName = "";
+                time = "";
+                break;
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append(place);
+        builder.append(" место - команда ");
+        builder.append(teamName);
+        builder.append(time);
+        builder.append("\r\n");
+        return builder.toString();
+    }
+
+    private String buildResult() {
+        StringBuilder builder = new StringBuilder();
+        if (redTime < greenTime && redTime < blueTime) {
+            builder.append(buildTeamResult(1, 1));
+            if (greenTime < blueTime) {
+                builder.append(buildTeamResult(2, 2));
+                builder.append(buildTeamResult(3, 3));
+            } else {
+                builder.append(buildTeamResult(2, 3));
+                builder.append(buildTeamResult(3, 2));
+            }
+        } else if (greenTime < blueTime) {
+            builder.append(buildTeamResult(1, 2));
+            if (redTime < blueTime) {
+                builder.append(buildTeamResult(2, 1));
+                builder.append(buildTeamResult(3, 3));
+            } else {
+                builder.append(buildTeamResult(2, 3));
+                builder.append(buildTeamResult(3, 1));
+            }
+        } else {
+            builder.append(buildTeamResult(1, 3));
+            if (redTime < greenTime) {
+                builder.append(buildTeamResult(2, 1));
+                builder.append(buildTeamResult(3, 2));
+            } else {
+                builder.append(buildTeamResult(2, 2));
+                builder.append(buildTeamResult(3, 1));
+            }
+        }
         return builder.toString();
     }
 
@@ -46,9 +110,7 @@ public class Referee extends Thread {
             ExecutorService teams = Executors.newFixedThreadPool(3);
             processTask(teams);
             teams.shutdown();
-            System.out.println("1 - " + buildTime(redTime));
-            System.out.println("2 - " + buildTime(greenTime));
-            System.out.println("3 - " + buildTime(blueTime));
+            JOptionPane.showMessageDialog(panel, buildResult());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

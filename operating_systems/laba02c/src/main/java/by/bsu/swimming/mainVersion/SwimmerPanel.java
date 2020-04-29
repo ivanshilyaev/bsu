@@ -33,7 +33,8 @@ public class SwimmerPanel extends JPanel implements ActionListener {
         graphics2D.drawLine(0, 160, 600, 160);
         graphics2D.drawLine(0, 260, 600, 260);
         graphics2D.drawLine(0, 360, 600, 360);
-        Ellipse2D circle;
+        Ellipse2D circle = new Ellipse2D.Double(10, 10, 20, 20);
+        graphics2D.fill(circle);
         for (Swimmer swimmer : swimmers) {
             circle = new Ellipse2D.Double(swimmer.getDistance() * 2.0,
                     swimmer.getLane() * 100.0, 20, 20);
