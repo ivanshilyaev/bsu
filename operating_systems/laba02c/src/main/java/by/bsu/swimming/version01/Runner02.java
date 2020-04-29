@@ -2,7 +2,7 @@ package by.bsu.swimming.version01;
 
 import java.util.concurrent.*;
 
-public class Runner {
+public class Runner02 {
     private static long redTime;
     private static long greenTime;
     private static long blueTime;
@@ -24,9 +24,9 @@ public class Runner {
 
     private static void processTask(ExecutorService team)
             throws ExecutionException, InterruptedException {
-        Callable<Long> redCallable = new Team(1);
-        Callable<Long> greenCallable = new Team(2);
-        Callable<Long> blueCallable = new Team(3);
+        Callable<Long> redCallable = new Team02(1);
+        Callable<Long> greenCallable = new Team02(2);
+        Callable<Long> blueCallable = new Team02(3);
         Future<Long> redFuture = team.submit(redCallable);
         Future<Long> greenFuture = team.submit(greenCallable);
         Future<Long> blueFuture = team.submit(blueCallable);

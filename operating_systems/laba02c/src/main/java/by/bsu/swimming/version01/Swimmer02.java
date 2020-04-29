@@ -4,14 +4,14 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-public class Swimmer implements Runnable {
+public class Swimmer02 implements Runnable {
     private static final int POOL_LENGTH = 25;
     private final int relayRaceNumber; // {1, 2, 3, 4}
     private int speed; // {1, 2, 3}
     private final int lane; // номер дорожки
     private final CountDownLatch latch;
 
-    public Swimmer(CountDownLatch latch, int relayRaceNumber, int lane) {
+    public Swimmer02(CountDownLatch latch, int relayRaceNumber, int lane) {
         speed = ThreadLocalRandom.current().nextInt(1, 4);
         this.relayRaceNumber = relayRaceNumber;
         this.latch = latch;

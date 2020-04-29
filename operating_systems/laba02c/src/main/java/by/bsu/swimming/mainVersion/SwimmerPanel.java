@@ -1,4 +1,4 @@
-package by.bsu.swimming.funVersion;
+package by.bsu.swimming.mainVersion;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,14 +8,14 @@ import java.awt.geom.Ellipse2D;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SwimmerPanel extends JPanel implements ActionListener {
-    private ConcurrentLinkedQueue<Swimmer01> swimmers = new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<Swimmer> swimmers = new ConcurrentLinkedQueue<>();
 
     public void startAnimation() {
         Timer timer = new Timer(100, this);
         timer.start();
     }
 
-    public ConcurrentLinkedQueue<Swimmer01> getSwimmers() {
+    public ConcurrentLinkedQueue<Swimmer> getSwimmers() {
         return swimmers;
     }
 
@@ -24,16 +24,16 @@ public class SwimmerPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
         Ellipse2D circle;
-        for (Swimmer01 swimmer01 : swimmers) {
-            circle = new Ellipse2D.Double(swimmer01.getDistance() * 24.0,
-                    swimmer01.getLane() * 100.0, 10, 10);
+        for (Swimmer swimmer : swimmers) {
+            circle = new Ellipse2D.Double(swimmer.getDistance() * 24.0,
+                    swimmer.getLane() * 100.0, 10, 10);
             graphics2D.fill(circle);
         }
     }
 
     private void move() {
-        for (Swimmer01 swimmer01 : swimmers) {
-            swimmer01.move();
+        for (Swimmer swimmer : swimmers) {
+            swimmer.move();
         }
     }
 

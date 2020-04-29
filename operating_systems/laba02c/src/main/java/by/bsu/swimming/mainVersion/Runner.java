@@ -1,14 +1,11 @@
-package by.bsu.swimming.funVersion;
+package by.bsu.swimming.mainVersion;
 
-import javax.swing.*;
 import java.util.concurrent.*;
 
-public class Runner01 {
+public class Runner {
     private static long redTime;
     private static long greenTime;
     private static long blueTime;
-
-    private static JFrame view;
     private static SwimmerPanel panel;
 
     private static String buildTime(long time) {
@@ -28,9 +25,9 @@ public class Runner01 {
 
     private static void processTask(ExecutorService team)
             throws ExecutionException, InterruptedException {
-        Callable<Long> redCallable = new Team01(1, panel);
-        Callable<Long> greenCallable = new Team01(2, panel);
-        Callable<Long> blueCallable = new Team01(3, panel);
+        Callable<Long> redCallable = new Team(1, panel);
+        Callable<Long> greenCallable = new Team(2, panel);
+        Callable<Long> blueCallable = new Team(3, panel);
         Future<Long> redFuture = team.submit(redCallable);
         Future<Long> greenFuture = team.submit(greenCallable);
         Future<Long> blueFuture = team.submit(blueCallable);
@@ -42,15 +39,7 @@ public class Runner01 {
     public static void main(String[] args) {
         try {
             panel = new SwimmerPanel();
-
-            view = new JFrame();
-            view.setVisible(true);
-            view.setSize(600, 400);
-            view.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            view.setTitle("Swimming");
-            view.add(panel);
-
-            panel.startAnimation();
+            View view = new View("Swimming", panel);
 
             ExecutorService teams = Executors.newFixedThreadPool(3);
             processTask(teams);
