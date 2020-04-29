@@ -9,10 +9,16 @@ import java.util.concurrent.Executors;
 public class Team implements Callable<Long> {
     private final int lane; // номер дорожки
     private final SwimmerPanel panel;
+    private boolean quit;
 
     public Team(int lane, SwimmerPanel panel) {
         this.lane = lane;
         this.panel = panel;
+        quit = false;
+    }
+
+    public void setQuit(boolean quit) {
+        this.quit = quit;
     }
 
     @Override
@@ -36,7 +42,8 @@ public class Team implements Callable<Long> {
                 break;
         }
         for (int i = 0; i < 4; ++i) {
-            team.execute(new Swimmer(latch, i + 1, lane, color, panel));
+            team.execute(new Swimmer(latch, i + 1, lane, color,
+                    panel, this));
         }
         try {
             latch.await();
@@ -45,6 +52,7 @@ public class Team implements Callable<Long> {
         }
         team.shutdown();
         long endTime = System.currentTimeMillis();
+        if (quit) return Long.MAX_VALUE;
         return endTime - startTime;
     }
 }

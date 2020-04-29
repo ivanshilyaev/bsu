@@ -34,15 +34,18 @@ public class Referee extends Thread {
         switch (teamNumber) {
             case 1:
                 teamName = "«красные»";
-                time = buildTime(redTime);
+                if (redTime == Long.MAX_VALUE) time = "-";
+                else time = buildTime(redTime);
                 break;
             case 2:
                 teamName = "«зелёные»";
-                time = buildTime(greenTime);
+                if (greenTime == Long.MAX_VALUE) time = "-";
+                else time = buildTime(greenTime);
                 break;
             case 3:
                 teamName = "«синие»";
-                time = buildTime(blueTime);
+                if (blueTime == Long.MAX_VALUE) time = "-";
+                else time = buildTime(blueTime);
                 break;
             default:
                 teamName = "";
@@ -50,6 +53,13 @@ public class Referee extends Thread {
                 break;
         }
         StringBuilder builder = new StringBuilder();
+        if (time.equals("-")) {
+            builder.append("Команда ");
+            builder.append(teamName);
+            builder.append(" - сошла с дистанции");
+            builder.append("\r\n");
+            return builder.toString();
+        }
         builder.append(place);
         builder.append(" место - команда ");
         builder.append(teamName);

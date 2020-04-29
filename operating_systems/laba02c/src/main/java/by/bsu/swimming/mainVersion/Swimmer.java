@@ -14,21 +14,24 @@ public class Swimmer implements Runnable {
     private CountDownLatch latch;
     private Color color;
     private SwimmerPanel panel;
+    private Team team;
     private int distance;
     private boolean stopped;
+    private boolean quit;
 
     public Color getColor() {
         return color;
     }
 
     public Swimmer(CountDownLatch latch, int relayRaceNumber, int lane,
-                   Color color, SwimmerPanel panel) {
+                   Color color, SwimmerPanel panel, Team team) {
         speed = ThreadLocalRandom.current().nextInt(1, 6);
         this.relayRaceNumber = relayRaceNumber;
         this.latch = latch;
         this.lane = lane;
         this.color = color;
         this.panel = panel;
+        this.team = team;
         stopped = false;
         switch (relayRaceNumber % 2) {
             case 0:
@@ -52,6 +55,10 @@ public class Swimmer implements Runnable {
 
     private void changeSpeed() {
         speed = ThreadLocalRandom.current().nextInt(1, 6);
+    }
+
+    private boolean quitTheDistance() {
+        return ThreadLocalRandom.current().nextInt(1, 1000) == 999;
     }
 
     public void move() {
@@ -79,12 +86,24 @@ public class Swimmer implements Runnable {
             default:
                 break;
         }
+        quit = quitTheDistance();
     }
 
     @Override
     public void run() {
         panel.getSwimmers().add(this);
         while (!stopped) {
+            if (quit) {
+                team.setQuit(true);
+                while (latch.getCount() > 0) latch.countDown();
+                while (true) {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             try {
                 TimeUnit.MILLISECONDS.sleep(50);
             } catch (InterruptedException e) {
@@ -92,8 +111,6 @@ public class Swimmer implements Runnable {
             }
         }
         panel.getSwimmers().remove(this);
-        // for testing. Remove this later!
-        System.out.println(lane + "-" + relayRaceNumber + " finished!");
         latch.countDown();
     }
 }
