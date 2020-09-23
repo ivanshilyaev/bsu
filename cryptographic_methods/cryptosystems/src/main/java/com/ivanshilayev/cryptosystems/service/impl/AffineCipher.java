@@ -4,6 +4,7 @@ import com.ivanshilayev.cryptosystems.model.Alphabet;
 import com.ivanshilayev.cryptosystems.service.Cipher;
 import com.ivanshilayev.cryptosystems.service.exception.CipherException;
 import com.ivanshilayev.cryptosystems.service.utils.AffineCipherUtils;
+import com.ivanshilayev.cryptosystems.service.utils.CommonUtils;
 
 public class AffineCipher implements Cipher {
     @Override
@@ -11,8 +12,9 @@ public class AffineCipher implements Cipher {
         int a = alphabet.getSymbols().indexOf(key.charAt(0));
         int b = alphabet.getSymbols().indexOf(key.charAt(1));
         StringBuilder encryptedText = new StringBuilder();
+        int index;
         for (char c : text.toCharArray()) {
-            int index = (a * alphabet.getSymbols().indexOf(c) + b) % alphabet.getSize();
+            index = (a * alphabet.getSymbols().indexOf(c) + b) % alphabet.getSize();
             encryptedText.append(alphabet.getSymbols().get(index));
         }
         return encryptedText.toString();
@@ -22,10 +24,11 @@ public class AffineCipher implements Cipher {
     public String decrypt(Alphabet alphabet, String text, String key) throws CipherException {
         int a = alphabet.getSymbols().indexOf(key.charAt(0));
         int b = alphabet.getSymbols().indexOf(key.charAt(1));
-        int aInverse = AffineCipherUtils.findModularMultiplicativeInverse(a, alphabet.getSize());
+        int aInverse = CommonUtils.findModularMultiplicativeInverse(a, alphabet.getSize());
         StringBuilder decryptedText = new StringBuilder();
+        int index;
         for (char c : text.toCharArray()) {
-            int index = (aInverse * (alphabet.getSymbols().indexOf(c) - b)) % alphabet.getSize();
+            index = (aInverse * (alphabet.getSymbols().indexOf(c) - b)) % alphabet.getSize();
             decryptedText.append(alphabet.getSymbols().get(index));
         }
         return decryptedText.toString();

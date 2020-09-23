@@ -12,8 +12,9 @@ public class SimpleSubstitutionCipher implements Cipher {
     public String encrypt(Alphabet alphabet, String text, String key) throws CipherException {
         List<Character> substitution = key.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
         StringBuilder encryptedText = new StringBuilder();
+        int index;
         for (char c : text.toCharArray()) {
-            int index = (alphabet.getSymbols().indexOf(c));
+            index = (alphabet.getSymbols().indexOf(c));
             encryptedText.append(substitution.get(index));
         }
         return encryptedText.toString();
@@ -23,8 +24,9 @@ public class SimpleSubstitutionCipher implements Cipher {
     public String decrypt(Alphabet alphabet, String text, String key) throws CipherException {
         List<Character> substitution = key.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
         StringBuilder decryptedText = new StringBuilder();
+        int index;
         for (char c : text.toCharArray()) {
-            int index = (substitution.indexOf(c));
+            index = (substitution.indexOf(c));
             decryptedText.append(alphabet.getSymbols().get(index));
         }
         return decryptedText.toString();
