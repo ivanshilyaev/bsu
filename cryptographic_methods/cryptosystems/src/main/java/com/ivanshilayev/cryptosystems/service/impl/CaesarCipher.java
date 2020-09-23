@@ -18,11 +18,11 @@ public class CaesarCipher implements Cipher {
     @Override
     public String decrypt(Alphabet alphabet, String text, String key) {
         int shift = alphabet.getSymbols().indexOf(key.charAt(0));
-        StringBuilder encryptedText = new StringBuilder();
+        StringBuilder decryptedText = new StringBuilder();
         for (char c : text.toCharArray()) {
             int index = (alphabet.getSymbols().indexOf(c) - shift) % alphabet.getSize();
-            encryptedText.append(alphabet.getSymbols().get(index));
+            decryptedText.append(alphabet.getSymbols().get(index));
         }
-        return encryptedText.toString();
+        return decryptedText.toString();
     }
 }
