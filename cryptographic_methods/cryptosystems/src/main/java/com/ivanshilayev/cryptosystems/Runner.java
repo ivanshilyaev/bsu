@@ -7,6 +7,11 @@ public class Runner {
     public static void main(String[] args) {
         Alphabet alphabet = new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         CaesarCipher caesarCipher = new CaesarCipher();
-        System.out.println(caesarCipher.encrypt(alphabet, "ABCD", "B"));
+        String text = "ABCD";
+        String key = "B";
+        String encrypted = caesarCipher.encrypt(alphabet, text, key);
+        String decrypted = caesarCipher.decrypt(alphabet, encrypted, key);
+        System.out.println(encrypted);
+        System.out.println(decrypted);
     }
 }
