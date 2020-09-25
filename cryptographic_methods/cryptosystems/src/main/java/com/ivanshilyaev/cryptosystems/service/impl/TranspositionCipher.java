@@ -1,10 +1,9 @@
-package com.ivanshilayev.cryptosystems.service.impl;
+package com.ivanshilyaev.cryptosystems.service.impl;
 
-import com.ivanshilayev.cryptosystems.model.Alphabet;
-import com.ivanshilayev.cryptosystems.service.Cipher;
-import com.ivanshilayev.cryptosystems.service.exception.CipherException;
+import com.ivanshilyaev.cryptosystems.model.Alphabet;
+import com.ivanshilyaev.cryptosystems.service.Cipher;
+import com.ivanshilyaev.cryptosystems.service.exception.CipherException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,8 +13,7 @@ public class TranspositionCipher implements Cipher {
         while (text.length() % key.length() != 0) {
             text += alphabet.getSymbols().get(0);
         }
-        List<Character> keyChars = key.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
-        Collections.sort(keyChars);
+        List<Character> keyChars = key.chars().mapToObj(e -> (char) e).sorted().collect(Collectors.toList());
         int[] transposition = new int[key.length()];
         for (int i = 0; i < key.length(); ++i) {
             transposition[i] = keyChars.indexOf(key.charAt(i));
@@ -36,8 +34,7 @@ public class TranspositionCipher implements Cipher {
 
     @Override
     public String decrypt(Alphabet alphabet, String text, String key) throws CipherException {
-        List<Character> keyChars = key.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
-        Collections.sort(keyChars);
+        List<Character> keyChars = key.chars().mapToObj(e -> (char) e).sorted().collect(Collectors.toList());
         int[] transposition = new int[key.length()];
         for (int i = 0; i < key.length(); ++i) {
             transposition[i] = keyChars.indexOf(key.charAt(i));

@@ -1,4 +1,4 @@
-package com.ivanshilayev.cryptosystems.service.exception;
+package com.ivanshilyaev.cryptosystems.service.exception;
 
 public class CipherException extends Exception {
     public CipherException() {

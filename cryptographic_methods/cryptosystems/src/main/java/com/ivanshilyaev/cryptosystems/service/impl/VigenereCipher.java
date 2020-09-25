@@ -1,8 +1,8 @@
-package com.ivanshilayev.cryptosystems.service.impl;
+package com.ivanshilyaev.cryptosystems.service.impl;
 
-import com.ivanshilayev.cryptosystems.model.Alphabet;
-import com.ivanshilayev.cryptosystems.service.Cipher;
-import com.ivanshilayev.cryptosystems.service.exception.CipherException;
+import com.ivanshilyaev.cryptosystems.model.Alphabet;
+import com.ivanshilyaev.cryptosystems.service.Cipher;
+import com.ivanshilyaev.cryptosystems.service.exception.CipherException;
 
 public class VigenereCipher implements Cipher {
     @Override

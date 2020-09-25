@@ -1,4 +1,4 @@
-package com.ivanshilayev.cryptosystems.model;
+package com.ivanshilyaev.cryptosystems.model;
 
 import lombok.Data;
 

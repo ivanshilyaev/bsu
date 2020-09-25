@@ -1,4 +1,4 @@
-package com.ivanshilayev.cryptosystems;
+package com.ivanshilyaev.cryptosystems;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

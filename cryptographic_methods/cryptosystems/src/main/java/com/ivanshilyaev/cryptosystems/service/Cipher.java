@@ -1,7 +1,7 @@
-package com.ivanshilayev.cryptosystems.service;
+package com.ivanshilyaev.cryptosystems.service;
 
-import com.ivanshilayev.cryptosystems.model.Alphabet;
-import com.ivanshilayev.cryptosystems.service.exception.CipherException;
+import com.ivanshilyaev.cryptosystems.model.Alphabet;
+import com.ivanshilyaev.cryptosystems.service.exception.CipherException;
 
 public interface Cipher {
     String encrypt(Alphabet alphabet, String text, String key) throws CipherException;

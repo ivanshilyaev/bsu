@@ -1,9 +1,9 @@
-package com.ivanshilayev.cryptosystems.service.impl;
+package com.ivanshilyaev.cryptosystems.service.impl;
 
-import com.ivanshilayev.cryptosystems.model.Alphabet;
-import com.ivanshilayev.cryptosystems.service.Cipher;
-import com.ivanshilayev.cryptosystems.service.exception.CipherException;
-import com.ivanshilayev.cryptosystems.service.utils.HillCipherUtils;
+import com.ivanshilyaev.cryptosystems.model.Alphabet;
+import com.ivanshilyaev.cryptosystems.service.Cipher;
+import com.ivanshilyaev.cryptosystems.service.exception.CipherException;
+import com.ivanshilyaev.cryptosystems.utils.HillCipherUtils;
 
 public class HillCipher implements Cipher {
     @Override

@@ -1,8 +1,11 @@
-package com.ivanshilayev.cryptosystems.service.utils;
+package com.ivanshilyaev.cryptosystems.utils;
 
-import com.ivanshilayev.cryptosystems.service.exception.CipherException;
+import com.ivanshilyaev.cryptosystems.service.exception.CipherException;
 
 public class HillCipherUtils {
+
+    private HillCipherUtils() {
+    }
 
     public static int[][] findInverseMatrixTwoByTwo(int[][] key, int m) throws CipherException {
         int det = Math.abs(key[0][0] * key[1][1] - key[0][1] * key[1][0]);

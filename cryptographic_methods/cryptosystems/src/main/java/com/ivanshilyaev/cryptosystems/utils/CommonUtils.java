@@ -1,8 +1,10 @@
-package com.ivanshilayev.cryptosystems.service.utils;
-
-import com.ivanshilayev.cryptosystems.service.exception.CipherException;
+package com.ivanshilyaev.cryptosystems.utils;
 
 public class CommonUtils {
+
+    private CommonUtils() {
+    }
+
     public static int gcd(int a, int b) {
         if (b == 0) return a;
         return gcd(b, a % b);
@@ -19,13 +21,7 @@ public class CommonUtils {
         return result;
     }
 
-    public static int findModularMultiplicativeInverse(int a, int m) throws CipherException {
-
-        // TODO: move this check to AffineCipherParser class
-        if (gcd(a, m) != 1) {
-            throw new CipherException("Modular multiplicative inverse (mod " + m + ") doesn't exist for number " + a);
-        }
-
+    public static int findModularMultiplicativeInverse(int a, int m) {
         int power = phi(m) - 1;
         int aInverse = a;
         for (int i = 1; i < power; ++i) {
