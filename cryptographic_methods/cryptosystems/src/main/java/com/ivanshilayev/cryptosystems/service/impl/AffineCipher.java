@@ -3,7 +3,6 @@ package com.ivanshilayev.cryptosystems.service.impl;
 import com.ivanshilayev.cryptosystems.model.Alphabet;
 import com.ivanshilayev.cryptosystems.service.Cipher;
 import com.ivanshilayev.cryptosystems.service.exception.CipherException;
-import com.ivanshilayev.cryptosystems.service.utils.AffineCipherUtils;
 import com.ivanshilayev.cryptosystems.service.utils.CommonUtils;
 
 public class AffineCipher implements Cipher {
