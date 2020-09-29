@@ -22,7 +22,7 @@ public class CaesarCipher implements Cipher {
         StringBuilder decryptedText = new StringBuilder();
         int index;
         for (char c : text.toCharArray()) {
-            index = (alphabet.getSymbols().indexOf(c) - shift) % alphabet.getSize();
+            index = (alphabet.getSize() + alphabet.getSymbols().indexOf(c) - shift) % alphabet.getSize();
             decryptedText.append(alphabet.getSymbols().get(index));
         }
         return decryptedText.toString();

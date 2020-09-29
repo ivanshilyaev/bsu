@@ -14,6 +14,9 @@ public class CaesarCipherKeyValidator implements Validator {
 
     @Override
     public void validate(String line) throws ValidationException {
+        if (line.length() > 1) {
+            throw new ValidationException(ValidationConstants.CAESAR_CIPHER_KEY_ERROR);
+        }
         if (!alphabet.getSymbols().contains(line.charAt(0))) {
             throw new ValidationException(ValidationConstants.KEY_STORE_ERROR);
         }

@@ -3,27 +3,27 @@ package com.ivanshilyaev.cryptosystems;
 import com.ivanshilyaev.cryptosystems.model.Alphabet;
 import com.ivanshilyaev.cryptosystems.service.Cipher;
 import com.ivanshilyaev.cryptosystems.service.exception.CipherException;
-import com.ivanshilyaev.cryptosystems.service.impl.CaesarCipher;
+import com.ivanshilyaev.cryptosystems.service.impl.*;
 import com.ivanshilyaev.cryptosystems.validator.Validator;
 import com.ivanshilyaev.cryptosystems.validator.exception.ValidationException;
-import com.ivanshilyaev.cryptosystems.validator.impl.AlphabetValidator;
-import com.ivanshilyaev.cryptosystems.validator.impl.CaesarCipherKeyValidator;
+import com.ivanshilyaev.cryptosystems.validator.impl.*;
 
 public class Runner {
 
     public static void main(String[] args) {
         try {
             String alphabetString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            String text = "HELLO";
-            String key = "B";
+            //String alphabetString = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ";
+            String text = "HELLOWORLD";
+            String key = "KEY";
 
             Validator validator = new AlphabetValidator();
             validator.validate(alphabetString);
             Alphabet alphabet = new Alphabet(alphabetString);
-            validator = new CaesarCipherKeyValidator(alphabet);
+            validator = new VigenereCipherKeyValidator(alphabet);
             validator.validate(key);
 
-            Cipher cipher = new CaesarCipher();
+            Cipher cipher = new VigenereCipher();
 
             String encrypted = cipher.encrypt(alphabet, text, key);
             String decrypted = cipher.decrypt(alphabet, encrypted, key);

@@ -27,7 +27,7 @@ public class AffineCipher implements Cipher {
         StringBuilder decryptedText = new StringBuilder();
         int index;
         for (char c : text.toCharArray()) {
-            index = (aInverse * (alphabet.getSymbols().indexOf(c) - b)) % alphabet.getSize();
+            index = ((alphabet.getSize() * alphabet.getSize()) + aInverse * (alphabet.getSymbols().indexOf(c) - b)) % alphabet.getSize();
             decryptedText.append(alphabet.getSymbols().get(index));
         }
         return decryptedText.toString();
