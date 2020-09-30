@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Menu</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="content">
+    <h2>Classical cryptosystems</h2>
+    <form class="menu-form" th:action="@{/index}" method="POST">
+        <label for="alphabet">Alphabet</label> <br>
+        <input type="text" name="alphabet" id="alphabet" size="60"/> <br>
+        <label for="text">Text</label> <br>
+        <input type="text" name="text" id="text" size="60"/> <br>
+        <label for="key">Key</label> <br>
+        <input type="text" name="key" id="key" size="60"/> <br>
+        <label for="cipher">Cipher</label> <br>
+        <select name="cipher" id="cipher">
+            <option>Caesar cipher</option>
+            <option>Affine cipher</option>
+            <option>Simple substitution cipher</option>
+            <option>Hill cipher</option>
+            <option>Transposition cipher</option>
+            <option>Vigenere cipher</option>
+        </select> <br>
+        <div>
+            <input type="radio" name="task" id="encrypt" value="encrypt" checked>
+            <label for="encrypt">encrypt</label>
+            <input type="radio" name="task" id="decrypt" value="decrypt">
+            <label for="decrypt">decrypt</label>
+        </div>
+        <br>
+        <label>Result</label> <br>
+        <span id="result">[[${result}]]</span> <br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
