@@ -10,7 +10,7 @@ import java.nio.file.StandardOpenOption;
 public class LineWriter {
     public void writeLineToFile(String line, String path) throws DAOException {
         try {
-            Files.write(Paths.get(path), line.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get(path), line.getBytes(), StandardOpenOption.WRITE);
         } catch (IOException e) {
             throw new DAOException("Couldn't write to file");
         }

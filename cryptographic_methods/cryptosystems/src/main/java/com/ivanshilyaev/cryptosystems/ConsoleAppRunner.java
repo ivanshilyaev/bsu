@@ -24,17 +24,17 @@ public class ConsoleAppRunner {
 
     private void start() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter alphabet file path:");
+        System.out.println("Enter alphabet file path (d - default, 0 - default alphabet):");
         String alphabetPath = scanner.nextLine();
         if (alphabetPath.equals(DEFAULT)) {
             alphabetPath = ALPHABET_PATH_DEFAULT;
         }
-        System.out.println("Enter text file path:");
+        System.out.println("Enter text file path (d - default):");
         String textPath = scanner.nextLine();
         if (textPath.equals(DEFAULT)) {
             textPath = TEXT_PATH_DEFAULT;
         }
-        System.out.println("Enter key file path:");
+        System.out.println("Enter key file path (d - default):");
         String keyPath = scanner.nextLine();
         if (keyPath.equals(DEFAULT)) {
             keyPath = KEY_PATH_DEFAULT;
@@ -52,7 +52,12 @@ public class ConsoleAppRunner {
 
         LineReaderCommand readerCommand = new LineReaderCommand();
         try {
-            String alphabetString = readerCommand.readLine(alphabetPath);
+            String alphabetString;
+            if (alphabetPath.equals("0")) {
+                alphabetString = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ";
+            } else {
+                alphabetString = readerCommand.readLine(alphabetPath);
+            }
             String text = readerCommand.readLine(textPath);
             String key = readerCommand.readLine(keyPath);
 
