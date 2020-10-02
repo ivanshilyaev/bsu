@@ -18,6 +18,13 @@ body {
     text-align: center;
 }
 
+h2 {
+    color: black;
+    font-size: 16pt;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
 input[type=text], select, textarea {
     width: 100%;
     padding: 8px;

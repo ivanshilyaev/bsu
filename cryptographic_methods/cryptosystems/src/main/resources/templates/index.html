@@ -2,6 +2,7 @@
 <head>
     <title>Menu</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
 </head>
 <body>
 <div class="content">
@@ -9,6 +10,8 @@
     <form class="main-form" th:action="@{/index}" method="POST">
         <label for="alphabet">Alphabet</label> <br>
         <input type="text" name="alphabet" id="alphabet" size="60"/> <br>
+        <input type="checkbox" name="default-alphabet" id="default-alphabet" onclick="checkbox()">
+        <label for="default-alphabet">Use default alphabet</label> <br>
         <label for="text">Text</label> <br>
         <textarea id="text" name="text"></textarea> <br>
         <label for="key">Key</label> <br>
