@@ -3,7 +3,6 @@ package com.ivanshilyaev.cryptosystems;
 import com.ivanshilyaev.cryptosystems.model.Alphabet;
 import com.ivanshilyaev.cryptosystems.service.Cipher;
 import com.ivanshilyaev.cryptosystems.service.exception.CipherException;
-import com.ivanshilyaev.cryptosystems.service.exception.CipherException;
 import com.ivanshilyaev.cryptosystems.service.impl.*;
 import com.ivanshilyaev.cryptosystems.validator.Validator;
 import com.ivanshilyaev.cryptosystems.validator.exception.ValidationException;
@@ -93,7 +92,11 @@ public class Controller {
         }
 
         model.addAttribute("result", result);
-        System.out.println(result);
         return "index";
+    }
+
+    @GetMapping("/error")
+    public String error() {
+        return "error";
     }
 }

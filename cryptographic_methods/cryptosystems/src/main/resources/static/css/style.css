@@ -1,0 +1,57 @@
+body {
+    background: url(../background.jpg);
+    background-size: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 800px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-form {
+    text-align: center;
+}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+textarea {
+    height: 70px;
+}
+
+label {
+    padding: 6px 10px;
+    display: inline-block;
+    color: black;
+    font-size: 12pt;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.main-form > input[value] {
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    color: black;
+    font-size: 12pt;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+}
+
+.main-form > input[value]:hover {
+    background-color: black;
+    color: white;
+}

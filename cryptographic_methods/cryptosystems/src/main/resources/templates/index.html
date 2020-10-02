@@ -6,11 +6,11 @@
 <body>
 <div class="content">
     <h2>Classical cryptosystems</h2>
-    <form class="menu-form" th:action="@{/index}" method="POST">
+    <form class="main-form" th:action="@{/index}" method="POST">
         <label for="alphabet">Alphabet</label> <br>
         <input type="text" name="alphabet" id="alphabet" size="60"/> <br>
         <label for="text">Text</label> <br>
-        <input type="text" name="text" id="text" size="60"/> <br>
+        <textarea id="text" name="text"></textarea> <br>
         <label for="key">Key</label> <br>
         <input type="text" name="key" id="key" size="60"/> <br>
         <label for="cipher">Cipher</label> <br>
@@ -30,7 +30,8 @@
         </div>
         <br>
         <label>Result</label> <br>
-        <span id="result">[[${result}]]</span> <br>
+        <label for="result"></label>
+        <textarea id="result" name="result" readonly>[[${result}]]</textarea> <br>
         <input type="submit" value="Submit">
     </form>
 </div>
