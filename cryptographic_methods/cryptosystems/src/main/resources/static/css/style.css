@@ -31,6 +31,7 @@ input[type=text], select, textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
+    font-size: 16px;
 }
 
 textarea {
