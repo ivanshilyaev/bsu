@@ -7,6 +7,7 @@ body {
 }
 
 .content {
+    border-radius: 25px;
     width: 800px;
     background-color: white;
     display: flex;
