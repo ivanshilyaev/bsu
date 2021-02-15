@@ -17,10 +17,12 @@ public abstract class Message extends MessageXml implements Serializable {
         public byte getID() {
             return id;
         }
+
         public void setID(byte id) {
-            assert(Protocol.validID(id));
+            assert (Protocol.validID(id));
             this.id = id;
         }
+
         public Data() {
         }
 
@@ -40,7 +42,7 @@ public abstract class Message extends MessageXml implements Serializable {
     protected Message() {
     }
 
-    protected void setup( byte id ) {
+    protected void setup(byte id) {
         getData().setID(id);
     }
 

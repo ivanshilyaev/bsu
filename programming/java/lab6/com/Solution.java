@@ -9,11 +9,10 @@ import java.util.Locale;
 public class Solution {
     public static final int N = 3;
 
-    static Locale createLocale(String[] args)	{
+    static Locale createLocale(String[] args) {
         if (args.length == 2) {
             return new Locale(args[0], args[1]);
-        }
-        else if (args.length == 4) {
+        } else if (args.length == 4) {
             return new Locale(args[2], args[3]);
         }
         return null;
@@ -24,9 +23,8 @@ public class Solution {
             if (args[0].compareTo("-encoding") == 0) {
                 try {
                     System.setOut(new PrintStream(System.out, true, args[1]));
-                }
-                catch (UnsupportedEncodingException ex) {
-                    System.err.println( "Unsupported encoding: " + args[1] );
+                } catch (UnsupportedEncodingException ex) {
+                    System.err.println("Unsupported encoding: " + args[1]);
                     System.exit(1);
                 }
             }
@@ -41,7 +39,7 @@ public class Solution {
                 System.err.println(
                         "Invalid argument(s)\n" +
                                 "Syntax: [-encoding ENCODING_ID] language country\n" +
-                                "Example: -encoding Cp855 be BY" );
+                                "Example: -encoding Cp855 be BY");
                 System.exit(1);
             }
             AppLocale.set(loc);
@@ -75,16 +73,16 @@ public class Solution {
             Connector connector = new Connector("band.dat");
             connector.write(trips, drivers, cars);
             System.out.println("---Serialization is here---\n");
-            Object[] objects  = connector.read();
+            Object[] objects = connector.read();
             int i = 0;
             Trip[] ourOldTrips = new Trip[objects.length / 3];
-            for (; i<objects.length / 3; ++i)
+            for (; i < objects.length / 3; ++i)
                 ourOldTrips[i] = (Trip) objects[i];
             Driver[] ourOldDrivers = new Driver[objects.length / 3];
             for (; i < 2 * objects.length / 3; ++i)
                 ourOldDrivers[i - 3] = (Driver) objects[i];
             Car[] ourOldCars = new Car[objects.length / 3];
-            for (; i<objects.length; ++i)
+            for (; i < objects.length; ++i)
                 ourOldCars[i - 6] = (Car) objects[i];
 
             System.out.println("---Our old trips (after serialization)---");
@@ -96,11 +94,9 @@ public class Solution {
             System.out.println("---Our old cars (after serialization)---");
             for (Car c : ourOldCars)
                 System.out.println(c.toString());
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.getMessage();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

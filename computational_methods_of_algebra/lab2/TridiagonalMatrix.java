@@ -7,11 +7,11 @@ public class TridiagonalMatrix {
         matrix = new double[n][n];
         do {
             matrix[0][0] = Solution.round(min + Math.random() * (max - min + 1), 2);
-            matrix[n-1][n-1] = Solution.round(min + Math.random() * (max - min + 1), 2);
+            matrix[n - 1][n - 1] = Solution.round(min + Math.random() * (max - min + 1), 2);
             matrix[0][1] = Solution.round(min + Math.random() * (max - min + 1), 2);
-            matrix[n-1][n-2] = Solution.round(min + Math.random() * (max - min + 1), 2);
+            matrix[n - 1][n - 2] = Solution.round(min + Math.random() * (max - min + 1), 2);
         }
-        while (getC(0)==0 || getC(n-1)==0 || Math.abs(getC(0)) < Math.abs(getB(0)) || Math.abs(getC(n-1)) <= Math.abs(getA(n-1)));
+        while (getC(0) == 0 || getC(n - 1) == 0 || Math.abs(getC(0)) < Math.abs(getB(0)) || Math.abs(getC(n - 1)) <= Math.abs(getA(n - 1)));
         // 1 and 3 conditions
         for (int i = 1; i < this.n - 1; ++i) {
             do {
@@ -34,13 +34,13 @@ public class TridiagonalMatrix {
     public double getA(int idx) {
         if (idx < 1 || idx >= this.n)
             throw new IndexOutOfBoundsException("Bad value of index: " + idx + ". Index must be >=1 and <" + this.n + ".");
-        return (-1)*matrix[idx][idx-1];
+        return (-1) * matrix[idx][idx - 1];
     }
 
     public double getB(int idx) {
         if (idx < 0 || idx >= this.n - 1)
-            throw new IndexOutOfBoundsException("Bad value of index: " + idx + ". Index must be >=0 and <" + (this.n-1) + ".");
-        return (-1)*matrix[idx][idx+1];
+            throw new IndexOutOfBoundsException("Bad value of index: " + idx + ". Index must be >=0 and <" + (this.n - 1) + ".");
+        return (-1) * matrix[idx][idx + 1];
     }
 
     public double getC(int idx) {

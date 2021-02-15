@@ -25,7 +25,6 @@ public class SectionDaoImpl extends DaoImpl<Integer, Section> implements Section
         try {
             Statement statement = null;
             try {
-                statement = connection.createStatement();
                 ResultSet resultSet = null;
                 try {
                     resultSet = statement.executeQuery(SQL_SELECT_ALL_SECTIONS);
@@ -60,7 +59,6 @@ public class SectionDaoImpl extends DaoImpl<Integer, Section> implements Section
         Statement statement = null;
         ResultSet resultSet;
         try {
-            statement = connection.createStatement();
             resultSet = statement.executeQuery(SQL_SELECT_ALL_SECTIONS);
             while (resultSet.next()) {
                 if (resultSet.getInt(1) == id) {

@@ -14,6 +14,7 @@ public class Driver implements Comparable<Driver>, Serializable {
     private boolean available;
 
     public final Date creationDate = new Date();
+
     public String getCreationDate() {
         DateFormat dateFormatter = DateFormat.getDateTimeInstance(
                 DateFormat.DEFAULT, DateFormat.DEFAULT, AppLocale.get());
@@ -26,7 +27,7 @@ public class Driver implements Comparable<Driver>, Serializable {
         this.age = age;
         this.gender = gender;
         this.experience = experience;
-        available =  true;
+        available = true;
     }
 
     public int getID() {
@@ -97,6 +98,6 @@ public class Driver implements Comparable<Driver>, Serializable {
     }
 
     public int getCarAssessment() {
-        return 1 + (int)(Math.random() * 5);
+        return 1 + (int) (Math.random() * 5);
     }
 }

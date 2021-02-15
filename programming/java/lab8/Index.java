@@ -34,8 +34,11 @@ class KeyCompReverse implements Comparator<String> {
 
 interface IndexBase {
     String[] getKeys(Comparator<String> comp);
+
     void put(String key, long value);
+
     boolean contains(String key);
+
     LinkedList<Long> get(String key);
 }
 
@@ -44,7 +47,7 @@ class IndexOne2One implements Serializable, IndexBase {
     // class release version:
     private static final long serialVersionUID = 1L;
 
-    private TreeMap<String,Long> map;
+    private TreeMap<String, Long> map;
 
     public IndexOne2One() {
         map = new TreeMap<>();
@@ -77,7 +80,7 @@ class IndexOne2N implements Serializable, IndexBase {
     // class release version:
     private static final long serialVersionUID = 1L;
 
-    private TreeMap<String,LinkedList<Long>> map;
+    private TreeMap<String, LinkedList<Long>> map;
 
     public IndexOne2N() {
         map = new TreeMap<>();
@@ -100,7 +103,7 @@ class IndexOne2N implements Serializable, IndexBase {
                     long value) {
         StringTokenizer st = new StringTokenizer(keys, keyDel);
         int num = st.countTokens();
-        for (int i=0; i<num; ++i) {
+        for (int i = 0; i < num; ++i) {
             String key = st.nextToken();
             key = key.trim();
             put(key, value);
@@ -142,7 +145,7 @@ public class Index implements Serializable, Closeable {
     IndexOne2N dates;
 
     public void test(PhoneBill bill) throws KeyNotUniqueException {
-        assert(bill != null);
+        assert (bill != null);
         if (fullNames.contains(bill.getFullName())) {
             throw new KeyNotUniqueException(bill.getFullName());
         }
@@ -161,7 +164,7 @@ public class Index implements Serializable, Closeable {
         dates.put(bill.getDate(), value);
     }
 
-    public Index()  {
+    public Index() {
         fullNames = new IndexOne2N();
         numbers = new IndexOne2N();
         dates = new IndexOne2N();
@@ -177,7 +180,7 @@ public class Index implements Serializable, Closeable {
                     throw new IOException("Invalid block format");
                 }
                 try (ObjectInputStream ois = new ObjectInputStream(zis)) {
-                    obj = (Index)ois.readObject();
+                    obj = (Index) ois.readObject();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -198,7 +201,7 @@ public class Index implements Serializable, Closeable {
     private void saveAs(String name) throws IOException {
         FileOutputStream file = new FileOutputStream(name);
         try (ZipOutputStream zos = new ZipOutputStream(file)) {
-            zos.putNextEntry(new ZipEntry( Buffer.zipEntryName));
+            zos.putNextEntry(new ZipEntry(Buffer.zipEntryName));
             zos.setLevel(ZipOutputStream.DEFLATED);
             try (ObjectOutputStream oos = new ObjectOutputStream(zos)) {
                 oos.writeObject(this);

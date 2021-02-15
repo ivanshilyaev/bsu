@@ -25,8 +25,8 @@ public class MyXY {
         String[] arr = word.split(":");
         try {
             return new MyXY(Double.parseDouble(arr[0]), Double.parseDouble(arr[1]));
+        } catch (Exception e) {
         }
-        catch (Exception e) {}
         return null;
     }
 

@@ -44,8 +44,7 @@ public class Server {
                             response.append(pair.getKey()).append(" ");
                     }
                     connection.send(new Message(MessageType.LIST_OF_USERS_RESPONSE, response.toString()));
-                }
-                else if (message.getType() == MessageType.TEXT_EMAIL) {
+                } else if (message.getType() == MessageType.TEXT_EMAIL) {
                     String data = message.getData();
                     String receiver = data.substring(0, data.indexOf(":"));
                     data = data.substring(data.indexOf(":") + 2);
@@ -56,8 +55,7 @@ public class Server {
                         connectionMap.get(receiver).send(new Message(MessageType.TEXT_EMAIL, data));
                         connection.send(new Message(MessageType.TEXT_EMAIL_SUCCESS));
                     }
-                }
-                else if (message.getType() == MessageType.FILE_EMAIL) {
+                } else if (message.getType() == MessageType.FILE_EMAIL) {
                     String receiver = message.getData();
                     if (!connectionMap.containsKey(receiver))
                         connection.send(new Message(MessageType.FILE_EMAIL_ERROR));
@@ -65,8 +63,7 @@ public class Server {
                         connectionMap.get(receiver).send(new Message(MessageType.FILE_EMAIL, userName, message.getFile()));
                         connection.send(new Message(MessageType.FILE_EMAIL_SUCCESS));
                     }
-                }
-                else
+                } else
                     ConsoleHelper.writeMessage("An error occurred while receiving a message");
             }
 
@@ -82,11 +79,10 @@ public class Server {
                 connection = new Connection(socket);
                 userName = serverHandshake(connection);
                 serverMainLoop(connection, userName);
-            }
-            catch (ClassNotFoundException | IOException e) {
+            } catch (ClassNotFoundException | IOException e) {
                 try {
                     if (connection != null)
-                    connection.close();
+                        connection.close();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -109,8 +105,7 @@ public class Server {
                 Handler handler = new Handler(socket);
                 handler.start();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             ConsoleHelper.writeMessage("An error occurred");
             serverSocket.close();
         }

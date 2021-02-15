@@ -10,7 +10,7 @@ public class Connector {
     }
 
     public void write(Trip[] trips, Driver[] drivers, Car[] cars) throws IOException {
-        FileOutputStream fos = new FileOutputStream (filename);
+        FileOutputStream fos = new FileOutputStream(filename);
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeInt(trips.length + drivers.length + cars.length);
             for (Trip d : trips) {

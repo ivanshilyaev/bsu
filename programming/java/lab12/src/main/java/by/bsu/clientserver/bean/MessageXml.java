@@ -30,20 +30,20 @@ public abstract class MessageXml implements Serializable {
     public MessageXml() {
     }
 
-    public static void toXml( MessageXml msg, OutputStream os )
+    public static void toXml(MessageXml msg, OutputStream os)
             throws JAXBException {
         JAXBContext context =
                 JAXBContext.newInstance(msg.getClass());
         Marshaller m = context.createMarshaller();
-        m.marshal( msg, os );
+        m.marshal(msg, os);
     }
 
-    public static MessageXml fromXml( Class<? extends MessageXml> what,
-                                      InputStream is ) throws JAXBException {
+    public static MessageXml fromXml(Class<? extends MessageXml> what,
+                                     InputStream is) throws JAXBException {
         JAXBContext context =
                 JAXBContext.newInstance(what);
         Unmarshaller u = context.createUnmarshaller();
-        return ( MessageXml ) u.unmarshal( is );
+        return (MessageXml) u.unmarshal(is);
     }
 
     public static void writeMsg(DataOutputStream os, MessageXml msg)
@@ -58,7 +58,7 @@ public abstract class MessageXml implements Serializable {
 
     public static void writeViaByteArray(DataOutputStream os, MessageXml msg)
             throws JAXBException, IOException {
-        try(ByteArrayOutputStream bufOut = new ByteArrayOutputStream(512)) {
+        try (ByteArrayOutputStream bufOut = new ByteArrayOutputStream(512)) {
             try (DataOutputStream out = new DataOutputStream(bufOut)) {
                 String name = msg.getClass().getName();
                 out.writeUTF(name);
@@ -78,7 +78,7 @@ public abstract class MessageXml implements Serializable {
         int length = is.readInt();
         byte[] raw = new byte[length];
         int idx = 0, num = length;
-        while ( idx < num ) {
+        while (idx < num) {
             int n = is.read(raw, idx, num - idx);
             idx += n;
         }
@@ -86,7 +86,7 @@ public abstract class MessageXml implements Serializable {
             try (DataInputStream in = new DataInputStream(bufIn)) {
                 String name = in.readUTF();
                 return MessageXml.fromXml((Class<? extends MessageXml>)
-                        Class.forName( name ), in);
+                        Class.forName(name), in);
             }
         }
     }

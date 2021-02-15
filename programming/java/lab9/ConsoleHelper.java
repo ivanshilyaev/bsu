@@ -15,8 +15,7 @@ public class ConsoleHelper {
         String text = null;
         try {
             text = reader.readLine();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("An error occurred while trying to read text. Try again:");
             return readString();
         }
@@ -27,8 +26,7 @@ public class ConsoleHelper {
         int number = 0;
         try {
             number = Integer.parseInt(readString());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("An error occurred while trying to read text. Try again:");
             return readInt();
         }

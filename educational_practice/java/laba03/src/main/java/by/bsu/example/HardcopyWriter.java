@@ -48,14 +48,13 @@ public class HardcopyWriter extends Writer {
     public HardcopyWriter(Frame frame, String jobname, int fontsize,
                           double leftmargin, double rightmargin,
                           double topmargin, double bottommargin)
-            throws HardcopyWriter.PrintCanceledException
-    {
+            throws HardcopyWriter.PrintCanceledException {
         // Get the PrintJob object with which we'll do all the printing.
         // The call is synchronized on the static printprops object, which
         // means that only one print dialog can be popped up at a time.
         // If the user clicks Cancel in the print dialog, throw an exception.
         Toolkit toolkit = frame.getToolkit();   // get Toolkit from Frame
-        synchronized(printprops) {
+        synchronized (printprops) {
             job = toolkit.getPrintJob(frame, jobname, printprops);
         }
         if (job == null)
@@ -67,11 +66,11 @@ public class HardcopyWriter extends Writer {
         // Bug Workaround:
         // On windows, getPageDimension() and getPageResolution don't work, so
         // we've got to fake them.
-        if (System.getProperty("os.name").regionMatches(true,0,"windows",0,7)){
+        if (System.getProperty("os.name").regionMatches(true, 0, "windows", 0, 7)) {
             // Use screen dpi, which is what the PrintJob tries to emulate
             pagedpi = toolkit.getScreenResolution();
             // Assume a 8.5" x 11" page size.  A4 paper users must change this.
-            pagesize = new Dimension((int)(8.5 * pagedpi), 11*pagedpi);
+            pagesize = new Dimension((int) (8.5 * pagedpi), 11 * pagedpi);
             // We also have to adjust the fontsize.  It is specified in points,
             // (1 point = 1/72 of an inch) but Windows measures it in pixels.
             fontsize = fontsize * pagedpi / 72;
@@ -80,10 +79,10 @@ public class HardcopyWriter extends Writer {
         // Compute coordinates of the upper-left corner of the page.
         // I.e. the coordinates of (leftmargin, topmargin).  Also compute
         // the width and height inside of the margins.
-        x0 = (int)(leftmargin * pagedpi);
-        y0 = (int)(topmargin * pagedpi);
-        width = pagesize.width - (int)((leftmargin + rightmargin) * pagedpi);
-        height = pagesize.height - (int)((topmargin + bottommargin) * pagedpi);
+        x0 = (int) (leftmargin * pagedpi);
+        y0 = (int) (topmargin * pagedpi);
+        width = pagesize.width - (int) ((leftmargin + rightmargin) * pagedpi);
+        height = pagesize.height - (int) ((topmargin + bottommargin) * pagedpi);
 
         // Get body font and font size
         font = new Font("Monospaced", Font.PLAIN, fontsize);
@@ -100,7 +99,7 @@ public class HardcopyWriter extends Writer {
         // And compute baseline of page header: 1/8" above the top margin
         headerfont = new Font("SansSerif", Font.ITALIC, fontsize);
         headermetrics = frame.getFontMetrics(headerfont);
-        headery = y0 - (int)(0.125 * pagedpi) -
+        headery = y0 - (int) (0.125 * pagedpi) -
                 headermetrics.getHeight() + headermetrics.getAscent();
 
         // Compute the date/time string to display in the page header
@@ -118,9 +117,9 @@ public class HardcopyWriter extends Writer {
      * implement this.  All other versions of write() are variants of this one
      **/
     public void write(char[] buffer, int index, int len) {
-        synchronized(this.lock) {  // For thread safety
+        synchronized (this.lock) {  // For thread safety
             // Loop through all the characters passed to us
-            for(int i = index; i < index + len; i++) {
+            for (int i = index; i < index + len; i++) {
                 // If we haven't begun a page (or a new page), do that now.
                 if (page == null) newpage();
 
@@ -134,8 +133,7 @@ public class HardcopyWriter extends Writer {
                     newline();
                     last_char_was_return = true;
                     continue;
-                }
-                else last_char_was_return = false;
+                } else last_char_was_return = false;
 
                 // If it some other non-printing character, ignore it.
                 if (Character.isWhitespace(buffer[i]) &&
@@ -161,7 +159,7 @@ public class HardcopyWriter extends Writer {
                 else {
                     page.drawChars(buffer, i, 1,
                             x0 + charnum * charwidth,
-                            y0 + (linenum*lineheight) + lineascent);
+                            y0 + (linenum * lineheight) + lineascent);
                     charnum++;
                 }
             }
@@ -180,7 +178,7 @@ public class HardcopyWriter extends Writer {
      * Print the pending page (if any) and terminate the PrintJob.
      */
     public void close() {
-        synchronized(this.lock) {
+        synchronized (this.lock) {
             if (page != null) page.dispose();   // Send page to the printer
             job.end();                          // Terminate the job
         }
@@ -196,23 +194,42 @@ public class HardcopyWriter extends Writer {
         synchronized (this.lock) {
             // Try to set a new font, but restore current one if it fails
             Font current = font;
-            try { font = new Font("Monospaced", style, fontsize); }
-            catch (Exception e) { font = current; }
+            try {
+                font = new Font("Monospaced", style, fontsize);
+            } catch (Exception e) {
+                font = current;
+            }
             // If a page is pending, set the new font. Otherwise newpage() will
             if (page != null) page.setFont(font);
         }
     }
 
-    /** End the current page.  Subsequent output will be on a new page. */
-    public void pageBreak() { synchronized(this.lock) { newpage(); } }
+    /**
+     * End the current page.  Subsequent output will be on a new page.
+     */
+    public void pageBreak() {
+        synchronized (this.lock) {
+            newpage();
+        }
+    }
 
-    /** Return the number of columns of characters that fit on the page */
-    public int getCharactersPerLine() { return this.chars_per_line; }
+    /**
+     * Return the number of columns of characters that fit on the page
+     */
+    public int getCharactersPerLine() {
+        return this.chars_per_line;
+    }
 
-    /** Return the number of lines that fit on a page */
-    public int getLinesPerPage() { return this.lines_per_page; }
+    /**
+     * Return the number of lines that fit on a page
+     */
+    public int getLinesPerPage() {
+        return this.lines_per_page;
+    }
 
-    /** This internal method begins a new line */
+    /**
+     * This internal method begins a new line
+     */
     protected void newline() {
         charnum = 0;                      // Reset character number to 0
         linenum++;                        // Increment line number
@@ -222,23 +239,26 @@ public class HardcopyWriter extends Writer {
         }
     }
 
-    /** This internal method begins a new page and prints the header. */
+    /**
+     * This internal method begins a new page and prints the header.
+     */
     protected void newpage() {
         page = job.getGraphics();              // Begin the new page
-        linenum = 0; charnum = 0;              // Reset line and char number
+        linenum = 0;
+        charnum = 0;              // Reset line and char number
         pagenum++;                             // Increment page number
         page.setFont(headerfont);              // Set the header font.
         page.drawString(jobname, x0, headery); // Print job name left justified
 
         String s = "- " + pagenum + " -";      // Print the page # centered.
         int w = headermetrics.stringWidth(s);
-        page.drawString(s, x0 + (this.width - w)/2, headery);
+        page.drawString(s, x0 + (this.width - w) / 2, headery);
         w = headermetrics.stringWidth(time);   // Print date right justified
         page.drawString(time, x0 + width - w, headery);
 
         // Draw a line beneath the header
         int y = headery + headermetrics.getDescent() + 1;
-        page.drawLine(x0, y, x0+width, y);
+        page.drawLine(x0, y, x0 + width, y);
 
         // Set the basic monospaced font for the rest of the page.
         page.setFont(font);
@@ -249,7 +269,9 @@ public class HardcopyWriter extends Writer {
      * throws when the user clicks "Cancel" in the print dialog box.
      **/
     public static class PrintCanceledException extends Exception {
-        public PrintCanceledException(String msg) { super(msg); }
+        public PrintCanceledException(String msg) {
+            super(msg);
+        }
     }
 
     /**
@@ -267,19 +289,17 @@ public class HardcopyWriter extends Writer {
                 f.setVisible(true);
                 try {
                     out = new HardcopyWriter(f, args[0], 10, .5, .5, .5, .5);
-                }
-                catch (HardcopyWriter.PrintCanceledException e) {
+                } catch (HardcopyWriter.PrintCanceledException e) {
                     System.exit(0);
                 }
                 f.setVisible(false);
                 char[] buffer = new char[4096];
                 int numchars;
-                while((numchars = in.read(buffer)) != -1)
+                while ((numchars = in.read(buffer)) != -1)
                     out.write(buffer, 0, numchars);
                 in.close();
                 out.close();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.err.println(e);
                 System.err.println("Usage: " +
                         "java HardcopyWriter$PrintFile <filename>");
@@ -293,15 +313,20 @@ public class HardcopyWriter extends Writer {
      * A program that prints a demo page using HardcopyWriter
      **/
     public static class Demo extends Frame implements ActionListener {
-        /** The main method of the program.  Create a test window */
+        /**
+         * The main method of the program.  Create a test window
+         */
         public static void main(String[] args) {
             Frame f = new Demo();
             f.setVisible(true);
         }
+
         // Buttons used in this program
         protected Button print, quit;
 
-        /** Constructor for the test program's window. */
+        /**
+         * Constructor for the test program's window.
+         */
         public Demo() {
             super("HardcopyWriter Test");          // Call frame constructor
             Panel p = new Panel();                 // Add a panel to the frame
@@ -317,19 +342,26 @@ public class HardcopyWriter extends Writer {
             this.pack();                           // Set the frame size
         }
 
-        /** Handle the button presses */
+        /**
+         * Handle the button presses
+         */
         public void actionPerformed(ActionEvent e) {
             Object o = e.getSource();
             if (o == quit) System.exit(0);
             else if (o == print) printDemoPage();
         }
 
-        /** Print the demo page */
+        /**
+         * Print the demo page
+         */
         public void printDemoPage() {
             // Create a HardcopyWriter, using a 14 point font and 3/4" margins.
             HardcopyWriter hw;
-            try { hw=new HardcopyWriter(this, "Demo Page",14,.75,.75,.75,.75);}
-            catch (HardcopyWriter.PrintCanceledException e) { return; }
+            try {
+                hw = new HardcopyWriter(this, "Demo Page", 14, .75, .75, .75, .75);
+            } catch (HardcopyWriter.PrintCanceledException e) {
+                return;
+            }
 
             // Send output to it through a PrintWriter stream
             PrintWriter out = new PrintWriter(hw);
@@ -339,7 +371,7 @@ public class HardcopyWriter extends Writer {
 
             // Mark upper left and upper-right corners
             out.print("+");                            // upper-left corner
-            for(int i=0;i<cols-2;i++) out.print(" ");  // space over
+            for (int i = 0; i < cols - 2; i++) out.print(" ");  // space over
             out.print("+");                            // upper-right corner
 
             // Display a title
@@ -349,9 +381,9 @@ public class HardcopyWriter extends Writer {
             // Demonstrate font styles
             hw.setFontStyle(Font.BOLD);
             out.println("Font Styles:");
-            int[] styles = { Font.PLAIN, Font.BOLD,
-                    Font.ITALIC, Font.ITALIC+Font.BOLD };
-            for(int i = 0; i < styles.length; i++) {
+            int[] styles = {Font.PLAIN, Font.BOLD,
+                    Font.ITALIC, Font.ITALIC + Font.BOLD};
+            for (int i = 0; i < styles.length; i++) {
                 hw.setFontStyle(styles[i]);
                 out.println("ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
                         "abcdefghijklmnopqrstuvwxyz");
@@ -382,11 +414,11 @@ public class HardcopyWriter extends Writer {
             out.println("\tLines per page: " + rows);
 
             // Skip down to the bottom of the page
-            for(int i = 0; i < rows-30; i++) out.println();
+            for (int i = 0; i < rows - 30; i++) out.println();
 
             // And mark the lower left and lower right
             out.print("+");                            // lower-left
-            for(int i=0;i<cols-2;i++) out.print(" ");  // space-over
+            for (int i = 0; i < cols - 2; i++) out.print(" ");  // space-over
             out.print("+");                            // lower-right
 
             // Close the output stream, forcing the page to be printed

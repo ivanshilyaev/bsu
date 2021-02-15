@@ -45,9 +45,9 @@ public class MyLom implements Comparable<MyLom> {
         length = 0;
         if (lom.size() == 1)
             return;
-        for (int i=0; i<lom.size() - 1; ++i) {
-            length += Math.sqrt(Math.pow(lom.get(i+1).getX() - lom.get(i).getX(), 2)
-                    + Math.pow(lom.get(i+1).getY() - lom.get(i).getY(), 2));
+        for (int i = 0; i < lom.size() - 1; ++i) {
+            length += Math.sqrt(Math.pow(lom.get(i + 1).getX() - lom.get(i).getX(), 2)
+                    + Math.pow(lom.get(i + 1).getY() - lom.get(i).getY(), 2));
         }
     }
 

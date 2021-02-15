@@ -10,6 +10,7 @@ public class HillCipherUtils {
     public static int[][] findInverseMatrixTwoByTwo(int[][] key, int m) throws CipherException {
         int det = key[0][0] * key[1][1] - key[0][1] * key[1][0];
         int detReverse = CommonUtils.findModularMultiplicativeInverse(det, m);
+        System.out.println("detReverse: " + detReverse);
         int[][] result = new int[2][2];
         result[0][0] = detReverse * key[1][1] % m;
         result[1][1] = detReverse * key[0][0] % m;

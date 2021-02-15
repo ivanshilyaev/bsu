@@ -12,27 +12,23 @@ public class Runner {
 
     public static void main(String[] args) {
         try {
-            String alphabetString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            String alphabetString = ",АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ абвгдеёжзийклмнопрстуфхцчшщъыьэюя.";
             //String alphabetString = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ";
-            String text = "HELLOWORLD";
-            String key = "KEY";
+            String text = "шцзиЬчйЁЯДзгъЖфЕуэПеляИОСРуэщРикютОюЯДТуьудкъоИОкЖяЪфЯя.Щьже.ыРЁжеъЫЯЮ НхАПеляИОу ";
+            String key = "Макс";
 
             Validator validator = new AlphabetValidator();
             validator.validate(alphabetString);
             Alphabet alphabet = new Alphabet(alphabetString);
-            validator = new VigenereCipherKeyValidator(alphabet);
+            validator = new HillCipherKeyValidator(alphabet);
             validator.validate(key);
 
-            Cipher cipher = new VigenereCipher();
+            Cipher cipher = new HillCipher();
 
-            String encrypted = cipher.encrypt(alphabet, text, key);
-            String decrypted = cipher.decrypt(alphabet, encrypted, key);
-            System.out.println("Encrypted: " + encrypted);
+            String decrypted = cipher.decrypt(alphabet, text, key);
             System.out.println("Decrypted: " + decrypted);
 
-        } catch (CipherException e) {
-            System.out.println(e.getMessage());
-        } catch (ValidationException e) {
+        } catch (CipherException | ValidationException e) {
             System.out.println(e.getMessage());
         }
     }

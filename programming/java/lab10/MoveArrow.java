@@ -13,12 +13,22 @@ public class MoveArrow extends Applet implements Runnable {
     private synchronized boolean getFSuspend() {
         return fSuspend;
     }
-    private synchronized void setFSuspend( boolean value ) {
+
+    private synchronized void setFSuspend(boolean value) {
         fSuspend = value;
     }
-    public void suspend() { setFSuspend(true); }
-    public void resume() { setFSuspend(false); }
-    public boolean isSuspended() { return getFSuspend(); }
+
+    public void suspend() {
+        setFSuspend(true);
+    }
+
+    public void resume() {
+        setFSuspend(false);
+    }
+
+    public boolean isSuspended() {
+        return getFSuspend();
+    }
 
     final int NUM = 360;
     int RLEN;
@@ -44,6 +54,7 @@ public class MoveArrow extends Applet implements Runnable {
         y1 = y2 = Integer.parseInt(y);
         arrowColor = new Color(Integer.parseInt(arColor, 16));
     }
+
     public void drawNext() {
         ug2 = i * UGI2;
         x2 = (int) Math.round(x1 + RLEN * Math.sin(ug2));
@@ -57,6 +68,7 @@ public class MoveArrow extends Applet implements Runnable {
         }
         repaint();
     }
+
     public void paint(Graphics g) {
         g.setColor(arrowColor);
         g.drawLine(x1, y1, x2, y2);
@@ -72,18 +84,22 @@ public class MoveArrow extends Applet implements Runnable {
         }
         t.start();
     }
+
     public void start() {
         resume();
     }
+
     public void stop() {
         suspend();
     }
+
     public void destroy() {
         if (t != null) {
             t.interrupt();
             t = null;
         }
     }
+
     public void run() {
         suspend();
         while (true) {

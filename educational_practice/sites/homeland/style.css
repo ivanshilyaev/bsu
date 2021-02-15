@@ -4,16 +4,19 @@ h1 {
     color: white;
     font-size: 300%;
 }
+
 h3 {
     text-align: center;
     color: white;
     font-size: 150%;
 }
+
 body {
     background-attachment: fixed;
     background: url("images/background.jpg");
     margin: 0px;
 }
+
 p {
     text-align: justify;
     font-size: 150%;
@@ -25,9 +28,11 @@ a {
     color: white;
     font-size: 120%;
 }
+
 a:active {
     color: white;
 }
+
 a:visited {
     color: white;
 }
@@ -41,8 +46,9 @@ a.menu {
     display: block;
     padding: 5px;
 }
+
 a.menu:hover {
-    background: #01579B;/*добавляем эффект при наведении*/
+    background: #01579B; /*добавляем эффект при наведении*/
 }
 
 /*таблицы*/
@@ -52,15 +58,18 @@ table.first { /*для меню*/
     text-align: center;
     color: white;
 }
+
 table.second { /*для сайта*/
     width: 100%;
     text-align: center;
     color: white;
 }
+
 tr {
     text-align: center;
     color: white;
 }
+
 td {
     text-align: center;
     color: white;
@@ -75,6 +84,7 @@ img {
     padding-left: 100px;
     padding-right: 100px;
 }
+
 video {
     width: 80%;
     box-sizing: border-box;
@@ -85,10 +95,12 @@ video {
 ol {
     font-size: 150%;
 }
+
 ul {
     padding-left: 50px;
     font-size: 130%;
 }
+
 li {
     text-align: left;
     padding: 5px;

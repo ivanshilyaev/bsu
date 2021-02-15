@@ -15,7 +15,7 @@ public class BoolVector {
     public static BoolVector Conjunction(BoolVector v1, BoolVector v2) {
         BoolVector res = new BoolVector(v1.N);
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<v1.N; ++i) {
+        for (int i = 0; i < v1.N; ++i) {
             if (v1.vector.charAt(i) == '1' && v2.vector.charAt(i) == '1')
                 sb.append('1');
             else
@@ -28,7 +28,7 @@ public class BoolVector {
     public static BoolVector Disjunction(BoolVector v1, BoolVector v2) {
         BoolVector res = new BoolVector(v1.N);
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<v1.N; ++i) {
+        for (int i = 0; i < v1.N; ++i) {
             if (v1.vector.charAt(i) == '1' || v2.vector.charAt(i) == '1')
                 sb.append('1');
             else
@@ -40,7 +40,7 @@ public class BoolVector {
 
     public void Negation() {
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<N; ++i) {
+        for (int i = 0; i < N; ++i) {
             if (vector.charAt(i) == '1')
                 sb.append('0');
             else
@@ -51,7 +51,7 @@ public class BoolVector {
 
     public int countOnes() {
         int count = 0;
-        for (int i=0; i<N; ++i) {
+        for (int i = 0; i < N; ++i) {
             if (vector.charAt(i) == '1')
                 ++count;
         }
@@ -60,7 +60,7 @@ public class BoolVector {
 
     public int countZeros() {
         int count = 0;
-        for (int i=0; i<N; ++i) {
+        for (int i = 0; i < N; ++i) {
             if (vector.charAt(i) == '0')
                 ++count;
         }
@@ -70,7 +70,7 @@ public class BoolVector {
     private void Init(int n) {
         N = n;
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<n; ++i) {
+        for (int i = 0; i < n; ++i) {
             sb.append(Math.round(Math.random()));
         }
         vector = sb.toString();

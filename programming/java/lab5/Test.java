@@ -10,11 +10,11 @@ public class Test {
         Arrays.sort(payments);
         System.out.print(src.Payment.format());
         System.out.println();
-        for(Payment cnt : payments)
+        for (Payment cnt : payments)
             System.out.println(Payment.format(cnt));
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         try {
             Payment[] payments = new Payment[6];
             payments[0] = new Payment("Беркович Павел|2019|300|24|24|2|2|350|50");
@@ -45,8 +45,7 @@ public class Test {
             Payment n = new Payment("src.Test exception object");
             n.getMoneyOnHand();
             System.out.print(n);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("\nException: " + e);
         }
     }

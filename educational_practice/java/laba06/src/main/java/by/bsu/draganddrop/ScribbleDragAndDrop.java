@@ -275,7 +275,7 @@ public class ScribbleDragAndDrop extends JComponent
     }
 
     /**
-     * This is the key method of DropTargetListener.  It is invoked when the
+     * This is the key method of DropTargetListener. It is invoked when the
      * user drops something on us.
      **/
     public void drop(DropTargetDropEvent e) {

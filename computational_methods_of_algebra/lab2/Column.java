@@ -24,7 +24,7 @@ public class Column {
         }
     }
 
-    public double[] getColumn () {
+    public double[] getColumn() {
         return column;
     }
 }

@@ -19,8 +19,8 @@ public class Solution {
     }
 
     public static void printMatrix(double[][] A) {
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 System.out.printf("%10.2f ", A[i][j]);
             }
             System.out.println();
@@ -30,8 +30,8 @@ public class Solution {
 
     public static void printMatrix2(double[][] A) {
         DecimalFormat format = new DecimalFormat("#.##E00");
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 System.out.printf("%10s ", format.format(A[i][j]));
             }
             System.out.println();
@@ -40,70 +40,70 @@ public class Solution {
     }
 
     public static void generateMatrix(double[][] A) {
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
-                A[i][j] = round(-99 + Math.random()*199, 2);
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                A[i][j] = round(-99 + Math.random() * 199, 2);
             }
         }
     }
 
     public static void generateX(double[] x) {
-        for (int i=0; i<SIZE; ++i) {
-            x[i] = round(-99 + Math.random()*199, 2);
+        for (int i = 0; i < SIZE; ++i) {
+            x[i] = round(-99 + Math.random() * 199, 2);
         }
     }
 
     public static void countF(double[][] A, double[] x) {
-        for (int i=0; i<SIZE; ++i) {
-            f[i]=0;
+        for (int i = 0; i < SIZE; ++i) {
+            f[i] = 0;
         }
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
-                f[i]+=A[i][j]*x[j];
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                f[i] += A[i][j] * x[j];
             }
         }
     }
 
     public static void solve(double[][] myA, double[] myX, double[] f) {
         double[][] A = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             System.arraycopy(myA[i], 0, A[i], 0, SIZE);
         }
 
-        for (int k=1; k<SIZE; ++k) {
-            for (int i=k; i<SIZE; ++i) {
-                f[i] -= f[k-1]*A[i][k-1]/A[k-1][k-1];
-                double tmp = A[i][k-1];
+        for (int k = 1; k < SIZE; ++k) {
+            for (int i = k; i < SIZE; ++i) {
+                f[i] -= f[k - 1] * A[i][k - 1] / A[k - 1][k - 1];
+                double tmp = A[i][k - 1];
                 for (int j = 0; j < SIZE; ++j) {
-                    A[i][j] -= A[k-1][j] * tmp / A[k-1][k-1];
+                    A[i][j] -= A[k - 1][j] * tmp / A[k - 1][k - 1];
                 }
             }
         }
 
-        myX[SIZE-1] = f[SIZE-1]/A[SIZE-1][SIZE-1];
-        for (int i=SIZE-2; i>=0; --i) {
+        myX[SIZE - 1] = f[SIZE - 1] / A[SIZE - 1][SIZE - 1];
+        for (int i = SIZE - 2; i >= 0; --i) {
             double sum = 0;
-            for (int j=i+1; j<SIZE; ++j)
-                sum += A[i][j]*myX[j];
-            myX[i] = (f[i]-sum)/A[i][i];
+            for (int j = i + 1; j < SIZE; ++j)
+                sum += A[i][j] * myX[j];
+            myX[i] = (f[i] - sum) / A[i][i];
         }
     }
 
     public static double det(double[][] myA) {
         double det = 1;
         double[][] A = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             System.arraycopy(myA[i], 0, A[i], 0, SIZE);
         }
-        for (int k=1; k<SIZE; ++k) {
-            for (int i=k; i<SIZE; ++i) {
-                double tmp = A[i][k-1];
+        for (int k = 1; k < SIZE; ++k) {
+            for (int i = k; i < SIZE; ++i) {
+                double tmp = A[i][k - 1];
                 for (int j = 0; j < SIZE; ++j) {
-                    A[i][j] -= A[k-1][j] * tmp / A[k-1][k-1];
+                    A[i][j] -= A[k - 1][j] * tmp / A[k - 1][k - 1];
                 }
             }
         }
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             det *= A[i][i];
         }
         return det;
@@ -116,12 +116,12 @@ public class Solution {
         }
         double[] myf = new double[SIZE];
         double[] myX = new double[SIZE];
-        for (int l=0; l<SIZE; ++l) {
-            for (int i=0; i<SIZE; ++i)
+        for (int l = 0; l < SIZE; ++l) {
+            for (int i = 0; i < SIZE; ++i)
                 myf[i] = 0;
             myf[l] = 1;
             solve(A, myX, myf);
-            for (int i=0; i<SIZE; ++i) {
+            for (int i = 0; i < SIZE; ++i) {
                 A_INVERSE[i][l] = myX[i];
             }
         }
@@ -129,9 +129,9 @@ public class Solution {
 
     public static double[][] multiply(double[][] A, double[][] B) {
         double[][] C = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
-                for (int k=0; k<SIZE; ++k) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
                     C[i][j] += A[i][k] * B[k][j];
                 }
             }
@@ -141,12 +141,12 @@ public class Solution {
 
     public static double norm_1(double[][] A) {
         double max = 0;
-        for (int j=0; j<SIZE; ++j) {
+        for (int j = 0; j < SIZE; ++j) {
             double sum = 0;
-            for (int i=0; i<SIZE; ++i) {
+            for (int i = 0; i < SIZE; ++i) {
                 sum += Math.abs(A[i][j]);
             }
-            if (sum>max)
+            if (sum > max)
                 max = sum;
         }
         return max;
@@ -154,12 +154,12 @@ public class Solution {
 
     public static double norm_2(double[][] A) {
         double max = 0;
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             double sum = 0;
-            for (int j=0; j<SIZE; ++j) {
+            for (int j = 0; j < SIZE; ++j) {
                 sum += Math.abs(A[i][j]);
             }
-            if (sum>max)
+            if (sum > max)
                 max = sum;
         }
         return max;
@@ -192,8 +192,7 @@ public class Solution {
         System.out.println("Det(A) = " + det(A) + "\n");
         if (isDetZero) {
             System.out.println("Inverse matrix doesn't exist, because det(A) = 0");
-        }
-        else {
+        } else {
             System.out.println("Inverse matrix:");
             printMatrix2(A_INVERSE);
             System.out.println("Check");
@@ -205,7 +204,7 @@ public class Solution {
         // step 3
         double n1 = norm_1(A);
         double n2 = norm_2(A_INVERSE);
-        double V = n1*n2;
+        double V = n1 * n2;
         System.out.println("V(A) = ||A|| * ||A^(-1)|| = " + V);
         System.out.println(n1);
         System.out.println(n2);

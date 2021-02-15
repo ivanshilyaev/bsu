@@ -97,12 +97,10 @@ public class Test {
                         System.err.println("Option is not realised: " + args[0]);
                         System.exit(1);
                 }
-            }
-            else {
+            } else {
                 System.err.println("PhoneBill: Nothing to do! Enter -? for options");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Run/time error: " + e);
             System.exit(1);
         }
@@ -135,7 +133,7 @@ public class Test {
             throws ClassNotFoundException, IOException, KeyNotUniqueException {
         //-dk {f|n|d} key - clear data by key
         if (args.length != 3) {
-            System.err.println( "Invalid number of arguments" );
+            System.err.println("Invalid number of arguments");
             return false;
         }
         LinkedList<Long> poss;
@@ -153,15 +151,15 @@ public class Test {
         backup();
         Collections.sort(poss);
         try (Index idx = Index.load(idxname);
-              RandomAccessFile fileBak = new RandomAccessFile(filenameBak, "rw");
-              RandomAccessFile file = new RandomAccessFile(filename, "rw")) {
-            boolean[] wasZipped = new boolean[] {false};
+             RandomAccessFile fileBak = new RandomAccessFile(filenameBak, "rw");
+             RandomAccessFile file = new RandomAccessFile(filename, "rw")) {
+            boolean[] wasZipped = new boolean[]{false};
             long pos;
             while ((pos = fileBak.getFilePointer()) < fileBak.length()) {
                 PhoneBill bill = (PhoneBill)
                         Buffer.readObject(fileBak, pos, wasZipped);
                 if (Collections.binarySearch(poss, pos) < 0) { // if not found in deleted
-                    long ptr = Buffer.writeObject(file, bill, wasZipped[0] );
+                    long ptr = Buffer.writeObject(file, bill, wasZipped[0]);
                     idx.put(bill, ptr);
                 }
             }
@@ -190,7 +188,7 @@ public class Test {
         Scanner fin = new Scanner(System.in, encoding);
         billOut.println("Enter bill data:");
         try (Index idx = Index.load(idxname);
-              RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
+             RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
             while (true) {
                 PhoneBill bill = readBill(fin);
                 if (bill == null)
@@ -204,19 +202,19 @@ public class Test {
 
     private static void printRecord(RandomAccessFile raf, long pos)
             throws ClassNotFoundException, IOException {
-        boolean[] wasZipped = new boolean[] {false};
-        PhoneBill bill = (PhoneBill)Buffer.readObject(raf, pos, wasZipped);
+        boolean[] wasZipped = new boolean[]{false};
+        PhoneBill bill = (PhoneBill) Buffer.readObject(raf, pos, wasZipped);
         if (wasZipped[0]) {
             System.out.print(" compressed");
         }
-        System.out.println(" record at position "+ pos + ": \n" + bill);
+        System.out.println(" record at position " + pos + ": \n" + bill);
     }
 
     private static void printRecord(RandomAccessFile raf, String key,
-                                     IndexBase pidx) throws ClassNotFoundException, IOException {
+                                    IndexBase pidx) throws ClassNotFoundException, IOException {
         LinkedList<Long> poss = pidx.get(key);
         for (long pos : poss) {
-            System.out.print("*** Key: " +  key + " points to");
+            System.out.print("*** Key: " + key + " points to");
             printRecord(raf, pos);
         }
     }
@@ -261,7 +259,7 @@ public class Test {
         }
         try (Index idx = Index.load(idxname);
              RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
-             IndexBase pidx = indexByArg(args[1], idx);
+            IndexBase pidx = indexByArg(args[1], idx);
             if (pidx == null) {
                 return false;
             }
@@ -277,12 +275,12 @@ public class Test {
     static boolean findByKey(String[] args)
             throws ClassNotFoundException, IOException {
         if (args.length != 3) {
-            System.err.println( "Invalid number of arguments" );
+            System.err.println("Invalid number of arguments");
             return false;
         }
         try (Index idx = Index.load(idxname);
              RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
-             IndexBase pidx = indexByArg(args[1], idx);
+            IndexBase pidx = indexByArg(args[1], idx);
             if (!pidx.contains(args[2])) {
                 System.err.println("Key not found: " + args[2]);
                 return false;
@@ -300,13 +298,13 @@ public class Test {
         }
         try (Index idx = Index.load(idxname);
              RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
-             IndexBase pidx = indexByArg(args[1], idx);
+            IndexBase pidx = indexByArg(args[1], idx);
             if (!pidx.contains(args[2])) {
                 System.err.println("Key not found: " + args[2]);
                 return false;
             }
             String[] keys = pidx.getKeys(comp);
-            for (int i=0;  i<keys.length; ++i) {
+            for (int i = 0; i < keys.length; ++i) {
                 String key = keys[i];
                 if (key.equals(args[2])) {
                     break;

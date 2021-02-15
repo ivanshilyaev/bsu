@@ -6,7 +6,7 @@ public class Solution {
     private final int N;
     private double[] alpha;
     private double[] beta;
-    
+
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
         long factor = (long) Math.pow(10, places);
@@ -17,11 +17,11 @@ public class Solution {
 
     public Solution(int n, double min, double max) throws Exception {
         N = n;
-        A = new TridiagonalMatrix(N+1, min, max);
-        exactY = new Column(N+1, min, max); // random solution
-        y = new double[N+1];
-        alpha = new double [N+1];
-        beta = new double [N+2];
+        A = new TridiagonalMatrix(N + 1, min, max);
+        exactY = new Column(N + 1, min, max); // random solution
+        y = new double[N + 1];
+        alpha = new double[N + 1];
+        beta = new double[N + 2];
         f = new Column(A.multiplyMatrixWithColumn(exactY)); // counting our f
     }
 
@@ -29,10 +29,10 @@ public class Solution {
         alpha[1] = A.getB(0) / A.getC(0);
         beta[1] = f.getColumn()[0] / A.getC(0);
         for (int i = 1; i < N; ++i) {
-            alpha[i+1] = A.getB(i) / (A.getC(i) - alpha[i] * A.getA(i));
-            beta[i+1] = (f.getColumn()[i] + beta[i] * A.getA(i)) / (A.getC(i) - alpha[i] * A.getA(i));
+            alpha[i + 1] = A.getB(i) / (A.getC(i) - alpha[i] * A.getA(i));
+            beta[i + 1] = (f.getColumn()[i] + beta[i] * A.getA(i)) / (A.getC(i) - alpha[i] * A.getA(i));
         }
-        beta[N+1] = (f.getColumn()[N] + beta[N] * A.getA(N)) / (A.getC(N) - alpha[N] * A.getA(N));
+        beta[N + 1] = (f.getColumn()[N] + beta[N] * A.getA(N)) / (A.getC(N) - alpha[N] * A.getA(N));
     }
 
     public void reversePassage() {
@@ -61,11 +61,11 @@ public class Solution {
     }
 
     public void printExactSolution() {
-        for (int i = 0; i < N+1; ++i)
+        for (int i = 0; i < N + 1; ++i)
             System.out.println(exactY.getColumn()[i]);
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         int size;
         double min;
         double max;
@@ -78,7 +78,8 @@ public class Solution {
                 throw new Exception("Input error! [matrixCount <= 0]");
             }
             in.close(); */
-            min = -100; max = 100;
+            min = -100;
+            max = 100;
 
             Solution mySystem = new Solution(size, min, max);
             System.out.println("Original matrix:");
@@ -93,8 +94,7 @@ public class Solution {
             System.out.println();
             System.out.println("My solution:");
             mySystem.printMySolution();
-        }
-        catch (Exception b) {
+        } catch (Exception b) {
             System.out.println(b.getMessage());
         }
     }

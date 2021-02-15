@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void printMatrix(int[][] a, int n) {
-        for (int i=0; i<n; ++i) {
-            for (int j=0; j<n; ++j) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
                 System.out.printf("%3d ", a[i][j]);
             }
             System.out.println();
@@ -28,16 +28,16 @@ public class Main {
         Random rnd = new Random();
         rnd.setSeed(System.currentTimeMillis());
 
-        for (int i=0; i<n; ++i) {
-            for (int j=0; j<n; ++j) {
-                a[i][j] = rnd.nextInt() % (n+1);
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                a[i][j] = rnd.nextInt() % (n + 1);
             }
         }
         System.out.println("Source values: ");
         printMatrix(a, n);
 
-        for (int i=0; i<n; ++i) {
-            for (int j=i; j<n; ++j) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = i; j < n; ++j) {
                 int tmp = a[i][j];
                 a[i][j] = a[j][i];
                 a[j][i] = tmp;

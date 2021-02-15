@@ -28,17 +28,17 @@ public class Payment implements Comparable<Payment>, Iterable<String>, Iterator<
     }
 
     private static final String[] names = {
-                    "FIO",
-                    "Year of employment",
-                    "Salary",
-                    "Days to work",
-                    "Worked days",
-                    "Allowance",
-                    "Taxes",
-                    "Accrued sum",
-                    "Restrained sum"
+            "FIO",
+            "Year of employment",
+            "Salary",
+            "Days to work",
+            "Worked days",
+            "Allowance",
+            "Taxes",
+            "Accrued sum",
+            "Restrained sum"
     };
-    private static String[] formatStr =  {
+    private static String[] formatStr = {
             "%-20s",
             "%-20s",
             "%-8s",
@@ -51,14 +51,17 @@ public class Payment implements Comparable<Payment>, Iterable<String>, Iterator<
     };
 
     private static int sortBy = 0;
+
     private static int getSortBy() {
         return sortBy;
     }
+
     static void setSortBy(int value) {
         if (value >= names.length || value < 0)
             throw new IndexOutOfBoundsException();
         sortBy = value;
     }
+
     static String getSortByName() {
         return Payment.names[Payment.getSortBy()];
     }
@@ -67,68 +70,105 @@ public class Payment implements Comparable<Payment>, Iterable<String>, Iterator<
     private boolean validFIO(String str) {
         return str != null && str.length() > 0;
     }
+
     private boolean validYear(String str) {
         try {
             int y = Integer.parseInt(str);
-            return y>=1970 && y<2020;
-        }
-        catch (NumberFormatException e) {
+            return y >= 1970 && y < 2020;
+        } catch (NumberFormatException e) {
             return false;
         }
     }
+
     private boolean validSalary(String str) {
         try {
             int s = Integer.parseInt(str);
-            return s>0;
-        }
-        catch (NumberFormatException e) {
+            return s > 0;
+        } catch (NumberFormatException e) {
             return false;
         }
     }
+
     private boolean validNumOfDays(String str) {
         try {
             int y = Integer.parseInt(str);
-            return y>0 && y<32;
-        }
-        catch (NumberFormatException e) {
+            return y > 0 && y < 32;
+        } catch (NumberFormatException e) {
             return false;
         }
     }
+
     private boolean validAllowance(String str) {
         try {
             int y = Integer.parseInt(str);
-            return y>=0 && y<=100;
-        }
-        catch (NumberFormatException e) {
+            return y >= 0 && y <= 100;
+        } catch (NumberFormatException e) {
             return false;
         }
     }
 
     // transforming
-    private void areaToData (int idx) {
+    private void areaToData(int idx) {
         switch (idx) {
-            case 0: FIO = areas[idx]; break;
-            case 1: year = Integer.parseInt(areas[idx]); break;
-            case 2: salary = Integer.parseInt(areas[idx]); break;
-            case 3: numOfDays = Integer.parseInt(areas[idx]); break;
-            case 4: numOfWorkDays = Integer.parseInt(areas[idx]); break;
-            case 5: allowance = Integer.parseInt(areas[idx]); break;
-            case 6: taxes = Integer.parseInt(areas[idx]); break;
-            case 7: accruedSum = Integer.parseInt(areas[idx]); break;
-            case 8: restrainedSum = Integer.parseInt(areas[idx]); break;
+            case 0:
+                FIO = areas[idx];
+                break;
+            case 1:
+                year = Integer.parseInt(areas[idx]);
+                break;
+            case 2:
+                salary = Integer.parseInt(areas[idx]);
+                break;
+            case 3:
+                numOfDays = Integer.parseInt(areas[idx]);
+                break;
+            case 4:
+                numOfWorkDays = Integer.parseInt(areas[idx]);
+                break;
+            case 5:
+                allowance = Integer.parseInt(areas[idx]);
+                break;
+            case 6:
+                taxes = Integer.parseInt(areas[idx]);
+                break;
+            case 7:
+                accruedSum = Integer.parseInt(areas[idx]);
+                break;
+            case 8:
+                restrainedSum = Integer.parseInt(areas[idx]);
+                break;
         }
     }
-    private void dataToArea (int idx) {
+
+    private void dataToArea(int idx) {
         switch (idx) {
-            case 0: areas[idx] = FIO; break;
-            case 1: areas[idx] = Integer.toString(year); break;
-            case 2: areas[idx] = Integer.toString(salary); break;
-            case 3: areas[idx] = Integer.toString(numOfDays); break;
-            case 4: areas[idx] = Integer.toString(numOfWorkDays); break;
-            case 5: areas[idx] = Integer.toString(allowance); break;
-            case 6: areas[idx] = Integer.toString(taxes); break;
-            case 7: areas[idx] = Integer.toString(accruedSum); break;
-            case 8: areas[idx] = Integer.toString(restrainedSum); break;
+            case 0:
+                areas[idx] = FIO;
+                break;
+            case 1:
+                areas[idx] = Integer.toString(year);
+                break;
+            case 2:
+                areas[idx] = Integer.toString(salary);
+                break;
+            case 3:
+                areas[idx] = Integer.toString(numOfDays);
+                break;
+            case 4:
+                areas[idx] = Integer.toString(numOfWorkDays);
+                break;
+            case 5:
+                areas[idx] = Integer.toString(allowance);
+                break;
+            case 6:
+                areas[idx] = Integer.toString(taxes);
+                break;
+            case 7:
+                areas[idx] = Integer.toString(accruedSum);
+                break;
+            case 8:
+                areas[idx] = Integer.toString(restrainedSum);
+                break;
         }
     }
 
@@ -136,21 +176,23 @@ public class Payment implements Comparable<Payment>, Iterable<String>, Iterator<
     private int length() {
         return areas.length;
     }
+
     public String getArea(int idx) {
         if (idx >= length() || idx < 0) {
             throw new IndexOutOfBoundsException();
         }
         return areas[idx];
     }
+
     private void setArea(int idx, String value) throws ArgException {
         if (idx >= length() || idx < 0) {
             throw new IndexOutOfBoundsException();
         }
-        if (( idx == 0 && !validFIO(value)) ||
+        if ((idx == 0 && !validFIO(value)) ||
                 (idx == 1 && !validYear(value)) ||
-                ((idx ==2 || idx ==7 || idx == 8) && !validSalary(value)) ||
-                ((idx ==3 || idx ==4) && !validNumOfDays(value)) ||
-                ((idx ==5 || idx ==6) && !validAllowance(value))) {
+                ((idx == 2 || idx == 7 || idx == 8) && !validSalary(value)) ||
+                ((idx == 3 || idx == 4) && !validNumOfDays(value)) ||
+                ((idx == 5 || idx == 6) && !validAllowance(value))) {
             throw new ArgException(value);
         }
         areas[idx] = value;
@@ -162,15 +204,19 @@ public class Payment implements Comparable<Payment>, Iterable<String>, Iterator<
         reset();
         return this;
     }
+
     private void reset() {
         iterator_idx = 0;
     }
+
     public boolean hasNext() {
         return iterator_idx < areas.length;
     }
+
     public void remove() {
         //
     }
+
     public String next() {
         if (iterator_idx < areas.length) {
             return areas[iterator_idx++];
@@ -182,25 +228,35 @@ public class Payment implements Comparable<Payment>, Iterable<String>, Iterator<
     // Comparable<src.Payment>
     public int compareTo(Payment cy) {
         switch (sortBy) {
-            case 0: return FIO.compareTo(cy.areas[sortBy]);
-            case 1: return Integer.compare(year, Integer.parseInt(cy.areas[sortBy]));
-            case 2: return Integer.compare(salary, Integer.parseInt(cy.areas[sortBy]));
-            case 3: return Integer.compare(numOfDays, Integer.parseInt(cy.areas[sortBy]));
-            case 4: return Integer.compare(numOfWorkDays, Integer.parseInt(cy.areas[sortBy]));
-            case 5: return Integer.compare(allowance, Integer.parseInt(cy.areas[sortBy]));
-            case 6: return Integer.compare(taxes, Integer.parseInt(cy.areas[sortBy]));
-            case 7: return Integer.compare(accruedSum, Integer.parseInt(cy.areas[sortBy]));
-            case 8: return Integer.compare(restrainedSum, Integer.parseInt(cy.areas[sortBy]));
+            case 0:
+                return FIO.compareTo(cy.areas[sortBy]);
+            case 1:
+                return Integer.compare(year, Integer.parseInt(cy.areas[sortBy]));
+            case 2:
+                return Integer.compare(salary, Integer.parseInt(cy.areas[sortBy]));
+            case 3:
+                return Integer.compare(numOfDays, Integer.parseInt(cy.areas[sortBy]));
+            case 4:
+                return Integer.compare(numOfWorkDays, Integer.parseInt(cy.areas[sortBy]));
+            case 5:
+                return Integer.compare(allowance, Integer.parseInt(cy.areas[sortBy]));
+            case 6:
+                return Integer.compare(taxes, Integer.parseInt(cy.areas[sortBy]));
+            case 7:
+                return Integer.compare(accruedSum, Integer.parseInt(cy.areas[sortBy]));
+            case 8:
+                return Integer.compare(restrainedSum, Integer.parseInt(cy.areas[sortBy]));
         }
         return 0;
     }
+
     // toString
     public String toString() {
         if (areas == null) {
             return " | | | | | | | | ";
         }
         StringBuilder res = new StringBuilder(areas[0]);
-        for (int i=1; i<areas.length; ++i) {
+        for (int i = 1; i < areas.length; ++i) {
             res.append("|").append(areas[i]);
         }
         return res.toString();
@@ -226,20 +282,22 @@ public class Payment implements Comparable<Payment>, Iterable<String>, Iterator<
             dataToArea(i++);
         }
     }
+
     public Payment(String str) throws ArgException {
         if (str.isEmpty()) {
             throw new ArgException("Null pointer passed for str");
         }
         int num = 1, idx = 0, idxFrom = 0;
-        while ((idx = str.indexOf( '|', idxFrom )) != -1) {
+        while ((idx = str.indexOf('|', idxFrom)) != -1) {
             idxFrom = idx + 1;
             ++num;
         }
         // allocate array
         String[] args = new String[num];
         // put all tokens to array
-        idxFrom = 0; num = 0;
-        while ((idx = str.indexOf( '|', idxFrom )) != -1) {
+        idxFrom = 0;
+        num = 0;
+        while ((idx = str.indexOf('|', idxFrom)) != -1) {
             args[num++] = str.substring(idxFrom, idx);
             idxFrom = idx + 1;
         }
@@ -247,14 +305,14 @@ public class Payment implements Comparable<Payment>, Iterable<String>, Iterator<
         setup(args);
     }
 
-    public Payment(String...args) throws ArgException {
+    public Payment(String... args) throws ArgException {
         setup(args);
     }
 
     private static String format(Iterable<String> what) {
         StringBuilder result = new StringBuilder();
         int idx = 0;
-        for(String str : what) {
+        for (String str : what) {
             result.append(String.format(formatStr[idx++], str));
         }
         return result.toString();
@@ -272,10 +330,12 @@ public class Payment implements Comparable<Payment>, Iterable<String>, Iterator<
     public int getAccruedSum() {
         return accruedSum;
     }
+
     public int getRestrainedSum() {
         return restrainedSum;
     }
+
     public int getMoneyOnHand() {
-        return accruedSum-restrainedSum;
+        return accruedSum - restrainedSum;
     }
 }

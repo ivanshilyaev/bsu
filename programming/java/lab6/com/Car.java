@@ -17,6 +17,7 @@ public class Car implements Comparable<Car>, Serializable {
     private int numberOfAssessments;
 
     public final Date creationDate = new Date();
+
     public String getCreationDate() {
         DateFormat dateFormatter = DateFormat.getDateTimeInstance(
                 DateFormat.DEFAULT, DateFormat.DEFAULT, AppLocale.get());
@@ -95,7 +96,7 @@ public class Car implements Comparable<Car>, Serializable {
     }
 
     public void recalculateCondition(int c) throws IOException {
-        if (c<1 || c>5)
+        if (c < 1 || c > 5)
             throw new IOException();
         else {
             condition = (condition * numberOfAssessments + c) / ++numberOfAssessments;

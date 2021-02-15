@@ -17,8 +17,7 @@ public class Test {
         if (o != null) {
             o.countLength();
             list.add(o);
-        }
-        else
+        } else
             System.out.println("Error in line number " + num);
     }
 

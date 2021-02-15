@@ -1,7 +1,5 @@
 package by.bsu.db.dao.mysql;
 
-import by.bsu.db.bean.Presenter;
-import by.bsu.db.bean.Section;
 import by.bsu.db.dao.*;
 import by.bsu.db.dao.exception.DAOException;
 import org.apache.logging.log4j.LogManager;

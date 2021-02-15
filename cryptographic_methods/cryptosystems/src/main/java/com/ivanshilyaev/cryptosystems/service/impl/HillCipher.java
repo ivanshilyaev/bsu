@@ -5,6 +5,8 @@ import com.ivanshilyaev.cryptosystems.service.Cipher;
 import com.ivanshilyaev.cryptosystems.service.exception.CipherException;
 import com.ivanshilyaev.cryptosystems.utils.HillCipherUtils;
 
+import java.util.Arrays;
+
 public class HillCipher implements Cipher {
     @Override
     public String encrypt(Alphabet alphabet, String text, String key) throws CipherException {
@@ -37,6 +39,7 @@ public class HillCipher implements Cipher {
         keyMatrix[1][0] = alphabet.getSymbols().indexOf(key.charAt(2));
         keyMatrix[1][1] = alphabet.getSymbols().indexOf(key.charAt(3));
         int[][] keyMatrixInverse = HillCipherUtils.findInverseMatrixTwoByTwo(keyMatrix, alphabet.getSize());
+        System.out.println("keyMatrixInverse: " + Arrays.deepToString(keyMatrixInverse));
         StringBuilder decryptedText = new StringBuilder();
         int[] y;
         for (int i = 0; i < text.length(); i += 2) {

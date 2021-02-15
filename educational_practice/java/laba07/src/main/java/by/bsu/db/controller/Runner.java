@@ -9,8 +9,7 @@ import by.bsu.db.dao.mysql.PresenterDaoImpl;
 import by.bsu.db.dao.mysql.ReportDaoImpl;
 import by.bsu.db.dao.mysql.SectionDaoImpl;
 import by.bsu.db.dao.mysql.TransactionFactoryImpl;
-import by.bsu.db.service.SectionService;
-import by.bsu.db.service.SectionServiceImpl;
+import by.bsu.db.service.*;
 import by.bsu.db.service.exception.ServiceException;
 import by.bsu.db.view.MainFrame;
 import org.apache.logging.log4j.LogManager;
@@ -21,10 +20,9 @@ public class Runner {
 
     public static void main(String[] args) {
         try {
-            TransactionFactory transactionFactory = new TransactionFactoryImpl();
-            SectionServiceImpl sectionService = new SectionServiceImpl();
-            sectionService.setTransaction(transactionFactory.createTransaction());
-            System.out.println(sectionService.findAll());
+            ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
+            PresenterService presenterService = serviceFactory.getService(PresenterService.class);
+            System.out.println(presenterService.findAll());
         } catch (ServiceException | DAOException e) {
             e.printStackTrace();
         }

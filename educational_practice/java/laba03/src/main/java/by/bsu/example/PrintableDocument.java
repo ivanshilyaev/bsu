@@ -43,22 +43,21 @@ public class PrintableDocument implements Pageable, Printable {
      * printed, using any specified PageFormat object and any scaling factor.
      **/
     public PrintableDocument(JTextComponent textComponent, PageFormat format,
-                             double scalefactor)
-    {
+                             double scalefactor) {
         // Remember the page format, and ask it for the printable area
         this.format = format;
         this.scalefactor = scalefactor;
-        this.printX = format.getImageableX()/scalefactor;
-        this.printY = format.getImageableY()/scalefactor;
-        this.printWidth = format.getImageableWidth()/scalefactor;
-        this.printHeight = format.getImageableHeight()/scalefactor;
-        double paperWidth = format.getWidth()/scalefactor;
+        this.printX = format.getImageableX() / scalefactor;
+        this.printY = format.getImageableY() / scalefactor;
+        this.printWidth = format.getImageableWidth() / scalefactor;
+        this.printHeight = format.getImageableHeight() / scalefactor;
+        double paperWidth = format.getWidth() / scalefactor;
 
         // Get the document and its root Element from the text component
         Document document = textComponent.getDocument();
         Element rootElement = document.getDefaultRootElement();
         // Get the EditorKit and its ViewFactory from the text component
-        EditorKit editorKit =textComponent.getUI().getEditorKit(textComponent);
+        EditorKit editorKit = textComponent.getUI().getEditorKit(textComponent);
         ViewFactory viewFactory = editorKit.getViewFactory();
 
         // Use the ViewFactory to create a root View object for the document
@@ -73,7 +72,7 @@ public class PrintableDocument implements Pageable, Printable {
 
         // Tell the view how wide the page is; it has to format itself
         // to fit within this width.  The height doesn't really matter here
-        root.setSize((float)printWidth, (float)printHeight);
+        root.setSize((float) printWidth, (float) printHeight);
 
         // Now that the view has formatted itself for the specified width,
         // Ask it how tall it is.
@@ -81,7 +80,7 @@ public class PrintableDocument implements Pageable, Printable {
 
         // Set up the rectangle that tells the view where to draw itself
         // We'll use it in other methods of this class.
-        drawRect = new Rectangle(0, 0, (int)printWidth, (int)documentHeight);
+        drawRect = new Rectangle(0, 0, (int) printWidth, (int) documentHeight);
 
         // Now if the document is taller than one page, we have to
         // figure out where the page breaks are.
@@ -103,11 +102,11 @@ public class PrintableDocument implements Pageable, Printable {
         // Figure out how tall this view is, and tell it to allocate
         // that space among its children
         double myheight = v.getPreferredSpan(View.Y_AXIS);
-        v.setSize((float)printWidth, (float)myheight);
+        v.setSize((float) printWidth, (float) myheight);
 
         // Now loop through each of the children
         int numkids = v.getViewCount();
-        for(int i = 0; i < numkids; i++) {
+        for (int i = 0; i < numkids; i++) {
             View kid = v.getView(i);  // this is the child we're working with
             // Figure out its size and location
             Shape kidshape = v.getChildAllocation(i, allocation);
@@ -123,7 +122,7 @@ public class PrintableDocument implements Pageable, Printable {
             if ((numkids > 1) && (i == 0)) {
                 // If it is not near the end of the page, then just move
                 // on to the next child
-                if (kidpos < printY + printHeight*MARGIN_ADJUST) continue;
+                if (kidpos < printY + printHeight * MARGIN_ADJUST) continue;
 
                 // Otherwise, the child is near the bottom of the page, so
                 // break the page before this child and place this child on
@@ -136,13 +135,13 @@ public class PrintableDocument implements Pageable, Printable {
             // appear by itself at the top of a new page, so allow it to
             // squeeze past the bottom margin if necessary.  This helps to
             // prevent "orphans"
-            if ((numkids > 1) && (i == numkids-1)) {
+            if ((numkids > 1) && (i == numkids - 1)) {
                 // If it fits normally, just move on to the next one
                 if (kidpos < printY + printHeight) continue;
 
                 // Otherwise, if it fits with extra space, then break the
                 // page at the end of the group
-                if (kidpos < printY + printHeight/MARGIN_ADJUST) {
+                if (kidpos < printY + printHeight / MARGIN_ADJUST) {
                     breakPage(allocation.getY() + allocation.getHeight());
                     continue;
                 }
@@ -151,7 +150,7 @@ public class PrintableDocument implements Pageable, Printable {
             // If the child is not the first or last of a group, then we use
             // the bottom margin strictly.  If the child fits on the page,
             // then move on to the next child.
-            if (kidpos < printY+printHeight) continue;
+            if (kidpos < printY + printHeight) continue;
 
             // If we get here, the child doesn't fit on this page.  If it has
             // no children, then break the page before this child and continue.
@@ -180,14 +179,18 @@ public class PrintableDocument implements Pageable, Printable {
      * information into the pageLengths and pageOffsets lists
      **/
     void breakPage(double y) {
-        double pageLength = y-pageStart-printY;
-        pageStart = y-printY;
+        double pageLength = y - pageStart - printY;
+        pageStart = y - printY;
         pageLengths.add(new Double(pageLength));
         pageOffsets.add(new Double(pageStart));
     }
 
-    /** Return the number of pages. This is a Pageable method.   */
-    public int getNumberOfPages() { return numPages; }
+    /**
+     * Return the number of pages. This is a Pageable method.
+     */
+    public int getNumberOfPages() {
+        return numPages;
+    }
 
     /**
      * Return the PageFormat object for the specified page.  This is a
@@ -198,19 +201,19 @@ public class PrintableDocument implements Pageable, Printable {
      **/
     public PageFormat getPageFormat(int pagenum) {
         // On the last page, just return the user-specified page format
-        if (pagenum == numPages-1) return format;
+        if (pagenum == numPages - 1) return format;
 
         // Otherwise, look up the height of this page and return an
         // appropriate PageFormat.
-        double pageLength = ((Double)pageLengths.get(pagenum)).doubleValue();
+        double pageLength = ((Double) pageLengths.get(pagenum)).doubleValue();
         PageFormat f = (PageFormat) format.clone();
         Paper p = f.getPaper();
         if (f.getOrientation() == PageFormat.PORTRAIT)
-            p.setImageableArea(printX*scalefactor, printY*scalefactor,
-                    printWidth*scalefactor, pageLength*scalefactor);
+            p.setImageableArea(printX * scalefactor, printY * scalefactor,
+                    printWidth * scalefactor, pageLength * scalefactor);
         else
-            p.setImageableArea(printY*scalefactor, printX*scalefactor,
-                    pageLength*scalefactor, printWidth*scalefactor);
+            p.setImageableArea(printY * scalefactor, printX * scalefactor,
+                    pageLength * scalefactor, printWidth * scalefactor);
         f.setPaper(p);
         return f;
     }
@@ -220,7 +223,9 @@ public class PrintableDocument implements Pageable, Printable {
      * page.  Since this class implements both Pageable and Printable, it just
      * returns this.
      **/
-    public Printable getPrintable(int pagenum) { return this; }
+    public Printable getPrintable(int pagenum) {
+        return this;
+    }
 
     /**
      * This is the basic Printable method that prints a specified page
@@ -230,7 +235,7 @@ public class PrintableDocument implements Pageable, Printable {
         if (pageIndex >= numPages) return NO_SUCH_PAGE;
 
         // Cast the Graphics object so we can use Java2D operations
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
 
         // Translate to accomodate the top and left margins
         g2.translate(format.getImageableX(), format.getImageableY());
@@ -243,10 +248,10 @@ public class PrintableDocument implements Pageable, Printable {
         // But remember the original clipping region so we can restore it
         if (pageIndex > 0) {
             Shape originalClip = g.getClip();
-            g.setClip(new Rectangle(0, (int)-printY,
-                    (int)printWidth, (int)printY));
+            g.setClip(new Rectangle(0, (int) -printY,
+                    (int) printWidth, (int) printY));
             // Compute the header to display, measure it, then display it
-            String numString = "- " + (pageIndex+1) + " -";
+            String numString = "- " + (pageIndex + 1) + " -";
             // Get string and font measurements
             FontRenderContext frc = g2.getFontRenderContext();
             Rectangle2D numBounds = headerFont.getStringBounds(numString, frc);
@@ -254,8 +259,8 @@ public class PrintableDocument implements Pageable, Printable {
             g.setFont(headerFont);    // Set the font
             g.setColor(Color.black);  // Print with black ink
             g.drawString(numString,   // Display the string
-                    (int)((printWidth-numBounds.getWidth())/2),
-                    (int)(-(printY-numBounds.getHeight())/2 +
+                    (int) ((printWidth - numBounds.getWidth()) / 2),
+                    (int) (-(printY - numBounds.getHeight()) / 2 +
                             metrics.getAscent()));
             g.setClip(originalClip);  // Restore the clipping region
         }
@@ -264,9 +269,9 @@ public class PrintableDocument implements Pageable, Printable {
         double pageStart = 0.0;
         double pageLength = printHeight;
         if (pageIndex > 0)
-            pageStart = ((Double)pageOffsets.get(pageIndex-1)).doubleValue();
-        if (pageIndex < numPages-1)
-            pageLength = ((Double)pageLengths.get(pageIndex)).doubleValue();
+            pageStart = ((Double) pageOffsets.get(pageIndex - 1)).doubleValue();
+        if (pageIndex < numPages - 1)
+            pageLength = ((Double) pageLengths.get(pageIndex)).doubleValue();
 
         // Scroll so that the appropriate part of the document is lined up
         // with the upper-left corner of the page
@@ -290,8 +295,7 @@ public class PrintableDocument implements Pageable, Printable {
         ViewFactory viewFactory; // The ViewFactory for the hierarchy of views
         Container container;     // The Container for the hierarchy of views
 
-        public ParentView(View v, ViewFactory viewFactory, Container container)
-        {
+        public ParentView(View v, ViewFactory viewFactory, Container container) {
             super(v.getElement());
             this.viewFactory = viewFactory;
             this.container = container;
@@ -299,16 +303,27 @@ public class PrintableDocument implements Pageable, Printable {
 
         // These methods return key pieces of information required by
         // the View hierarchy.
-        public ViewFactory getViewFactory() { return viewFactory; }
-        public Container getContainer() { return container; }
+        public ViewFactory getViewFactory() {
+            return viewFactory;
+        }
+
+        public Container getContainer() {
+            return container;
+        }
 
         // These methods are abstract in View, so we've got to provide
         // dummy implementations of them here, even though they're never used.
-        public void paint(Graphics g, Shape allocation) {}
-        public float getPreferredSpan(int axis) { return 0.0f; }
-        public int viewToModel(float x,float y,Shape a,Position.Bias[] bias) {
+        public void paint(Graphics g, Shape allocation) {
+        }
+
+        public float getPreferredSpan(int axis) {
+            return 0.0f;
+        }
+
+        public int viewToModel(float x, float y, Shape a, Position.Bias[] bias) {
             return 0;
         }
+
         public Shape modelToView(int pos, Shape a, Position.Bias b)
                 throws BadLocationException {
             return a;

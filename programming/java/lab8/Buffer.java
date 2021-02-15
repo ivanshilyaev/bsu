@@ -31,14 +31,14 @@ public class Buffer {
     }
 
     static Object fromByteArray(byte[] arr) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream  bufIn = new ByteArrayInputStream(arr);
+        ByteArrayInputStream bufIn = new ByteArrayInputStream(arr);
         try (ObjectInputStream ois = new ObjectInputStream(bufIn)) {
             return ois.readObject();
         }
     }
 
     static Object fromZipByteArray(byte[] arr) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream  bufIn = new ByteArrayInputStream(arr);
+        ByteArrayInputStream bufIn = new ByteArrayInputStream(arr);
         try (ZipInputStream zis = new ZipInputStream(bufIn)) {
             ZipEntry zen = zis.getNextEntry();
             if (!zen.getName().equals(zipEntryName)) {
@@ -51,15 +51,14 @@ public class Buffer {
     }
 
     public static long writeObject(RandomAccessFile file, Serializable obj,
-                                    Boolean zipped) throws IOException {
+                                   Boolean zipped) throws IOException {
         long result = file.length();
         file.seek(result);
         byte[] what;
         if (zipped) {
             what = toZipByteArray(obj);
             file.writeByte(1);
-        }
-        else {
+        } else {
             what = toByteArray(obj);
             file.writeByte(0);
         }
@@ -70,7 +69,7 @@ public class Buffer {
     }
 
     public static Object readObject(RandomAccessFile file, long position,
-                                     boolean[] wasZipped) throws IOException, ClassNotFoundException {
+                                    boolean[] wasZipped) throws IOException, ClassNotFoundException {
         file.seek(position);
         byte zipped = file.readByte();
         int length = file.readInt();
@@ -81,11 +80,9 @@ public class Buffer {
         }
         if (zipped == 0) {
             return fromByteArray(what);
-        }
-        else if (zipped == 1) {
+        } else if (zipped == 1) {
             return fromZipByteArray(what);
-        }
-        else {
+        } else {
             throw new IOException("Invalid block format");
         }
     }

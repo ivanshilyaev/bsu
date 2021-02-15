@@ -13,7 +13,7 @@ public class Main {
             while (token.hasMoreTokens()) {
                 String elem = token.nextToken();
                 if (elem.length() > 2) {
-                    if (line.indexOf(elem) > 0 && line.charAt(line.indexOf(elem)-1) == '.') {
+                    if (line.indexOf(elem) > 0 && line.charAt(line.indexOf(elem) - 1) == '.') {
                         line = line.replaceFirst(elem, elem.substring(0, 2));
                     }
                 }

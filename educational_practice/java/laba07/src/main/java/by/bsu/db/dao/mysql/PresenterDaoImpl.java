@@ -4,7 +4,6 @@ import by.bsu.db.bean.Presenter;
 import by.bsu.db.bean.Report;
 import by.bsu.db.dao.PresenterDao;
 import by.bsu.db.dao.exception.DAOException;
-import by.bsu.db.service.ConnectorDB;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,8 +23,7 @@ public class PresenterDaoImpl extends DaoImpl<String, Presenter> implements Pres
     public List<Presenter> findAll() throws DAOException {
         List<Presenter> presenters = new ArrayList<>();
         try {
-            // fix!
-            connection = ConnectorDB.getConnection();
+            // fix!s
             Statement statement = null;
             try {
                 statement = connection.createStatement();
@@ -93,7 +91,6 @@ public class PresenterDaoImpl extends DaoImpl<String, Presenter> implements Pres
         Statement statement = null;
         ResultSet resultSet;
         try {
-            connection = ConnectorDB.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SQL_SELECT_ALL_PRESENTERS);
             while (resultSet.next()) {

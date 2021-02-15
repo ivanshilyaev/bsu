@@ -91,8 +91,7 @@ public class Client {
                 ConsoleHelper.writeMessage("Enter 'text-email' to sent plain text.");
                 ConsoleHelper.writeMessage("Enter 'file-email' to sent a file.");
                 ConsoleHelper.writeMessage("Enter ‘exit’ to finish.");
-            }
-            else
+            } else
                 ConsoleHelper.writeMessage("An error occurred while working with the client");
             while (clientConnected) {
                 String text = ConsoleHelper.readString();
@@ -106,15 +105,13 @@ public class Client {
                     ConsoleHelper.writeMessage("Enter your text:");
                     String data = ConsoleHelper.readString();
                     sendTextEmail(receiver + ": " + data);
-                }
-                else if (text.equals("file-email")) {
+                } else if (text.equals("file-email")) {
                     ConsoleHelper.writeMessage("Enter user-receiver:");
                     String receiver = ConsoleHelper.readString();
                     ConsoleHelper.writeMessage("Enter full file path:");
                     String path = ConsoleHelper.readString();
                     sendFileEmail(receiver, path);
-                }
-                else
+                } else
                     ConsoleHelper.writeMessage("Error: unxpected command");
             }
         } catch (InterruptedException e) {
@@ -183,12 +180,10 @@ public class Client {
                 Message message = connection.receive();
                 if (message.getType() == MessageType.NAME_REQUEST) {
                     connection.send(new Message(MessageType.USER_NAME, getUserName()));
-                }
-                else if (message.getType() == MessageType.NAME_ACCEPTED) {
+                } else if (message.getType() == MessageType.NAME_ACCEPTED) {
                     notifyConnectionStatusChanged(true);
                     break;
-                }
-                else throw new IOException("Unexpected MessageType");
+                } else throw new IOException("Unexpected MessageType");
             }
         }
 

@@ -7,6 +7,7 @@ import com.ivanshilyaev.cryptosystems.service.impl.*;
 import com.ivanshilyaev.cryptosystems.validator.Validator;
 import com.ivanshilyaev.cryptosystems.validator.exception.ValidationException;
 import com.ivanshilyaev.cryptosystems.validator.impl.*;
+import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @org.springframework.stereotype.Controller
 @RequestMapping("/")
+@Scope("session")
 public class Controller {
 
     @GetMapping("/index")
@@ -91,6 +93,11 @@ public class Controller {
             result = e.getMessage();
         }
 
+        model.addAttribute("alphabet", alphabetString);
+        model.addAttribute("text", text);
+        model.addAttribute("key", key);
+        model.addAttribute("cipher", cipherChoice);
+        model.addAttribute("task", task);
         model.addAttribute("result", result);
         return "index";
     }

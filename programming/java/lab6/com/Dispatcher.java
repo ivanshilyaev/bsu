@@ -38,7 +38,7 @@ public class Dispatcher implements Serializable {
         Arrays.sort(trips);
         Arrays.sort(drivers);
         Arrays.sort(cars);
-        for (int i=0; i<n; ++i) {
+        for (int i = 0; i < n; ++i) {
             System.out.println(drivers[i].toString());
             System.out.println(cars[i].toString());
             System.out.println(trips[i].toString());

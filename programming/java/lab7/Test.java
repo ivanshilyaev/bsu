@@ -13,25 +13,20 @@ public class Test {
                 if (args[0].compareTo("-a") == 0) {
                     // Append file with new object from System.in
                     append_file();
-                }
-                else if (args[0].compareTo("-p") == 0) {
+                } else if (args[0].compareTo("-p") == 0) {
                     // Prints data file
                     print_file();
-                }
-                else if (args[0].compareTo("-d") == 0) {
+                } else if (args[0].compareTo("-d") == 0) {
                     // Delete data file
                     delete_file();
-                }
-                else {
+                } else {
                     System.err.println("Option is not realised: " + args[0]);
                     System.exit(1);
                 }
-            }
-            else {
+            } else {
                 System.err.println("Test: Nothing to do!");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Run/time error: " + e);
             System.exit(1);
         }
@@ -70,7 +65,7 @@ public class Test {
         try (RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
             long pos;
             while ((pos = raf.getFilePointer()) < raf.length()) {
-                PhoneBill bill = (PhoneBill)Buffer.readObject(raf, pos);
+                PhoneBill bill = (PhoneBill) Buffer.readObject(raf, pos);
                 System.out.println(pos + ": " + bill);
             }
         }

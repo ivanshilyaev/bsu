@@ -13,7 +13,7 @@ public class CommonUtils {
     // euler function
     public static int phi(int m) {
         int result = 1;
-        for (int i = 2; i < m; ++i) {
+        for (int i = 2; i <= Math.sqrt(m); ++i) {
             if (gcd(m, i) == 1) {
                 ++result;
             }

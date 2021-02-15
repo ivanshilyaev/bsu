@@ -22,8 +22,8 @@ public class Solution {
     }
 
     public static void printMatrix2(double[][] A) {
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 System.out.printf("%10.2f ", A[i][j]);
             }
             System.out.println();
@@ -32,8 +32,8 @@ public class Solution {
     }
 
     public static void printMatrix4(double[][] A) {
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 System.out.printf("%13.4f ", A[i][j]);
             }
             System.out.println();
@@ -42,58 +42,58 @@ public class Solution {
     }
 
     public static void printVector2(double[] x) {
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             System.out.printf("%10.2f\n", x[i]);
         }
         System.out.println("\n");
     }
 
     public static void printVector10(double[] x) {
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             System.out.printf("%15.10f\n", x[i]);
         }
         System.out.println("\n");
     }
 
     public static void printVector12(double[] x) {
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             System.out.printf("%17.12f\n", x[i]);
         }
         System.out.println("\n");
     }
 
     public static void generateMatrix(double[][] A) {
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=i; j<SIZE; ++j) {
-                A[i][j] = round( -99 + Math.random()*199, 2);
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = i; j < SIZE; ++j) {
+                A[i][j] = round(-99 + Math.random() * 199, 2);
                 A[j][i] = A[i][j];
             }
         }
     }
 
     public static void generateE() {
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 E[i][j] = 0;
             }
         }
-        for (int i=0; i<SIZE; ++i)
+        for (int i = 0; i < SIZE; ++i)
             E[i][i] = 1;
     }
 
     public static void generateX(double[] x) {
-        for (int i=0; i<SIZE; ++i) {
-            x[i] = round(-99 + Math.random()*199, 10);
+        for (int i = 0; i < SIZE; ++i) {
+            x[i] = round(-99 + Math.random() * 199, 10);
         }
     }
 
     public static void countF(double[][] A, double[] x) {
-        for (int i=0; i<SIZE; ++i) {
-            f[i]=0;
+        for (int i = 0; i < SIZE; ++i) {
+            f[i] = 0;
         }
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
-                f[i]+=A[i][j]*x[j];
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                f[i] += A[i][j] * x[j];
             }
         }
     }
@@ -101,44 +101,44 @@ public class Solution {
     // решение по методу Гаусса без выбора главного элемента
     public static void solve(double[][] myA, double[] myX, double[] f) {
         double[][] A = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             System.arraycopy(myA[i], 0, A[i], 0, SIZE);
         }
 
-        for (int k=1; k<SIZE; ++k) {
-            for (int i=k; i<SIZE; ++i) {
-                f[i] -= f[k-1]*A[i][k-1]/A[k-1][k-1];
-                double tmp = A[i][k-1];
+        for (int k = 1; k < SIZE; ++k) {
+            for (int i = k; i < SIZE; ++i) {
+                f[i] -= f[k - 1] * A[i][k - 1] / A[k - 1][k - 1];
+                double tmp = A[i][k - 1];
                 for (int j = 0; j < SIZE; ++j) {
-                    A[i][j] -= A[k-1][j] * tmp / A[k-1][k-1];
+                    A[i][j] -= A[k - 1][j] * tmp / A[k - 1][k - 1];
                 }
             }
         }
 
-        myX[SIZE-1] = f[SIZE-1]/A[SIZE-1][SIZE-1];
-        for (int i=SIZE-2; i>=0; --i) {
+        myX[SIZE - 1] = f[SIZE - 1] / A[SIZE - 1][SIZE - 1];
+        for (int i = SIZE - 2; i >= 0; --i) {
             double sum = 0;
-            for (int j=i+1; j<SIZE; ++j)
-                sum += A[i][j]*myX[j];
-            myX[i] = (f[i]-sum)/A[i][i];
+            for (int j = i + 1; j < SIZE; ++j)
+                sum += A[i][j] * myX[j];
+            myX[i] = (f[i] - sum) / A[i][i];
         }
     }
 
     public static double det(double[][] myA) {
         double det = 1;
         double[][] A = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             System.arraycopy(myA[i], 0, A[i], 0, SIZE);
         }
-        for (int k=1; k<SIZE; ++k) {
-            for (int i=k; i<SIZE; ++i) {
-                double tmp = A[i][k-1];
+        for (int k = 1; k < SIZE; ++k) {
+            for (int i = k; i < SIZE; ++i) {
+                double tmp = A[i][k - 1];
                 for (int j = 0; j < SIZE; ++j) {
-                    A[i][j] -= A[k-1][j] * tmp / A[k-1][k-1];
+                    A[i][j] -= A[k - 1][j] * tmp / A[k - 1][k - 1];
                 }
             }
         }
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             det *= A[i][i];
         }
         return det;
@@ -151,20 +151,20 @@ public class Solution {
         }
         double[] myf = new double[SIZE];
         double[] myX = new double[SIZE];
-        for (int l=0; l<SIZE; ++l) {
-            for (int i=0; i<SIZE; ++i)
+        for (int l = 0; l < SIZE; ++l) {
+            for (int i = 0; i < SIZE; ++i)
                 myf[i] = 0;
             myf[l] = 1;
             solve(A, myX, myf);
-            for (int i=0; i<SIZE; ++i) {
+            for (int i = 0; i < SIZE; ++i) {
                 A_INVERSE[i][l] = myX[i];
             }
         }
     }
 
     public static void countTransposedMatrix(double[][] A, double[][] A_TRANSPOSED) {
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 A_TRANSPOSED[i][j] = A[j][i];
             }
         }
@@ -173,8 +173,8 @@ public class Solution {
     // сложение матриц
     public static double[][] addMatrix(double[][] A, double[][] B) {
         double[][] C = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 C[i][j] = A[i][j] + B[i][j];
             }
         }
@@ -184,8 +184,8 @@ public class Solution {
     // вычитание матриц
     public static double[][] subtractMatrix(double[][] A, double[][] B) {
         double[][] C = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 C[i][j] = A[i][j] - B[i][j];
             }
         }
@@ -195,9 +195,9 @@ public class Solution {
     // умножение матриц
     public static double[][] multiplyMatrix(double[][] A, double[][] B) {
         double[][] C = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
-                for (int k=0; k<SIZE; ++k) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
                     C[i][j] += A[i][k] * B[k][j];
                 }
             }
@@ -208,8 +208,8 @@ public class Solution {
     // умножение матрицы на число
     public static double[][] multiplyMatrixByNumber(double[][] A, double n) {
         double[][] C = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 C[i][j] = A[i][j] * n;
             }
         }
@@ -219,8 +219,8 @@ public class Solution {
     // деление матрицы на число
     public static double[][] divideMatrixByNumber(double[][] A, double n) {
         double[][] C = new double[SIZE][SIZE];
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 C[i][j] = A[i][j] / n;
             }
         }
@@ -230,7 +230,7 @@ public class Solution {
     // деление вектора на число
     public static double[] divideVectorByNumber(double[] f, double n) {
         double[] v = new double[SIZE];
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             v[i] = f[i] / n;
         }
         return v;
@@ -239,8 +239,8 @@ public class Solution {
     // умножение матрицы на вектор
     public static double[] multipleMatrixByVector(double[][] A, double[] x) {
         double[] v = new double[SIZE];
-        for (int i=0; i<SIZE; ++i) {
-            for (int j=0; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 v[i] += A[i][j] * x[j];
             }
         }
@@ -250,7 +250,7 @@ public class Solution {
     // сложение векторов
     public static double[] addVectorToVector(double[] a, double[] b) {
         double[] v = new double[SIZE];
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             v[i] = a[i] + b[i];
         }
         return v;
@@ -259,7 +259,7 @@ public class Solution {
     // вычитание векторов
     public static double[] subtractVectorFromVector(double[] a, double[] b) {
         double[] v = new double[SIZE];
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             v[i] = a[i] - b[i];
         }
         return v;
@@ -268,7 +268,7 @@ public class Solution {
     // норма вектора
     public static double vectorNorm(double[] a) {
         double res = Math.abs(a[0]);
-        for (int i=1; i<SIZE; ++i) {
+        for (int i = 1; i < SIZE; ++i) {
             if (Math.abs(a[i]) > res)
                 res = Math.abs(a[i]);
         }
@@ -278,12 +278,12 @@ public class Solution {
     // сумма по столбцам
     public static double norm_1(double[][] A) {
         double max = 0;
-        for (int j=0; j<SIZE; ++j) {
+        for (int j = 0; j < SIZE; ++j) {
             double sum = 0;
-            for (int i=0; i<SIZE; ++i) {
+            for (int i = 0; i < SIZE; ++i) {
                 sum += Math.abs(A[i][j]);
             }
-            if (sum>max)
+            if (sum > max)
                 max = sum;
         }
         return max;
@@ -292,12 +292,12 @@ public class Solution {
     // сумма по строкам
     public static double norm_2(double[][] A) {
         double max = 0;
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             double sum = 0;
-            for (int j=0; j<SIZE; ++j) {
+            for (int j = 0; j < SIZE; ++j) {
                 sum += Math.abs(A[i][j]);
             }
-            if (sum>max)
+            if (sum > max)
                 max = sum;
         }
         return max;
@@ -325,15 +325,15 @@ public class Solution {
         double[][] L = new double[SIZE][SIZE];
         double[][] R = new double[SIZE][SIZE];
         double[][] D = new double[SIZE][SIZE];
-        for (int i=1; i<SIZE; ++i) {
+        for (int i = 1; i < SIZE; ++i) {
             System.arraycopy(A1[i], 0, L[i], 0, i);
         }
-        for (int i=0; i<SIZE-1; ++i) {
-            for (int j=i+1; j<SIZE; ++j) {
+        for (int i = 0; i < SIZE - 1; ++i) {
+            for (int j = i + 1; j < SIZE; ++j) {
                 R[i][j] = A1[i][j];
             }
         }
-        for (int i=0; i<SIZE; ++i) {
+        for (int i = 0; i < SIZE; ++i) {
             D[i][i] = A1[i][i];
         }
 
@@ -342,7 +342,7 @@ public class Solution {
         double[][] B = new double[SIZE][SIZE];
         countInverseMatrix(B1, B); // B = B1^(-1)
         double[] g = multipleMatrixByVector(multiplyMatrixByNumber(B, q), f);
-        B = multiplyMatrix(B, subtractMatrix(D, multiplyMatrixByNumber(addMatrix(D, R),q))); // B = (B1)^(-1) * (D - q(D + R))
+        B = multiplyMatrix(B, subtractMatrix(D, multiplyMatrixByNumber(addMatrix(D, R), q))); // B = (B1)^(-1) * (D - q(D + R))
 
         // finding solution
         double[] x0 = g;
@@ -396,10 +396,10 @@ public class Solution {
         // [0,1; 1,9]
         double[] a = new double[19];
         double[] b = new double[19];
-        int j=0;
-        for (double q = 0.2; q<2; q+=0.1) {
+        int j = 0;
+        for (double q = 0.2; q < 2; q += 0.1) {
             int tmp = solveRelaxation(A1, q);
-            System.out.println("q = "+ round(qMin, 1));
+            System.out.println("q = " + round(qMin, 1));
             System.out.println("Number of iterations: " + tmp + "\n");
             if (tmp < itMin) {
                 itMin = tmp;
@@ -410,7 +410,7 @@ public class Solution {
         }
         // [qMin-0.1; qMin+0.1]
         double tmpMin = qMin;
-        for (double q = tmpMin-0.1; q<tmpMin + 0.1; q+=0.01) {
+        for (double q = tmpMin - 0.1; q < tmpMin + 0.1; q += 0.01) {
             int tmp = solveRelaxation(A1, q);
             if (tmp < itMin) {
                 itMin = tmp;
@@ -419,7 +419,7 @@ public class Solution {
         }
         System.out.println("q with least number of iterations:");
         int tmp = solveRelaxation(A1, qMin);
-        System.out.println("q = "+ round(qMin, 2));
+        System.out.println("q = " + round(qMin, 2));
         System.out.println("Solution:");
         printVector10(x);
         System.out.println("Number of iterations: " + tmp + "\n");

@@ -24,7 +24,8 @@ public class PhoneBill implements Serializable {
 
     public static final String DEL = ",";
 
-    public PhoneBill() {}
+    public PhoneBill() {
+    }
 
     public String getFullName() {
         return fullName;
@@ -56,7 +57,7 @@ public class PhoneBill implements Serializable {
 
     private static boolean validNumber(String str) {
         int n = 0;
-        for (int i=0; i<str.length(); ++i) {
+        for (int i = 0; i < str.length(); ++i) {
             if (Character.isDigit(str.charAt(i)))
                 ++n;
         }

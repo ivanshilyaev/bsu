@@ -11,6 +11,7 @@ public class Trip implements Comparable<Trip>, Serializable {
     private int cost;
 
     public final Date creationDate = new Date();
+
     public String getCreationDate() {
         DateFormat dateFormatter = DateFormat.getDateTimeInstance(
                 DateFormat.DEFAULT, DateFormat.DEFAULT, AppLocale.get());

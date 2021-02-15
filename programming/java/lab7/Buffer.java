@@ -19,7 +19,7 @@ public class Buffer {
     }
 
     static Object fromByteArray(byte[] arr) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream  bufIn = new ByteArrayInputStream(arr);
+        ByteArrayInputStream bufIn = new ByteArrayInputStream(arr);
         try (ZipInputStream zis = new ZipInputStream(bufIn)) {
             /*ZipEntry zen = */
             zis.getNextEntry();

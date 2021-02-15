@@ -11,22 +11,37 @@
     <h2>Classical cryptosystems</h2>
     <form class="main-form" th:action="@{/index}" method="POST">
         <label for="alphabet">Alphabet</label> <br>
-        <input type="text" name="alphabet" id="alphabet" size="60"/> <br>
+        <input type="text" value="${alphabet}" name="alphabet" id="alphabet" size="60"/> <br>
         <input type="checkbox" name="default-alphabet" id="default-alphabet" onclick="checkbox()">
         <label for="default-alphabet">Use default alphabet</label> <br>
+
         <label for="text">Text</label> <br>
-        <textarea id="text" name="text"></textarea> <br>
+        <textarea id="text" name="text"></textarea>[[${text}]]<br>
+
         <label for="key">Key</label> <br>
-        <input type="text" name="key" id="key" size="60"/> <br>
+        <input type="text" value="${key}" name="key" id="key" size="60"/> <br>
+
         <label for="cipher">Cipher</label> <br>
         <select name="cipher" id="cipher">
-            <option>Caesar cipher</option>
-            <option>Affine cipher</option>
-            <option>Simple substitution cipher</option>
-            <option>Hill cipher</option>
-            <option>Transposition cipher</option>
-            <option>Vigenere cipher</option>
+            <option th:if="${cipher} == 'Caesar cipher'" selected>Caesar cipher</option>
+            <option th:unless="${cipher} == 'Caesar cipher'">Caesar cipher</option>
+
+            <option th:if="${cipher} == 'Affine cipher'" selected>Affine cipher</option>
+            <option th:unless="${cipher} == 'Affine cipher'">Affine cipher</option>
+
+            <option th:if="${cipher} == 'Simple substitution cipher'" selected>Simple substitution cipher</option>
+            <option th:unless="${cipher} == 'Simple substitution cipher'">Simple substitution cipher</option>
+
+            <option th:if="${cipher} == 'Hill cipher'" selected>Hill cipher</option>
+            <option th:unless="${cipher} == 'Hill cipher'">Hill cipher</option>
+
+            <option th:if="${cipher} == 'Transposition cipher'" selected>Transposition cipher</option>
+            <option th:unless="${cipher} == 'Transposition cipher'">Transposition cipher</option>
+
+            <option th:if="${cipher} == 'Vigenere cipher'" selected>Vigenere cipher</option>
+            <option th:unless="${cipher} == 'Vigenere cipher'">Vigenere cipher</option>
         </select> <br>
+
         <div>
             <input type="radio" name="task" id="encrypt" value="encrypt" checked>
             <label for="encrypt">encrypt</label>
@@ -34,9 +49,11 @@
             <label for="decrypt">decrypt</label>
         </div>
         <br>
+
         <label>Result</label> <br>
         <label for="result"></label>
         <textarea id="result" name="result" readonly>[[${result}]]</textarea> <br>
+
         <input type="submit" value="Submit">
     </form>
 </div>
