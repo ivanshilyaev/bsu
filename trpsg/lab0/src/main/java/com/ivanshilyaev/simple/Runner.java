@@ -22,6 +22,16 @@ public class Runner {
         Writer.writeRandomNumsToBinFile(BIN_FILE_NAME, (int) Math.pow(2, m), randomNums);
     }
 
+    private static void executeShrinkingGenerator(int m1, int[] taps1, int m2, int[] taps2) throws IOException {
+        int n = (int) (Math.pow(2, 23) + 1);
+        int randomNumsSize = n / 20;
+        int[] randomNums = new int[randomNumsSize];
+        Generators.shrinkingGenerator(m1, taps1, m2, taps2, n, randomNums);
+        int period = 131;
+        Writer.writeRandomNumsToFile(FILE_NAME, period + 1, randomNums);
+        Writer.writeRandomNumsToBinFile(BIN_FILE_NAME, period + 1, randomNums);
+    }
+
     private static void first() throws IOException {
         int seed = 27;
         int mult = 21;
@@ -56,10 +66,19 @@ public class Runner {
         executeLfsr(m, taps);
     }
 
+    private static void fifth() throws IOException {
+        int m1 = 5;
+        int[] taps1 = {2, 4};
+        int m2 = 10;
+        int[] taps2 = {6, 9};
+        executeShrinkingGenerator(m1, taps1, m2, taps2);
+    }
+
     public static void main(String[] args) throws IOException {
         // first();
         // second();
         // third();
-        fourth();
+        // fourth();
+        fifth();
     }
 }
