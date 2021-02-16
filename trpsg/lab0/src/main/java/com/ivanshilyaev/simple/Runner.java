@@ -6,35 +6,20 @@ public class Runner {
     private static final String FILE_NAME = "src/main/resources/result.txt";
     private static final String BIN_FILE_NAME = "src/main/resources/result.bin";
 
-    private static void writeRandomNumsToFile(String fileName, int n, int[] randomNums) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-        for (int i = 0; i < n - 1; ++i) {
-            writer.append(String.valueOf(randomNums[i]))
-                    .append(" ")
-                    .append(String.valueOf(randomNums[i + 1]))
-                    .append(System.lineSeparator());
-        }
-        writer.close();
+    private static void executeLcg(int seed, int mult, int inc, int m, int n, int[] randomNums) throws IOException {
+        Generators.lcg(seed, mult, inc, m, n, randomNums);
+        Writer.writeRandomNumsToFile(FILE_NAME, n, randomNums);
+        Writer.writeRandomNumsToBinFile(BIN_FILE_NAME, n, randomNums);
     }
 
-    private static void writeRandomNumsToBinFile(String fileName, int n, int[] randomNums) throws IOException {
-        String[] bin = new String[n];
-        int maxLen = 0;
-        for (int i = 0; i < n; i++) {
-            bin[i] = Integer.toBinaryString(randomNums[i]);
-            maxLen = Math.max(maxLen, bin[i].length());
-        }
-        ByteArrayOutputStream bout = new ByteArrayOutputStream(n * 4);
-        DataOutputStream dataOutputStream = new DataOutputStream(bout);
-        for (int i = 0; i < n; i++) {
-            if (bin[i].length() != maxLen)
-                bin[i] = String.format("%" + maxLen + "s", bin[i]).replace(' ', '0');
-            dataOutputStream.writeChars(bin[i]);
-        }
-        FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-        bout.writeTo(fileOutputStream);
-        fileOutputStream.flush();
-        fileOutputStream.close();
+    private static void executeLfsr(int m, int[] taps) throws IOException {
+        // 8 * 2^20 + 1
+        int n = (int) (Math.pow(2, 23) + 1);
+        int randomNumsSize = n / 20;
+        int[] randomNums = new int[randomNumsSize];
+        Generators.lfsr(m, taps, n, randomNums);
+        Writer.writeRandomNumsToFile(FILE_NAME, (int) Math.pow(2, m), randomNums);
+        Writer.writeRandomNumsToBinFile(BIN_FILE_NAME, (int) Math.pow(2, m), randomNums);
     }
 
     private static void first() throws IOException {
@@ -44,9 +29,7 @@ public class Runner {
         int m = 100;
         int n = 101;
         int[] randomNums = new int[n];
-        Generators.lcg(seed, mult, inc, m, n, randomNums);
-        writeRandomNumsToFile(FILE_NAME, n, randomNums);
-        writeRandomNumsToBinFile(BIN_FILE_NAME, n, randomNums);
+        executeLcg(seed, mult, inc, m, n, randomNums);
     }
 
     private static void second() throws IOException {
@@ -56,15 +39,27 @@ public class Runner {
         int inc = 3;
         int n = m + 1;
         int[] randomNums = new int[n];
-        Generators.lcg(seed, mult, inc, m, n, randomNums);
-        writeRandomNumsToFile(FILE_NAME, n, randomNums);
-        writeRandomNumsToBinFile(BIN_FILE_NAME, n, randomNums);
+        executeLcg(seed, mult, inc, m, n, randomNums);
+    }
+
+    private static void third() throws IOException {
+        int m = 5;
+        // x^5 + x^3 + 1
+        int[] taps = {2, 4};
+        executeLfsr(m, taps);
+    }
+
+    private static void fourth() throws IOException {
+        int m = 10;
+        // x^10 + x^7 + 1
+        int[] taps = {6, 9};
+        executeLfsr(m, taps);
     }
 
     public static void main(String[] args) throws IOException {
-        // 1.
-        first();
-        // 2.
-        second();
+        // first();
+        // second();
+        // third();
+        fourth();
     }
 }
