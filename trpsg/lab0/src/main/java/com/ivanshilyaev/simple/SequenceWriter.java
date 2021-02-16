@@ -2,7 +2,7 @@ package com.ivanshilyaev.simple;
 
 import java.io.*;
 
-public class Writer {
+public class SequenceWriter {
 
     public static void writeRandomNumsToFile(String fileName, int n, int[] randomNums) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
