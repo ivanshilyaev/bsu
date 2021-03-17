@@ -1,7 +1,5 @@
 package com.ivanshilyaev.knuth;
 
-import java.io.IOException;
-
 public class Runner {
 
     private static final String FILE_NAME = "src/main/resources/result.txt";
@@ -25,8 +23,7 @@ public class Runner {
      * @param t - d <= r < t
      * @param n - количество отрезков, собравших все купоны
      */
-    private static boolean couponCollectorsTest(int d, int t, int n) throws IOException {
-        byte[] y = BinFileReader.readBytes(OTHER_BIN_FILE_NAME);
+    private static boolean couponCollectorsTest(byte[] y, int d, int t, int n, int shift) {
         int j = -1;
         // текущее количество отрезков, собравших все купоны
         int s = 0;
@@ -42,12 +39,11 @@ public class Runner {
             while (q < d) {
                 do {
                     ++r;
-                    ++j;
+                    j += shift;
                 } while (occurs[y[j] + 128]);
                 occurs[y[j] + 128] = true;
                 ++q;
             }
-            System.out.println(r);
             if (r >= t) ++countT;
             else ++countR;
             ++s;
@@ -61,8 +57,33 @@ public class Runner {
         }
     }
 
+    /**
+     * @param q - количество тестируемых подпоследовательностей
+     */
+    private static boolean testOnSubsequences(byte[] y, int d, int t, int n, int q) {
+        boolean result = true;
+        for (int i = 0; i < q; ++i) {
+            byte[] copyY = new byte[y.length / (i + 1)];
+            for (int j = 0; j < copyY.length; ++j) {
+                copyY[j] = y[(i + 1) * j];
+            }
+            if (!couponCollectorsTest(copyY, d, t, n, i + 1)) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) throws Exception {
         // runLcg();
-        System.out.println(couponCollectorsTest(256, 1500, 100));
+        byte[] y = BinFileReader.readBytes(OTHER_BIN_FILE_NAME);
+        System.out.println("######### Критерий собирания купонов #########");
+        System.out.println("Принимаем последовательность? " +
+            couponCollectorsTest(y, 256, 1500, 100, 1));
+        System.out.println();
+        System.out.println("######### Критерий подпоследовательностей #########");
+        System.out.println("Принимаем последовательность? " +
+            testOnSubsequences(y, 256, 1500, 100, 3));
     }
 }
