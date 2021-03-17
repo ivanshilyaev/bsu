@@ -18,6 +18,25 @@ public class Runner {
         SequenceWriter.writeRandomNumsToBinFile(BIN_FILE_NAME, randomNums);
     }
 
+    private static void executeLfsr(int m, int[] taps) throws Exception {
+        // 8 * 2^20 + 1
+        int n = (int) (Math.pow(2, 23) + 1);
+        int randomNumsSize = n / 8;
+        int[] randomNums = new int[randomNumsSize];
+        Generators.lfsr(m, taps, n, randomNums);
+        SequenceWriter.writeRandomNumsToFile(FILE_NAME, (int) Math.pow(2, m), randomNums);
+        SequenceWriter.writeRandomNumsToBinFile(BIN_FILE_NAME, randomNums);
+    }
+
+    private static void executeShrinkingGenerator(int m1, int[] taps1, int m2, int[] taps2) throws Exception {
+        int n = (int) (Math.pow(2, 23) + 1);
+        int randomNumsSize = n / 8;
+        int[] randomNums = new int[randomNumsSize];
+        Generators.shrinkingGenerator(m1, taps1, m2, taps2, n, randomNums);
+        SequenceWriter.writeRandomNumsToFile(FILE_NAME, randomNumsSize, randomNums);
+        SequenceWriter.writeRandomNumsToBinFile(BIN_FILE_NAME, randomNums);
+    }
+
     /**
      * @param d - 0 <= y[i] < d
      * @param t - d <= r < t
@@ -40,8 +59,8 @@ public class Runner {
                 do {
                     ++r;
                     j += shift;
-                } while (occurs[y[j] + 128]);
-                occurs[y[j] + 128] = true;
+                } while (occurs[(y[j] + 128) % d]);
+                occurs[(y[j] + 128) % d] = true;
                 ++q;
             }
             if (r >= t) ++countT;
@@ -75,15 +94,50 @@ public class Runner {
         return result;
     }
 
+    private static void additionalTask() throws Exception {
+        int m1 = 10;
+        // x^10 + x^7 + 1
+        int[] taps1 = {6, 9};
+        executeLfsr(m1, taps1);
+        byte[] y = BinFileReader.readBytes(BIN_FILE_NAME);
+        System.out.println("######### РСЛОС степени 10 #########");
+        System.out.println("Принимаем последовательность? " +
+            couponCollectorsTest(y, 256, 1500, 100, 1));
+        System.out.println();
+
+        int m2 = 20;
+        // x^20 + x^17 + 1
+        int[] taps2 = {16, 19};
+        executeLfsr(m2, taps2);
+        y = BinFileReader.readBytes(BIN_FILE_NAME);
+        System.out.println("######### РСЛОС степени 20 #########");
+        System.out.println("Принимаем последовательность? " +
+            couponCollectorsTest(y, 256, 1500, 100, 1));
+        System.out.println();
+
+        executeShrinkingGenerator(m1, taps1, m2, taps2);
+        y = BinFileReader.readBytes(BIN_FILE_NAME);
+        System.out.println("######### Самосжимающийся генератор #########");
+        System.out.println("Принимаем последовательность? " +
+            couponCollectorsTest(y, 256, 1500, 100, 1));
+    }
+
     public static void main(String[] args) throws Exception {
+        // 1
         // runLcg();
         byte[] y = BinFileReader.readBytes(OTHER_BIN_FILE_NAME);
         System.out.println("######### Критерий собирания купонов #########");
         System.out.println("Принимаем последовательность? " +
             couponCollectorsTest(y, 256, 1500, 100, 1));
         System.out.println();
+
+        // 2
         System.out.println("######### Критерий подпоследовательностей #########");
         System.out.println("Принимаем последовательность? " +
             testOnSubsequences(y, 256, 1500, 100, 3));
+        System.out.println();
+
+        // 3
+        additionalTask();
     }
 }
