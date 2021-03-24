@@ -1,10 +1,18 @@
 package com.ivanshilyaev.knuth;
 
+import org.apache.commons.math3.stat.inference.ChiSquareTest;
+import org.apache.commons.math3.util.CombinatoricsUtils;
+
+import java.util.Arrays;
+
 public class Runner {
 
     private static final String FILE_NAME = "src/main/resources/result.txt";
     private static final String BIN_FILE_NAME = "src/main/resources/result.bin";
     private static final String OTHER_BIN_FILE_NAME = "src/main/resources/result2.bin";
+    private static final String TEST = "src/main/resources/phys.bin";
+
+    private static final double SIGNIFICANCE_LEVEL = 0.05;
 
     private static void runLcg() throws Exception {
         int m = (int) (Math.pow(2, 20) + 14 * 10133);
@@ -37,18 +45,44 @@ public class Runner {
         SequenceWriter.writeRandomNumsToBinFile(BIN_FILE_NAME, randomNums);
     }
 
+    private static double q(int d, int r) {
+        double sum = 0;
+        for (int j = 0; j <= d; ++j) {
+            sum += Math.pow(-1, d + j) * CombinatoricsUtils.binomialCoefficientDouble(d, j)
+                * Math.pow((double) j / d, r);
+        }
+        return 1 - sum;
+    }
+
+    private static double chiSquaredTest(int[] count, int d, int t) {
+        long[] observed = new long[t - d + 1];
+        for (int i = d; i <= t; ++i) {
+            observed[i - d] = count[i - d];
+        }
+        double[] expected = new double[t - d + 1];
+        for (int i = d; i < t; ++i) {
+            expected[i - d] = Math.abs(q(d, i - 1) - q(d, i));
+        }
+        expected[t - d] = Math.abs(q(d, t - 1));
+        ChiSquareTest chiSquareTest = new ChiSquareTest();
+        double pValue = chiSquareTest.chiSquareTest(expected, observed);
+        //System.out.println("pValue = " + pValue);
+        return pValue;
+    }
+
     /**
      * @param d - 0 <= y[i] < d
      * @param t - d <= r < t
      * @param n - количество отрезков, собравших все купоны
      */
-    private static boolean couponCollectorsTest(byte[] y, int d, int t, int n, int shift) {
+    private static double couponCollectorsTest(byte[] y, int d, int t, int n) {
         int j = -1;
         // текущее количество отрезков, собравших все купоны
         int s = 0;
         int countR = 0;
         int countT = 0;
         boolean[] occurs;
+        int[] count = new int[t + 1];
         while (s < n) {
             occurs = new boolean[d];
             // количество различных значений в наблюдаемой последовательности
@@ -58,40 +92,54 @@ public class Runner {
             while (q < d) {
                 do {
                     ++r;
-                    j += shift;
+                    ++j;
                 } while (occurs[(y[j] + 128) % d]);
                 occurs[(y[j] + 128) % d] = true;
                 ++q;
             }
-            if (r >= t) ++countT;
-            else ++countR;
+            if (r > t) {
+                ++countT;
+            } else if (r == t) {
+                ++count[t];
+                ++countT;
+            } else {
+                ++countR;
+                ++count[r];
+            }
             ++s;
         }
-        System.out.println("Количетсво отрезков с длиной меньше t: " + countR);
-        System.out.println("Количетсво отрезков с длиной t и более: " + countT);
-        if (countR == 0) {
-            return true;
-        } else {
-            return countT / countR > 19;
-        }
+        //System.out.println("Количетсво отрезков с длиной меньше t: " + countR);
+        //System.out.println("Количетсво отрезков с длиной t и более: " + countT);
+        return chiSquaredTest(count, d, t);
     }
 
     /**
      * @param q - количество тестируемых подпоследовательностей
      */
     private static boolean testOnSubsequences(byte[] y, int d, int t, int n, int q) {
-        boolean result = true;
+        double[] pValues = new double[q];
         for (int i = 0; i < q; ++i) {
-            byte[] copyY = new byte[y.length / (i + 1)];
+            byte[] copyY = new byte[y.length / q];
             for (int j = 0; j < copyY.length; ++j) {
-                copyY[j] = y[(i + 1) * j];
+                copyY[j] = y[j * q + i];
             }
-            if (!couponCollectorsTest(copyY, d, t, n, i + 1)) {
-                result = false;
-                break;
+            pValues[i] = couponCollectorsTest(copyY, d, t, n);
+        }
+        long[] observed = new long[100];
+        Arrays.fill(observed, q / 100);
+        double[] expected = new double[100];
+        Arrays.fill(expected, 0.01);
+        for (double pValue : pValues) {
+            if ((int) Math.floor(pValue * 100) == 100) {
+                ++expected[99];
+            } else {
+                ++expected[(int) Math.floor(pValue * 100)];
             }
         }
-        return result;
+        ChiSquareTest chiSquareTest = new ChiSquareTest();
+        double pValue = chiSquareTest.chiSquareTest(expected, observed);
+        System.out.println("pValue = " + pValue);
+        return pValue > SIGNIFICANCE_LEVEL;
     }
 
     private static void additionalTask() throws Exception {
@@ -101,8 +149,15 @@ public class Runner {
         executeLfsr(m1, taps1);
         byte[] y = BinFileReader.readBytes(BIN_FILE_NAME);
         System.out.println("######### РСЛОС степени 10 #########");
-        System.out.println("Принимаем последовательность? " +
-            couponCollectorsTest(y, 256, 1500, 100, 1));
+        double pValue = couponCollectorsTest(y, 64, 1000, 10);
+        System.out.println("pValue = " + pValue);
+        boolean answer;
+        if (Double.isNaN(pValue)) {
+            answer = true;
+        } else {
+            answer = pValue > SIGNIFICANCE_LEVEL;
+        }
+        System.out.println("Принимаем последовательность? " + answer);
         System.out.println();
 
         int m2 = 20;
@@ -111,30 +166,45 @@ public class Runner {
         executeLfsr(m2, taps2);
         y = BinFileReader.readBytes(BIN_FILE_NAME);
         System.out.println("######### РСЛОС степени 20 #########");
-        System.out.println("Принимаем последовательность? " +
-            couponCollectorsTest(y, 256, 1500, 100, 1));
+        pValue = couponCollectorsTest(y, 64, 1000, 10);
+        System.out.println("pValue = " + pValue);
+        if (Double.isNaN(pValue)) {
+            answer = true;
+        } else {
+            answer = pValue > SIGNIFICANCE_LEVEL;
+        }
+        System.out.println("Принимаем последовательность? " + answer);
         System.out.println();
 
         executeShrinkingGenerator(m1, taps1, m2, taps2);
         y = BinFileReader.readBytes(BIN_FILE_NAME);
         System.out.println("######### Самосжимающийся генератор #########");
-        System.out.println("Принимаем последовательность? " +
-            couponCollectorsTest(y, 256, 1500, 100, 1));
+        pValue = couponCollectorsTest(y, 64, 1000, 10);
+        System.out.println("pValue = " + pValue);
+        if (Double.isNaN(pValue)) {
+            answer = true;
+        } else {
+            answer = pValue > SIGNIFICANCE_LEVEL;
+        }
+        System.out.println("Принимаем последовательность? " + answer);
+        System.out.println();
     }
 
     public static void main(String[] args) throws Exception {
         // 1
         // runLcg();
-        byte[] y = BinFileReader.readBytes(OTHER_BIN_FILE_NAME);
+        byte[] y = BinFileReader.readBytes(TEST);
         System.out.println("######### Критерий собирания купонов #########");
+        double pValue = couponCollectorsTest(y, 64, 250, 100);
+        System.out.println("pValue = " + pValue);
         System.out.println("Принимаем последовательность? " +
-            couponCollectorsTest(y, 256, 1500, 100, 1));
+            (pValue > SIGNIFICANCE_LEVEL));
         System.out.println();
 
         // 2
         System.out.println("######### Критерий подпоследовательностей #########");
         System.out.println("Принимаем последовательность? " +
-            testOnSubsequences(y, 256, 1500, 100, 3));
+            testOnSubsequences(y, 64, 250, 1, 100));
         System.out.println();
 
         // 3
