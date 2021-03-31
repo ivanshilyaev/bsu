@@ -19,6 +19,15 @@ public class SequenceWriter {
         writer.close();
     }
 
+    public static void writeDoubleRandomNumsToFile(String fileName, double[] randomNums) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        for (double randomNum : randomNums) {
+            writer.append(String.valueOf(randomNum))
+                .append(System.lineSeparator());
+        }
+        writer.close();
+    }
+
     public static void writeRandomNumsToBinFile(String fileName, int[] randomNums) throws IOException {
         DataOutputStream os = new DataOutputStream(new FileOutputStream(fileName));
         for (int randomNum : randomNums) {
