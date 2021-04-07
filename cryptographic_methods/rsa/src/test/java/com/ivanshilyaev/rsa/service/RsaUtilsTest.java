@@ -1,0 +1,30 @@
+package com.ivanshilyaev.rsa.service;
+
+import com.ivanshilyaev.rsa.exception.RsaException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+public class RsaUtilsTest {
+
+    private RsaUtils rsaUtils;
+
+    @BeforeEach
+    public void setUp() {
+        rsaUtils = new RsaUtils();
+    }
+
+    @Test
+    @DisplayName("Extended Euclidean algorithm")
+    public void  extendedEuclideanAlgorithmTest() throws RsaException {
+        BigInteger result = rsaUtils.extendedEuclideanAlgorithm(new BigInteger("20"), new BigInteger("3"));
+        assertEquals(new BigInteger("7"), result);
+        result = rsaUtils.extendedEuclideanAlgorithm(new BigInteger("5783236356223"), new BigInteger("3246757"));
+        assertEquals(new BigInteger("4522528282808"), result);
+    }
+}
