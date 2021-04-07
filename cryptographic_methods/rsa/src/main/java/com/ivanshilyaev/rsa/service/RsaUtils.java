@@ -43,4 +43,17 @@ public class RsaUtils {
         }
         return y0;
     }
+
+    public BigInteger modPow(BigInteger a, BigInteger b, BigInteger n) {
+        BigInteger u = BigInteger.ONE;
+        BigInteger v = a;
+        String binaryB = b.toString(2);
+        for (int i = binaryB.length() - 1; i >= 0; --i) {
+            if (binaryB.charAt(i) == '1') {
+                u = u.multiply(v).mod(n);
+            }
+            v = v.multiply(v).mod(n);
+        }
+        return u;
+    }
 }

@@ -27,4 +27,14 @@ public class RsaUtilsTest {
         result = rsaUtils.extendedEuclideanAlgorithm(new BigInteger("5783236356223"), new BigInteger("3246757"));
         assertEquals(new BigInteger("4522528282808"), result);
     }
+
+    @Test
+    @DisplayName("Exponentiation modulo")
+    public void modPowTest() {
+        BigInteger result = rsaUtils.modPow(new BigInteger("2"), new BigInteger("2"), new BigInteger("3"));
+        assertEquals(new BigInteger("1"), result);
+        result = rsaUtils.modPow(new BigInteger("3"), new BigInteger("618970019642690137449562110"),
+            new BigInteger("618970019642690137449562111"));
+        assertEquals(new BigInteger("1"), result);
+    }
 }
