@@ -21,17 +21,18 @@ public class Runner {
             System.out.println("d = " + d);
 
             BigInteger x = new BigInteger("123");
-            BigInteger y = rsaImpl.encrypt(n, e, x);
-            x = rsaImpl.decrypt(n, d, y);
+            BigInteger y = rsaImpl.encrypt(x);
+            x = rsaImpl.decrypt(y);
             System.out.println("x = " + x);
             System.out.println("y = " + y);
 
             System.out.println("\nText encryption/decryption:");
             String textX = "Hello, World!";
-            String textY = rsaImpl.encryptText(n, e, textX);
-            textX = rsaImpl.decryptText(n, d, textY);
+            String textY = rsaImpl.encryptText(textX);
+            textX = rsaImpl.decryptText(textY);
             System.out.println("textX = " + textX);
             System.out.println("textY = " + textY);
+            System.out.println("public key = " + rsaImpl.getPublicKey());
         } catch (RsaException rsaException) {
             System.out.println(rsaException.getMessage());
         }
