@@ -65,7 +65,7 @@ public class RsaUtils {
     }
 
     public BigInteger genPrime(int k) {
-        return BigInteger.TWO;
+        return new BigInteger("2");
     }
 
     public boolean fermatPrimalityTest(BigInteger n) {
