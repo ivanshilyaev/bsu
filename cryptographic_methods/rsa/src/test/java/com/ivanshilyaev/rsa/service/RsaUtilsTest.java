@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static com.ivanshilyaev.rsa.service.RsaConstants.*;
+
 public class RsaUtilsTest {
 
     private RsaUtils rsaUtils;
@@ -36,7 +38,7 @@ public class RsaUtilsTest {
         assertEquals(new BigInteger("1"), result);
         result = rsaUtils.modPow(new BigInteger("3"), new BigInteger("618970019642690137449562110"),
             new BigInteger("618970019642690137449562111"));
-        assertEquals(new BigInteger("1"), result);
+        assertEquals(ONE, result);
     }
 
     @Test
@@ -44,6 +46,6 @@ public class RsaUtilsTest {
     public void fermatPrimalityTest() {
         BigInteger n = rsaUtils.genPrimeJava(512);
         assertTrue(rsaUtils.fermatPrimalityTest(n));
-        assertFalse(rsaUtils.fermatPrimalityTest(n.add(BigInteger.ONE)));
+        assertFalse(rsaUtils.fermatPrimalityTest(n.add(ONE)));
     }
 }

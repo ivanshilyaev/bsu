@@ -5,11 +5,9 @@ import com.ivanshilyaev.rsa.exception.RsaException;
 import java.math.BigInteger;
 import java.util.Random;
 
-public class RsaUtils {
+import static com.ivanshilyaev.rsa.service.RsaConstants.*;
 
-    private static final BigInteger ZERO = BigInteger.ZERO;
-    private static final BigInteger ONE = BigInteger.ONE;
-    private static final int ROUNDS = 100;
+public class RsaUtils {
 
     public BigInteger extendedEuclideanAlgorithm(BigInteger a, BigInteger b) throws RsaException {
         if (a.compareTo(b) < 0) {
@@ -82,6 +80,4 @@ public class RsaUtils {
         }
         return true;
     }
-
-
 }
