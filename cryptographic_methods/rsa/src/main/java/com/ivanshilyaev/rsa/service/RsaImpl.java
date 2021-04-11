@@ -3,7 +3,9 @@ package com.ivanshilyaev.rsa.service;
 import com.ivanshilyaev.rsa.exception.RsaException;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import static com.ivanshilyaev.rsa.service.RsaConstants.*;
@@ -39,4 +41,17 @@ public class RsaImpl {
     public BigInteger decrypt(BigInteger n, BigInteger d, BigInteger y) {
         return rsaUtils.modPow(y, d, n);
     }
+
+    public String encryptText(BigInteger n, BigInteger e, String text) {
+        BigInteger x = new BigInteger(text.getBytes());
+        BigInteger y = rsaUtils.modPow(x, e, n);
+        return Base64.getEncoder().encodeToString(y.toByteArray());
+    }
+
+    public String decryptText(BigInteger n, BigInteger d, String text) {
+        BigInteger y = new BigInteger(Base64.getDecoder().decode(text));
+        BigInteger x = rsaUtils.modPow(y, d, n);
+        return new String(x.toByteArray());
+    }
+
 }

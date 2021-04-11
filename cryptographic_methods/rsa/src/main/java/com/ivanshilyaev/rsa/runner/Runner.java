@@ -23,8 +23,15 @@ public class Runner {
             BigInteger x = new BigInteger("123");
             BigInteger y = rsaImpl.encrypt(n, e, x);
             x = rsaImpl.decrypt(n, d, y);
-            System.out.println("y = " + y);
             System.out.println("x = " + x);
+            System.out.println("y = " + y);
+
+            System.out.println("\nText encryption/decryption:");
+            String textX = "Hello, World!";
+            String textY = rsaImpl.encryptText(n, e, textX);
+            textX = rsaImpl.decryptText(n, d, textY);
+            System.out.println("textX = " + textX);
+            System.out.println("textY = " + textY);
         } catch (RsaException rsaException) {
             System.out.println(rsaException.getMessage());
         }
