@@ -33,8 +33,7 @@ public class RsaImpl {
         BigInteger phiN = p.subtract(ONE).multiply(q.subtract(ONE));
         BigInteger d = rsaUtils.extendedEuclideanAlgorithm(phiN, e);
 
-        publicKey = Base64.getEncoder()
-            .encodeToString(("(" + n + ",\n" + e + ")").getBytes());
+        publicKey = Base64.getEncoder().encodeToString(n.toByteArray());
         privateKey = Base64.getEncoder()
             .encodeToString(("(" + n + ",\n" + d + ")").getBytes());
 
@@ -45,7 +44,10 @@ public class RsaImpl {
         return list;
     }
 
-    public BigInteger encrypt(BigInteger n, BigInteger e, BigInteger x) {
+    public BigInteger encrypt(BigInteger n, BigInteger e, BigInteger x) throws RsaException {
+        if (x.compareTo(n) > 0) {
+            throw new RsaException("x can't be greater the n");
+        }
         return rsaUtils.modPow(x, e, n);
     }
 
@@ -54,9 +56,8 @@ public class RsaImpl {
     }
 
     public BigInteger encrypt(BigInteger x) {
-        String[] array = new String(Base64.getDecoder().decode(publicKey)).split("\n");
-        BigInteger n = new BigInteger(array[0].substring(1, array[0].length() - 1));
-        BigInteger e = new BigInteger(array[1].substring(0, array[1].length() - 1));
+        BigInteger n = new BigInteger(Base64.getDecoder().decode(publicKey));
+        BigInteger e = new BigInteger("65537");
         return rsaUtils.modPow(x, e, n);
     }
 
@@ -67,8 +68,11 @@ public class RsaImpl {
         return rsaUtils.modPow(y, d, n);
     }
 
-    public String encryptText(BigInteger n, BigInteger e, String text) {
+    public String encryptText(BigInteger n, BigInteger e, String text) throws RsaException {
         BigInteger x = new BigInteger(text.getBytes());
+        if (x.compareTo(n) > 0) {
+            throw new RsaException("Too long text!");
+        }
         BigInteger y = rsaUtils.modPow(x, e, n);
         return Base64.getEncoder().encodeToString(y.toByteArray());
     }
@@ -79,7 +83,7 @@ public class RsaImpl {
         return new String(x.toByteArray());
     }
 
-    public String encryptText(String text) {
+    public String encryptText(String text) throws RsaException {
        return encryptText(text, publicKey);
     }
 
@@ -92,11 +96,13 @@ public class RsaImpl {
         return new String(x.toByteArray());
     }
 
-    public String encryptText(String text, String publicKey) {
-        String[] array = new String(Base64.getDecoder().decode(publicKey)).split("\n");
-        BigInteger n = new BigInteger(array[0].substring(1, array[0].length() - 1));
-        BigInteger e = new BigInteger(array[1].substring(0, array[1].length() - 1));
+    public String encryptText(String text, String publicKey) throws RsaException {
+        BigInteger n = new BigInteger(Base64.getDecoder().decode(publicKey));
+        BigInteger e = new BigInteger("65537");
         BigInteger x = new BigInteger(text.getBytes());
+        if (x.compareTo(n) > 0) {
+            throw new RsaException("Too long text!");
+        }
         BigInteger y = rsaUtils.modPow(x, e, n);
         return Base64.getEncoder().encodeToString(y.toByteArray());
     }

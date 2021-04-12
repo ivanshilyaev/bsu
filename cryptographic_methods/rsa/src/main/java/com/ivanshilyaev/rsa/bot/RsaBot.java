@@ -1,5 +1,6 @@
 package com.ivanshilyaev.rsa.bot;
 
+import com.ivanshilyaev.rsa.exception.RsaException;
 import com.ivanshilyaev.rsa.service.RsaImpl;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -27,7 +28,7 @@ public class RsaBot extends TelegramLongPollingBot {
             String returnText = "";
             switch (text) {
                 case "/start": {
-                    returnText = "Greetings from amazing RSA Custom Bot!";
+                    returnText = "Greetings from the amazing RSA Custom Bot!";
                     break;
                 }
                 case "/help": {
@@ -57,7 +58,7 @@ public class RsaBot extends TelegramLongPollingBot {
                         }
                     } catch (Exception ignored) {}
                     if (returnText.isEmpty()) {
-                        returnText = "Unknown command! Use /help tp view list of available commands";
+                        returnText = "Unknown command! Use /help to view list of available commands";
                     }
                     break;
                 }
@@ -89,6 +90,8 @@ public class RsaBot extends TelegramLongPollingBot {
             String publicKey = array[1];
             String data = text.substring(6 + publicKey.length());
             return rsaImpl.encryptText(data, publicKey);
+        } catch (RsaException e) {
+            return e.getMessage();
         } catch (Exception ignored) {}
         return "Error during text encryption";
     }

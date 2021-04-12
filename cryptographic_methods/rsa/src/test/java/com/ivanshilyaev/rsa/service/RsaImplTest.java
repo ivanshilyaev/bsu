@@ -1,5 +1,6 @@
 package com.ivanshilyaev.rsa.service;
 
+import com.ivanshilyaev.rsa.exception.RsaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class RsaImplTest {
 
     @Test
     @DisplayName("Encryption")
-    public void encryptionTest() {
+    public void encryptionTest() throws RsaException {
         BigInteger e = new BigInteger("65537");
         BigInteger n = new BigInteger("74464268619852061021852824597802040422303636067203510905060502530005928752952595437679699037165527112128848121430230272234851595286069506466532498947561064152867798026420436947508374780378112783489438938442071519647806383731533731293576508310331448244934683467323960468773608943951301816336663722381859552537");
         BigInteger x = new BigInteger("123");
