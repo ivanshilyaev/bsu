@@ -19,19 +19,13 @@ public class Runner {
     private static final double SIGNIFICANCE_LEVEL = 0.05;
 
     private static int[] executeLfsr(int m, int[] taps) throws Exception {
-        int n = (int) pow(2, 20);
+        int n = (int) pow(2, 23);
         int randomNumsSize = n / 8;
         int[] randomNums = new int[randomNumsSize];
         Generators.lfsr(m, taps, n, randomNums);
-        SequenceWriter.writeRandomNumsToFile(FILE_NAME, (int) pow(2, m), randomNums);
+        SequenceWriter.writeRandomNumsToFile(FILE_NAME, randomNumsSize, randomNums);
         SequenceWriter.writeRandomNumsToBinFile(BIN_FILE_NAME, randomNums);
         return randomNums;
-    }
-
-    private static void theOverlappingSumsTest(int[] nums) {
-
-
-        KolmogorovSmirnovTest kolmogorovSmirnovTest = new KolmogorovSmirnovTest();
     }
 
     private static boolean theCrapsTest(int[] nums) {
@@ -96,12 +90,36 @@ public class Runner {
         return (firstPValue > SIGNIFICANCE_LEVEL && secondPValue > SIGNIFICANCE_LEVEL);
     }
 
+    private static void countTheOnes() {
+        
+    }
+
+    private static void lfsr10() throws Exception {
+        int m = 10;
+        int[] taps = {6, 9};
+        int[] nums = executeLfsr(m, taps);
+        System.out.println(theCrapsTest(nums));
+    }
+
+    private static void lfsr20() throws Exception {
+        int m = 20;
+        // x^20 + x^17 + 1
+        int[] taps = {16, 19};
+        int[] nums = executeLfsr(m, taps);
+        System.out.println(theCrapsTest(nums));
+    }
+
+    private static void lfsr30() throws Exception {
+        int m = 30;
+        // x^30 + x^6 + x^3 + x + 1
+        int[] taps = {29, 5, 3, 0};
+        int[] nums = executeLfsr(m, taps);
+        System.out.println(theCrapsTest(nums));
+    }
+
     public static void main(String[] args) throws Exception {
-        // LFSR 10
-//        int m = 10;
-//        int[] taps = {6, 9};
-//        int[] nums = executeLfsr(m, taps);
-//        System.out.println(theCrapsTest(nums));
+
+        //lfsr30();
 
         // Test file
         byte[] y = BinFileReader.readBytes(TEST);
